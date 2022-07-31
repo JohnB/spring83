@@ -10,7 +10,8 @@ Elixir attempt at implementing the
 * [Someone else's client](https://spring83.kindrobot.ca/)
 
 ## Roadmap
-- [ ] Correctly parse a full SpringFile
+(not necessarily in implementation order)
+- [ ] Correctly parse/display a full SpringFile
 - [ ] Correctly parse a board, rejecting invalid ones
 - [ ] Improve board display
 - [ ] Enable SpringFile editing
