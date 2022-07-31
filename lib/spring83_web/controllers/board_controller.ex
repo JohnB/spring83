@@ -33,12 +33,15 @@ defmodule Spring83Web.BoardController do
   https://bogbody.biz/ac83c5127baf539b2132f032ed188c86d849c0023d2e7368ec1b5034383e0323
   """ |> String.split("\n\n", trim: true) |> Enum.map(fn name_and_link ->
     [name, link] = String.split(name_and_link, "\n", trim: true)
-    poison_response = HTTPoison.get!(link)
-    %{name: name, data: poison_response.body}
   end)
 
   def index(conn, _params) do
+    boards = Enum.map(@springfile, fn [name, link] ->
+      poison_response = HTTPoison.get!(link)
+      %{name: name, data: poison_response.body}
+    end)
+
     render(conn, "boards.html",
-      boards: @springfile)
+      boards: boards)
   end
 end
