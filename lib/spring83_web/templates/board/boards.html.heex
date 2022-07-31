@@ -1,0 +1,18 @@
+
+<style>
+    .board-container {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+</style>
+<span class="board-container">
+  <%= for board <- @boards do %>
+    <h3><%= board.name %></h3>
+    <span>
+      <template shadowroot="open">
+        <%= raw(board.data) %>
+      </template>
+    </span>
+  <% end %>
+</span>
