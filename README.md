@@ -9,6 +9,12 @@ Elixir attempt at implementing the
 * [Robin's client](https://followersentinel.com/)
 * [Someone else's client](https://spring83.kindrobot.ca/)
 
+## Reading board data
+The server will just return HTML unless one provides
+the correct `Spring-Version: 83` header. Like this:
+
+`curl -H "Spring-Version: 83" https://bogbody.biz/f1d76c53a050dafb9e1f10683bd274b0b4afbcc5afd5198748786fb8983e0123`
+
 ## Roadmap
 (not necessarily in implementation order)
 - [ ] Correctly parse/display a full SpringFile

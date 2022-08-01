@@ -32,12 +32,12 @@ defmodule Spring83Web.BoardController do
   Ryan
   https://bogbody.biz/ac83c5127baf539b2132f032ed188c86d849c0023d2e7368ec1b5034383e0323
   """ |> String.split("\n\n", trim: true) |> Enum.map(fn name_and_link ->
-    [name, link] = String.split(name_and_link, "\n", trim: true)
+    [_name, _link] = String.split(name_and_link, "\n", trim: true)
   end)
 
   def index(conn, _params) do
     boards = Enum.map(@springfile, fn [name, link] ->
-      poison_response = HTTPoison.get!(link)
+      poison_response = HTTPoison.get!(link, [{"Spring-Version", "83"}])
       %{name: name, data: poison_response.body}
     end)
 
