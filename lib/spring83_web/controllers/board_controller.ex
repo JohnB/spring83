@@ -38,10 +38,20 @@ defmodule Spring83Web.BoardController do
   def index(conn, _params) do
     boards = Enum.map(@springfile, fn [name, link] ->
       poison_response = HTTPoison.get!(link, [{"Spring-Version", "83"}])
+
+      log_sig(link, poison_response.headers)
+
       %{name: name, data: poison_response.body}
     end)
 
     render(conn, "boards.html",
       boards: boards)
+  end
+
+  def log_sig(link, headers) do
+    headers
+    |> Enum.find(fn {k, v} -> k == "Spring-Signature" end)
+    |> elem(1)
+    |> IO.inspect(label: "\nSIG from #{link}")
   end
 end
