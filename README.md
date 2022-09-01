@@ -2,6 +2,8 @@
 
 Elixir attempt at implementing the 
 [Spring83 Protocol](https://github.com/robinsloan/spring-83)
+as well as a grab-bag of other projects that need to move
+from heroku to fly.io
 
 ## Example boards and clients:
 * [My sad board](https://bogbody.biz/f1d76c53a050dafb9e1f10683bd274b0b4afbcc5afd5198748786fb8983e0123)
