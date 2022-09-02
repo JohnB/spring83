@@ -20,6 +20,14 @@ defmodule Spring83Web.CollaborativeCanvasLive do
     {:ok, assign(socket, @default_state)}
   end
 
+  # Centralize canvas updates in an agent, to make it collaborative
+  def agent_pid do
+    case(Agent.start_link(fn -> @default_canvas end, name: __MODULE__)) do
+      {:ok, pid} -> pid
+      {:error, {:already_started, pid}} -> pid
+    end
+  end
+
   def handle_event("set-color-red", _, socket) do
     {:noreply, assign(socket, paint: "red", selected: %{"red" => "selected"})}
   end
@@ -49,12 +57,18 @@ defmodule Spring83Web.CollaborativeCanvasLive do
   end
 
   def handle_event("paint-one-cell_" <> location, _, socket) do
-    %{paint: paint, canvas: canvas} = socket.assigns
+    %{paint: paint} = socket.assigns
     {location, _} = Integer.parse(location)
+
+    Agent.update(agent_pid(), fn state ->
+      List.update_at(state, location, fn _ -> {location, paint} end)
+    end)
+
+    canvas = Agent.get(agent_pid(), fn state -> state end)
 
     {:noreply,
      assign(socket,
-       canvas: List.update_at(canvas, location, fn _ -> {location, paint} end)
+       canvas: canvas
      )}
   end
 end
