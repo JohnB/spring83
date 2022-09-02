@@ -1,0 +1,50 @@
+
+.collaborative_canvas {
+    position: relative;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    /*margin: auto;*/
+
+    display: flex;
+    flex-wrap: wrap;
+    border: 2px solid black;
+    max-width: 480px;
+    max-height: 480px;
+    height: 100vw;
+}
+
+.collaborative_canvas div {
+    /* These values depend on the CollaborativeCanvasLive @width & @height values */
+    width: 5%;
+    height: 5%;
+}
+
+.swatch {
+    width: 8px;
+    min-width: 8px;
+    height: 8px;
+    min-height: 8px;
+    padding: 0;
+    margin: 0;
+    border: 1px;
+    outline: 1px solid darkgray;
+}
+
+span.color-picker {
+    display: inline-block;
+    border: 0.1rem solid black;
+    border-radius: 0.4rem;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+}
+
+.red { background-color: red }
+.green { background-color: green }
+.blue { background-color: aqua }
+.yellow { background-color: yellow }
+.purple { background-color: purple }
+.orange { background-color: orange }
+.white { background-color: white }

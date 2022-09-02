@@ -18,7 +18,12 @@ defmodule Spring83Web.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+
+    # Spring83 routes
     get "/boards", BoardController, :index
+
+    # Collaborative Canvas routes
+    live "/collaborative_canvas", CollaborativeCanvasLive
   end
 
   # Other scopes may use custom stacks.
