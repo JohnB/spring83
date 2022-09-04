@@ -11,11 +11,13 @@ defmodule Spring83Web.CollaborativeCanvasLive do
     if connected?(socket) do
       PubSub.subscribe(Spring83.PubSub, "canvas_update_channel")
     end
-    {:ok, assign(socket, %{
-      paint: "blue",
-      canvas: CanvasSharedState.get_canvas(),
-      selected: %{"blue" => "selected"}
-    })}
+
+    {:ok,
+     assign(socket, %{
+       paint: "blue",
+       canvas: CanvasSharedState.get_canvas(),
+       selected: %{"blue" => "selected"}
+     })}
   end
 
   def handle_event("set-color-red", _, socket) do
@@ -53,7 +55,11 @@ defmodule Spring83Web.CollaborativeCanvasLive do
     # Update the shared canvas for new people joining
     CanvasSharedState.set_one_pixel(location, paint)
     # Tell others about the change
-    PubSub.broadcast(Spring83.PubSub, "canvas_update_channel", {:canvas_update, %{location: location, paint: paint}})
+    PubSub.broadcast(
+      Spring83.PubSub,
+      "canvas_update_channel",
+      {:canvas_update, %{location: location, paint: paint}}
+    )
 
     {:noreply, socket}
   end
@@ -62,6 +68,7 @@ defmodule Spring83Web.CollaborativeCanvasLive do
     %{canvas: canvas} = socket.assigns
 
     # Update our local canvas
-    {:noreply, assign(socket, canvas: List.update_at(canvas, location, fn _ -> {location, paint} end))}
+    {:noreply,
+     assign(socket, canvas: List.update_at(canvas, location, fn _ -> {location, paint} end))}
   end
 end
