@@ -15,9 +15,11 @@ defmodule Spring83.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: Spring83.PubSub},
       # Start the Endpoint (http/https)
-      Spring83Web.Endpoint
+      Spring83Web.Endpoint,
       # Start a worker by calling: Spring83.Worker.start_link(arg)
       # {Spring83.Worker, arg}
+
+      Spring83Web.CanvasSharedState
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

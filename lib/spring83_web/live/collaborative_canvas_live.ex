@@ -1,31 +1,21 @@
 defmodule Spring83Web.CollaborativeCanvasLive do
   use Phoenix.LiveView
-
-  @width 20
-  @height 20
-  @last_cell @width * @height - 1
-  @default_canvas 0..@last_cell
-                  |> Enum.map(fn n -> {n, ""} end)
-  @default_state %{
-    paint: "blue",
-    canvas: @default_canvas,
-    selected: %{"blue" => "selected"}
-  }
+  alias Spring83Web.CanvasSharedState
+  alias Phoenix.PubSub
 
   def render(assigns) do
     Spring83Web.PageView.render("collaborative_canvas.html", assigns)
   end
 
   def mount(_params, _query_params, socket) do
-    {:ok, assign(socket, @default_state)}
-  end
-
-  # Centralize canvas updates in an agent, to make it collaborative
-  def agent_pid do
-    case(Agent.start_link(fn -> @default_canvas end, name: __MODULE__)) do
-      {:ok, pid} -> pid
-      {:error, {:already_started, pid}} -> pid
+    if connected?(socket) do
+      PubSub.subscribe(Spring83.PubSub, "canvas_update_channel")
     end
+    {:ok, assign(socket, %{
+      paint: "blue",
+      canvas: CanvasSharedState.get_canvas(),
+      selected: %{"blue" => "selected"}
+    })}
   end
 
   def handle_event("set-color-red", _, socket) do
@@ -60,15 +50,18 @@ defmodule Spring83Web.CollaborativeCanvasLive do
     %{paint: paint} = socket.assigns
     {location, _} = Integer.parse(location)
 
-    Agent.update(agent_pid(), fn state ->
-      List.update_at(state, location, fn _ -> {location, paint} end)
-    end)
+    # Update the shared canvas for new people joining
+    CanvasSharedState.set_one_pixel(location, paint)
+    # Tell others about the change
+    PubSub.broadcast(Spring83.PubSub, "canvas_update_channel", {:canvas_update, %{location: location, paint: paint}})
 
-    canvas = Agent.get(agent_pid(), fn state -> state end)
+    {:noreply, socket}
+  end
 
-    {:noreply,
-     assign(socket,
-       canvas: canvas
-     )}
+  def handle_info({:canvas_update, %{location: location, paint: paint}}, socket) do
+    %{canvas: canvas} = socket.assigns
+
+    # Update our local canvas
+    {:noreply, assign(socket, canvas: List.update_at(canvas, location, fn _ -> {location, paint} end))}
   end
 end
