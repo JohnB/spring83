@@ -23,30 +23,23 @@
     /*height: 6%;*/
 }
 
-.swatch {
-    width: 8px;
-    min-width: 8px;
-    height: 8px;
-    min-height: 8px;
-    padding: 0;
-    margin: 0;
-    border: 1px;
-    outline: 1px solid darkgray;
-}
-
 span.color-picker {
     display: inline-block;
-    border: 0.1rem solid black;
+    border: 1px dotted midnightblue;
     border-radius: 0.4rem;
     cursor: pointer;
     width: 40px;
     height: 40px;
 }
 
+span.selected {
+    border: 2px dashed black;
+}
+
 .red { background-color: red }
-.green { background-color: green }
+.green { background-color: lightgreen }
 .blue { background-color: aqua }
 .yellow { background-color: yellow }
-.purple { background-color: purple }
+.purple { background-color: mediumpurple }
 .orange { background-color: orange }
 .white { background-color: white }

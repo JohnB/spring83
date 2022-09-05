@@ -1,14 +1,13 @@
 <h3>Pixels with Frenemies</h3>
 <p>Pick & Paint - With Others!</p>
 <div class="color-picker">
-  <span class="color-picker red" phx-click="set-color-red"></span>
-  <span class="color-picker orange" phx-click="set-color-orange"></span>
-  <span class="color-picker yellow" phx-click="set-color-yellow"></span>
-  <span class="color-picker blue" phx-click="set-color-blue"></span>
-  <span class="color-picker green" phx-click="set-color-green"></span>
-  <span class="color-picker white" phx-click="set-color-white"></span>
-  <br/>
-  <span class="swatch {@paint}">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+  <span class={color_picker_class("red", @paint)} phx-click="set-color-red"></span>
+  <span class={color_picker_class("orange", @paint)} phx-click="set-color-orange"></span>
+  <span class={color_picker_class("yellow", @paint)} phx-click="set-color-yellow"></span>
+  <span class={color_picker_class("blue", @paint)} phx-click="set-color-blue"></span>
+  <span class={color_picker_class("green", @paint)} phx-click="set-color-green"></span>
+  <span class={color_picker_class("purple", @paint)} phx-click="set-color-purple"></span>
+  <span class={color_picker_class("white", @paint)} phx-click="set-color-white"></span>
 </div>
 <div class="collaborative_canvas">
   <%= for {index, color} <- @canvas do %>

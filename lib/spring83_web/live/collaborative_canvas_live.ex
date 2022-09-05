@@ -15,37 +15,12 @@ defmodule Spring83Web.CollaborativeCanvasLive do
     {:ok,
      assign(socket, %{
        paint: "blue",
-       canvas: CanvasSharedState.get_canvas(),
-       selected: %{"blue" => "selected"}
+       canvas: CanvasSharedState.get_canvas()
      })}
   end
 
-  def handle_event("set-color-red", _, socket) do
-    {:noreply, assign(socket, paint: "red", selected: %{"red" => "selected"})}
-  end
-
-  def handle_event("set-color-blue", _, socket) do
-    {:noreply, assign(socket, paint: "blue", selected: %{"blue" => "selected"})}
-  end
-
-  def handle_event("set-color-green", _, socket) do
-    {:noreply, assign(socket, paint: "green", selected: %{"green" => "selected"})}
-  end
-
-  def handle_event("set-color-yellow", _, socket) do
-    {:noreply, assign(socket, paint: "yellow", selected: %{"yellow" => "selected"})}
-  end
-
-  def handle_event("set-color-purple", _, socket) do
-    {:noreply, assign(socket, paint: "purple", selected: %{"purple" => "selected"})}
-  end
-
-  def handle_event("set-color-orange", _, socket) do
-    {:noreply, assign(socket, paint: "orange", selected: %{"orange" => "selected"})}
-  end
-
-  def handle_event("set-color-white", _, socket) do
-    {:noreply, assign(socket, paint: "white", selected: %{"white" => "selected"})}
+  def handle_event("set-color-" <> color, _, socket) do
+    {:noreply, assign(socket, paint: color)}
   end
 
   def handle_event("paint-one-cell_" <> location, _, socket) do
