@@ -1,0 +1,45 @@
+<h1>Daily Pizza Flavors</h1>
+<p>
+  This is a debugging page - please don't refresh too often.
+  These should match
+  <a href={TodaysPizza.cheeseboard_url()} >
+    the Cheese Board page
+  </a>
+  (which gets scraped on every refresh)
+</p>
+<p>
+  They will be tweeted once a day by
+  <a href="https://twitter.com/todays_pizza">
+    the bot (at ~9:30am PDT)
+  </a>
+  (with source code on
+  <a href="https://github.com/JohnB/spring83/blob/main/lib/spring83_web/templates/pizza/index.html.heex">
+    GitHub
+  </a>
+  )
+</p>
+<hr />
+<p>
+  TODAY:
+  <b>
+    <%= for line <- TodaysPizza.pizza_message_lines() do %>
+      <br /><%= line %>
+    <% end %>
+  </b>
+</p>
+<hr />
+<p>
+  THE ENTIRE WEEK:
+</p>
+<%= for [date, topping] <- @dates_and_toppings do %>
+  <p>
+    <b><%= date %></b>:
+    <span>(<%= String.length(topping) %> characters)</span>
+    <span><%= topping %></span>
+    <br />
+    <i>Tweeted as <%= String.length(TodaysPizza.trimmed_message(topping, date)) %> characters:</i>
+    <%= for line <- TodaysPizza.each_line(TodaysPizza.trimmed_message(topping, date)) do %>
+      <br /><%= line %>
+    <% end %>
+  </p>
+<% end %>

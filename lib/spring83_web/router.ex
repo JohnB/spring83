@@ -24,6 +24,9 @@ defmodule Spring83Web.Router do
 
     # Collaborative Canvas routes
     live "/collaborative_canvas", CollaborativeCanvasLive
+
+    # Cheese board routes (twitter: @Todays_pizza)
+    get "/pizza", PizzaController, :index
   end
 
   # Other scopes may use custom stacks.
