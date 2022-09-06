@@ -10,6 +10,9 @@ defmodule Spring83Web.CollaborativeCanvasLive do
   def mount(_params, _query_params, socket) do
     if connected?(socket) do
       PubSub.subscribe(Spring83.PubSub, "canvas_update_channel")
+
+      tracker_id = Ecto.UUID.generate()
+      Phoenix.Tracker.track(:mcTrackerName, self(), :mcTrackerName, tracker_id, %{bueller: "here"})
     end
 
     {:ok,
