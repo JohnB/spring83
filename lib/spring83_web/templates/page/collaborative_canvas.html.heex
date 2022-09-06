@@ -8,6 +8,7 @@
   <span class={color_picker_class("green", @paint)} phx-click="set-color-green"></span>
   <span class={color_picker_class("purple", @paint)} phx-click="set-color-purple"></span>
   <span class={color_picker_class("white", @paint)} phx-click="set-color-white"></span>
+  (users: <%= @user_count %>)
 </div>
 <div class="collaborative_canvas">
   <%= for {index, color} <- @canvas do %>

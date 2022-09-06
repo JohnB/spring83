@@ -12,13 +12,15 @@ defmodule Spring83Web.CollaborativeCanvasLive do
       PubSub.subscribe(Spring83.PubSub, "canvas_update_channel")
 
       tracker_id = Ecto.UUID.generate()
+
       Phoenix.Tracker.track(:mcTrackerName, self(), :mcTrackerName, tracker_id, %{bueller: "here"})
     end
 
     {:ok,
      assign(socket, %{
        paint: "blue",
-       canvas: CanvasSharedState.get_canvas()
+       canvas: CanvasSharedState.get_canvas(),
+       user_count: CanvasSharedState.get_user_count()
      })}
   end
 
@@ -48,5 +50,10 @@ defmodule Spring83Web.CollaborativeCanvasLive do
     # Update our local canvas
     {:noreply,
      assign(socket, canvas: List.update_at(canvas, location, fn _ -> {location, paint} end))}
+  end
+
+  def handle_info({:user_count_update}, socket) do
+    # Update our local user_count
+    {:noreply, assign(socket, user_count: CanvasSharedState.get_user_count())}
   end
 end

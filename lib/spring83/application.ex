@@ -15,11 +15,12 @@ defmodule Spring83.Application do
       # Start the PubSub system and stuff it depends on
       {Registry, keys: :unique, name: __MODULE__},
       {Phoenix.PubSub, name: Spring83.PubSub},
-      {Spring83Web.Tracker, [
-        name: :mcTrackerName,
-        pubsub_server: Spring83.PubSub,
-        pool_size: 1
-      ]},
+      {Spring83Web.Tracker,
+       [
+         name: :mcTrackerName,
+         pubsub_server: Spring83.PubSub,
+         pool_size: 1
+       ]},
       Spring83Web.CanvasSharedState,
 
       # Start the Endpoint (http/https)
