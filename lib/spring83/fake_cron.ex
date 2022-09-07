@@ -5,7 +5,7 @@ defmodule Spring83Web.FakeCron do
 
   # Maybe 9ish or 10ish Pacific
   # (the minute is when it was last deployed)
-  @utc_tweet_hour 14
+  @utc_tweet_hour 17
 
   # Mix.env doesn't exist in the prod runtime???
   @mix_env Mix.env()
