@@ -81,12 +81,15 @@ defmodule TodaysPizza do
     message = Regex.replace(~r/ and /, message, " & ")
     message = Regex.replace(~r/the /i, message, "")
     message = Regex.replace(~r/\(whole, half, slices\) /i, message, "")
+
     [boilerplate | topping] =
       String.split(message, ~r/\n\n+/, trim: true)
       # Force a period onto every sentence (then remove doubles)
       |> Enum.map(fn line -> line <> "." end)
       |> Enum.map(fn line -> Regex.replace(~r/\.{2,}/i, line, ".") end)
-    boilerplate = Regex.replace(~r/Partially baked pizza is available/i, boilerplate, "Half-baked")
+
+    boilerplate =
+      Regex.replace(~r/Partially baked pizza is available/i, boilerplate, "Half-baked")
 
     "#{Enum.join(topping, " ")}\n\n#{boilerplate}"
     # only 280 chars max

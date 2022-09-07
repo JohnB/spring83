@@ -21,6 +21,7 @@ defmodule Spring83.Application do
          pubsub_server: Spring83.PubSub,
          pool_size: 1
        ]},
+      Spring83Web.FakeCron,
       Spring83Web.CanvasSharedState,
 
       # Start the Endpoint (http/https)

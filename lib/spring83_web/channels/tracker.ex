@@ -14,7 +14,7 @@ defmodule Spring83Web.Tracker do
   end
 
   def handle_diff(diff, state) do
-    for {topic, {joins, leaves}} <- diff do
+    for {_topic, {joins, leaves}} <- diff do
       delta = Enum.count(joins) - Enum.count(leaves)
       # Persist the change
       CanvasSharedState.set_user_count(delta)

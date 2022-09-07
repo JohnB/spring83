@@ -52,7 +52,7 @@ defmodule Spring83Web.BoardController do
 
   def log_sig(link, headers) do
     headers
-    |> Enum.find(fn {k, v} -> k == "Spring-Signature" end)
+    |> Enum.find(fn {k, _v} -> k == "Spring-Signature" end)
     # |> elem(1)
     |> IO.inspect(label: "\nSIG from #{link}")
   end

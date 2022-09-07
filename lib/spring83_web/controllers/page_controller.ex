@@ -6,7 +6,7 @@ defmodule Spring83Web.PageController do
     render(conn, "index.html", %{dates_and_toppings: dates_and_toppings})
   end
 
-  def send_pizza_message(conn, params) do
+  def send_pizza_message(conn, _params) do
     TodaysPizza.tweet_about_pizza()
 
     put_flash(conn, :info, "Pizza tweet sent.")
