@@ -1,12 +1,17 @@
 defmodule Spring83Web.FakeCron do
   use GenServer
   require Logger
+  alias Mix
 
   # Maybe 9ish or 10ish Pacific
   # (the minute is when it was last deployed)
   @utc_tweet_hour 14
 
+  # Mix.env doesn't exist in the prod runtime???
+  @mix_env Mix.env()
+
   def start_link(_options \\ %{}) do
+    Logger.info("FakeCron Mix env is #{@mix_env} !!!")
     case(GenServer.start_link(__MODULE__, [], name: __MODULE__)) do
       {:ok, pid} -> set_up_cron(pid)
       {:error, {:already_started, pid}} -> {:ok, pid} |> IO.inspect(label: "already started")
@@ -28,7 +33,7 @@ defmodule Spring83Web.FakeCron do
   @impl true
   def handle_info(:send_tweet, state) do
     Logger.info("handle_info(:send_tweet)")
-    maybe_tweet_about_pizza(Mix.env())
+    maybe_tweet_about_pizza(@mix_env)
     Logger.info("tweet maybe sent")
 
     Process.send_after(self(), :send_tweet, one_day_ms())
