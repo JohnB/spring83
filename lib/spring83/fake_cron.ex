@@ -1,3 +1,6 @@
+#
+# Consider replacing this crap with https://hexdocs.pm/quantum/readme.html
+#
 defmodule Spring83Web.FakeCron do
   use GenServer
   require Logger
