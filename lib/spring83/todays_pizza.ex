@@ -80,6 +80,7 @@ defmodule TodaysPizza do
     message = Regex.replace(~r/we sell out/, message, "sold out")
     message = Regex.replace(~r/ and /, message, " & ")
     message = Regex.replace(~r/the /i, message, "")
+    message = Regex.replace(~r/is available /i, message, "")
     message = Regex.replace(~r/\(whole, half, slices\) /i, message, "")
 
     [boilerplate | topping] =
@@ -89,7 +90,7 @@ defmodule TodaysPizza do
       |> Enum.map(fn line -> Regex.replace(~r/\.{2,}/i, line, ".") end)
 
     boilerplate =
-      Regex.replace(~r/Partially baked pizza is available/i, boilerplate, "Half-baked")
+      Regex.replace(~r/Partially baked pizza/i, boilerplate, "Half-baked")
 
     "#{Enum.join(topping, " ")}\n\n#{boilerplate}"
     # only 280 chars max

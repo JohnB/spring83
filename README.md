@@ -1,10 +1,10 @@
-# Spring83 and Other Projects
+# Spring83 & Other Projects
 
 While this started out as an attempt at a Spring83 serbver,
 my forced shift from Heroku to Fly.io has allowed me to move
 existing projects (usually just a few main files) to migrate here.
 
-## Todays_Pizza bot
+## Pizza Bot
 Now at [/pizza](https://spring-83.fly.dev/pizza) (but slow 
 because it scrapes the slow pizza page during the request cycle).
 
