@@ -47,7 +47,7 @@ defmodule Spring83Web.BoardController do
         %{name: name, data: poison_response.body}
       end)
 
-    render(conn, "boards.html", boards: boards)
+    render(conn, "boards.html", boards: boards, page_title: "Boards")
   end
 
   def log_sig(link, headers) do

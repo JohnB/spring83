@@ -18,6 +18,7 @@ defmodule Spring83Web.CollaborativeCanvasLive do
 
     {:ok,
      assign(socket, %{
+       page_title: "Collaborative Canvas",
        paint: "blue",
        canvas: CanvasSharedState.get_canvas(),
        user_count: CanvasSharedState.get_user_count()

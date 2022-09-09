@@ -15,6 +15,7 @@ defmodule Spring83Web.FakeCron do
 
   def start_link(_options \\ %{}) do
     Logger.info("FakeCron Mix env is #{@mix_env} !!!")
+
     case(GenServer.start_link(__MODULE__, [], name: __MODULE__)) do
       {:ok, pid} -> set_up_cron(pid)
       {:error, {:already_started, pid}} -> {:ok, pid} |> IO.inspect(label: "already started")

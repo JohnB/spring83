@@ -23,6 +23,7 @@ Now at [/collaborative_canvas](https://spring-83.fly.dev/collaborative_canvas).
 - [ ] Show the persisted canvases as an animation.
 - [ ] After a restart, start from the latest DB canvas instead of _@default_canvas_.
 - [ ] Update previous repo(s) to point here.
+- [ ] Highlight just-placed pieces
 
 ## Pentomino Game
 Not yet moved over here from [phoenix_live_view_example](https://github.com/johnb/phoenix_live_view_example)

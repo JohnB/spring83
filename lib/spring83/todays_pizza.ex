@@ -89,8 +89,7 @@ defmodule TodaysPizza do
       |> Enum.map(fn line -> line <> "." end)
       |> Enum.map(fn line -> Regex.replace(~r/\.{2,}/i, line, ".") end)
 
-    boilerplate =
-      Regex.replace(~r/Partially baked pizza/i, boilerplate, "Half-baked")
+    boilerplate = Regex.replace(~r/Partially baked pizza/i, boilerplate, "Half-baked")
 
     "#{Enum.join(topping, " ")}\n\n#{boilerplate}"
     # only 280 chars max
