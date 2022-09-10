@@ -23,6 +23,300 @@
     /*height: 6%;*/
 }
 
+.historical_canvas {
+    position: absolute;
+    top: 14px;
+    right: 488;
+    bottom: 168;
+    left: 334px;
+
+    display: flex;
+    flex-wrap: wrap;
+    border: 1px solid #111;
+    max-width: 154px;
+    max-height: 154px;
+    height: 100vw;
+}
+
+.historical_canvas div {
+    width: 9px;
+    height: 9px;
+}
+
+.history-0 { animation: history-frame-0 100s infinite; }
+.history-1 { animation: history-frame-1 100s infinite; }
+.history-2 { animation: history-frame-2 100s infinite; }
+.history-3 { animation: history-frame-3 100s infinite; }
+.history-4 { animation: history-frame-4 100s infinite; }
+.history-5 { animation: history-frame-5 100s infinite; }
+.history-6 { animation: history-frame-6 100s infinite; }
+.history-7 { animation: history-frame-7 100s infinite; }
+.history-8 { animation: history-frame-8 100s infinite; }
+.history-9 { animation: history-frame-9 100s infinite; }
+.history-10 { animation: history-frame-10 100s infinite; }
+.history-11 { animation: history-frame-11 100s infinite; }
+.history-12 { animation: history-frame-12 100s infinite; }
+.history-13 { animation: history-frame-13 100s infinite; }
+.history-14 { animation: history-frame-14 100s infinite; }
+.history-15 { animation: history-frame-15 100s infinite; }
+.history-16 { animation: history-frame-16 100s infinite; }
+.history-17 { animation: history-frame-17 100s infinite; }
+.history-18 { animation: history-frame-18 100s infinite; }
+.history-19 { animation: history-frame-19 100s infinite; }
+.history-20 { animation: history-frame-20 100s infinite; }
+.history-21 { animation: history-frame-21 100s infinite; }
+.history-22 { animation: history-frame-22 100s infinite; }
+.history-23 { animation: history-frame-23 100s infinite; }
+.history-24 { animation: history-frame-24 100s infinite; }
+.history-25 { animation: history-frame-25 100s infinite; }
+.history-26 { animation: history-frame-26 100s infinite; }
+.history-27 { animation: history-frame-27 100s infinite; }
+.history-28 { animation: history-frame-28 100s infinite; }
+.history-29 { animation: history-frame-29 100s infinite; }
+.history-30 { animation: history-frame-30 100s infinite; }
+.history-31 { animation: history-frame-31 100s infinite; }
+.history-32 { animation: history-frame-32 100s infinite; }
+.history-33 { animation: history-frame-33 100s infinite; }
+.history-34 { animation: history-frame-34 100s infinite; }
+.history-35 { animation: history-frame-35 100s infinite; }
+.history-36 { animation: history-frame-36 100s infinite; }
+.history-37 { animation: history-frame-37 100s infinite; }
+.history-38 { animation: history-frame-38 100s infinite; }
+.history-39 { animation: history-frame-39 100s infinite; }
+.history-40 { animation: history-frame-40 100s infinite; }
+.history-41 { animation: history-frame-41 100s infinite; }
+.history-42 { animation: history-frame-42 100s infinite; }
+.history-43 { animation: history-frame-43 100s infinite; }
+.history-44 { animation: history-frame-44 100s infinite; }
+.history-45 { animation: history-frame-45 100s infinite; }
+.history-46 { animation: history-frame-46 100s infinite; }
+.history-47 { animation: history-frame-47 100s infinite; }
+.history-48 { animation: history-frame-48 100s infinite; }
+.history-49 { animation: history-frame-49 100s infinite; }
+.history-50 { animation: history-frame-50 100s infinite; }
+.history-51 { animation: history-frame-51 100s infinite; }
+.history-52 { animation: history-frame-52 100s infinite; }
+.history-53 { animation: history-frame-53 100s infinite; }
+.history-54 { animation: history-frame-54 100s infinite; }
+.history-55 { animation: history-frame-55 100s infinite; }
+.history-56 { animation: history-frame-56 100s infinite; }
+.history-57 { animation: history-frame-57 100s infinite; }
+.history-58 { animation: history-frame-58 100s infinite; }
+.history-59 { animation: history-frame-59 100s infinite; }
+.history-60 { animation: history-frame-60 100s infinite; }
+.history-61 { animation: history-frame-61 100s infinite; }
+.history-62 { animation: history-frame-62 100s infinite; }
+.history-63 { animation: history-frame-63 100s infinite; }
+.history-64 { animation: history-frame-64 100s infinite; }
+.history-65 { animation: history-frame-65 100s infinite; }
+.history-66 { animation: history-frame-66 100s infinite; }
+.history-67 { animation: history-frame-67 100s infinite; }
+.history-68 { animation: history-frame-68 100s infinite; }
+.history-69 { animation: history-frame-69 100s infinite; }
+.history-70 { animation: history-frame-70 100s infinite; }
+.history-71 { animation: history-frame-71 100s infinite; }
+.history-72 { animation: history-frame-72 100s infinite; }
+.history-73 { animation: history-frame-73 100s infinite; }
+.history-74 { animation: history-frame-74 100s infinite; }
+.history-75 { animation: history-frame-75 100s infinite; }
+.history-76 { animation: history-frame-76 100s infinite; }
+.history-77 { animation: history-frame-77 100s infinite; }
+.history-78 { animation: history-frame-78 100s infinite; }
+.history-79 { animation: history-frame-79 100s infinite; }
+.history-80 { animation: history-frame-80 100s infinite; }
+.history-81 { animation: history-frame-81 100s infinite; }
+.history-82 { animation: history-frame-82 100s infinite; }
+.history-83 { animation: history-frame-83 100s infinite; }
+.history-84 { animation: history-frame-84 100s infinite; }
+.history-85 { animation: history-frame-85 100s infinite; }
+.history-86 { animation: history-frame-86 100s infinite; }
+.history-87 { animation: history-frame-87 100s infinite; }
+.history-88 { animation: history-frame-88 100s infinite; }
+.history-89 { animation: history-frame-89 100s infinite; }
+.history-90 { animation: history-frame-90 100s infinite; }
+.history-91 { animation: history-frame-91 100s infinite; }
+.history-92 { animation: history-frame-92 100s infinite; }
+.history-93 { animation: history-frame-93 100s infinite; }
+.history-94 { animation: history-frame-94 100s infinite; }
+.history-95 { animation: history-frame-95 100s infinite; }
+.history-96 { animation: history-frame-50 100s infinite; animation-delay: 4s; }
+.history-97 { animation: history-frame-97 100s infinite; }
+.history-98 { animation: history-frame-98 100s infinite; }
+.history-99 { animation: history-frame-99 100s infinite; }
+.history-100 { animation: history-frame-100 100s infinite; }
+.history-101 { animation: history-frame-101 100s infinite; }
+.history-102 { animation: history-frame-102 100s infinite; }
+.history-103 { animation: history-frame-103 100s infinite; }
+.history-104 { animation: history-frame-104 100s infinite; }
+.history-105 { animation: history-frame-105 100s infinite; }
+.history-106 { animation: history-frame-106 100s infinite; }
+.history-107 { animation: history-frame-107 100s infinite; }
+.history-108 { animation: history-frame-108 100s infinite; }
+.history-109 { animation: history-frame-109 100s infinite; }
+.history-110 { animation: history-frame-110 100s infinite; }
+.history-111 { animation: history-frame-111 100s infinite; }
+.history-112 { animation: history-frame-112 100s infinite; }
+.history-113 { animation: history-frame-113 100s infinite; }
+.history-114 { animation: history-frame-114 100s infinite; }
+.history-115 { animation: history-frame-115 100s infinite; }
+.history-116 { animation: history-frame-116 100s infinite; }
+.history-117 { animation: history-frame-117 100s infinite; }
+.history-118 { animation: history-frame-118 100s infinite; }
+.history-119 { animation: history-frame-119 100s infinite; }
+.history-120 { animation: history-frame-120 100s infinite; }
+.history-121 { animation: history-frame-121 100s infinite; }
+.history-122 { animation: history-frame-122 100s infinite; }
+.history-123 { animation: history-frame-123 100s infinite; }
+.history-124 { animation: history-frame-124 100s infinite; }
+.history-125 { animation: history-frame-125 100s infinite; }
+.history-126 { animation: history-frame-126 100s infinite; }
+.history-127 { animation: history-frame-127 100s infinite; }
+.history-128 { animation: history-frame-128 100s infinite; }
+.history-129 { animation: history-frame-129 100s infinite; }
+.history-130 { animation: history-frame-130 100s infinite; }
+.history-131 { animation: history-frame-131 100s infinite; }
+.history-132 { animation: history-frame-132 100s infinite; }
+.history-133 { animation: history-frame-133 100s infinite; }
+.history-134 { animation: history-frame-134 100s infinite; }
+.history-135 { animation: history-frame-135 100s infinite; }
+.history-136 { animation: history-frame-136 100s infinite; }
+.history-137 { animation: history-frame-137 100s infinite; }
+.history-138 { animation: history-frame-138 100s infinite; }
+.history-139 { animation: history-frame-139 100s infinite; }
+.history-140 { animation: history-frame-140 100s infinite; }
+.history-141 { animation: history-frame-141 100s infinite; }
+.history-142 { animation: history-frame-142 100s infinite; }
+.history-143 { animation: history-frame-143 100s infinite; }
+.history-144 { animation: history-frame-144 100s infinite; }
+.history-145 { animation: history-frame-145 100s infinite; }
+.history-146 { animation: history-frame-146 100s infinite; }
+.history-147 { animation: history-frame-147 100s infinite; }
+.history-148 { animation: history-frame-148 100s infinite; }
+.history-149 { animation: history-frame-149 100s infinite; }
+.history-150 { animation: history-frame-150 100s infinite; }
+.history-151 { animation: history-frame-151 100s infinite; }
+.history-152 { animation: history-frame-152 100s infinite; }
+.history-153 { animation: history-frame-153 100s infinite; }
+.history-154 { animation: history-frame-154 100s infinite; }
+.history-155 { animation: history-frame-155 100s infinite; }
+.history-156 { animation: history-frame-156 100s infinite; }
+.history-157 { animation: history-frame-157 100s infinite; }
+.history-158 { animation: history-frame-158 100s infinite; }
+.history-159 { animation: history-frame-159 100s infinite; }
+.history-160 { animation: history-frame-160 100s infinite; }
+.history-161 { animation: history-frame-161 100s infinite; }
+.history-162 { animation: history-frame-162 100s infinite; }
+.history-163 { animation: history-frame-163 100s infinite; }
+.history-164 { animation: history-frame-164 100s infinite; }
+.history-165 { animation: history-frame-165 100s infinite; }
+.history-166 { animation: history-frame-166 100s infinite; }
+.history-167 { animation: history-frame-167 100s infinite; }
+.history-168 { animation: history-frame-168 100s infinite; }
+.history-169 { animation: history-frame-169 100s infinite; }
+.history-170 { animation: history-frame-170 100s infinite; }
+.history-171 { animation: history-frame-171 100s infinite; }
+.history-172 { animation: history-frame-172 100s infinite; }
+.history-173 { animation: history-frame-173 100s infinite; }
+.history-174 { animation: history-frame-174 100s infinite; }
+.history-175 { animation: history-frame-175 100s infinite; }
+.history-176 { animation: history-frame-176 100s infinite; }
+.history-177 { animation: history-frame-177 100s infinite; }
+.history-178 { animation: history-frame-178 100s infinite; }
+.history-179 { animation: history-frame-179 100s infinite; }
+.history-180 { animation: history-frame-180 100s infinite; }
+.history-181 { animation: history-frame-181 100s infinite; }
+.history-182 { animation: history-frame-182 100s infinite; }
+.history-183 { animation: history-frame-183 100s infinite; }
+.history-184 { animation: history-frame-184 100s infinite; }
+.history-185 { animation: history-frame-185 100s infinite; }
+.history-186 { animation: history-frame-186 100s infinite; }
+.history-187 { animation: history-frame-187 100s infinite; }
+.history-188 { animation: history-frame-188 100s infinite; }
+.history-189 { animation: history-frame-189 100s infinite; }
+.history-190 { animation: history-frame-190 100s infinite; }
+.history-191 { animation: history-frame-191 100s infinite; }
+.history-192 { animation: history-frame-192 100s infinite; }
+.history-193 { animation: history-frame-193 100s infinite; }
+.history-194 { animation: history-frame-194 100s infinite; }
+.history-195 { animation: history-frame-195 100s infinite; }
+.history-196 { animation: history-frame-196 100s infinite; }
+.history-197 { animation: history-frame-197 100s infinite; }
+.history-198 { animation: history-frame-198 100s infinite; }
+.history-199 { animation: history-frame-199 100s infinite; }
+.history-200 { animation: history-frame-200 100s infinite; }
+.history-201 { animation: history-frame-201 100s infinite; }
+.history-202 { animation: history-frame-202 100s infinite; }
+.history-203 { animation: history-frame-203 100s infinite; }
+.history-204 { animation: history-frame-204 100s infinite; }
+.history-205 { animation: history-frame-205 100s infinite; }
+.history-206 { animation: history-frame-206 100s infinite; }
+.history-207 { animation: history-frame-207 100s infinite; }
+.history-208 { animation: history-frame-208 100s infinite; }
+.history-209 { animation: history-frame-209 100s infinite; }
+.history-210 { animation: history-frame-210 100s infinite; }
+.history-211 { animation: history-frame-211 100s infinite; }
+.history-212 { animation: history-frame-212 100s infinite; }
+.history-213 { animation: history-frame-213 100s infinite; }
+.history-214 { animation: history-frame-214 100s infinite; }
+.history-215 { animation: history-frame-215 100s infinite; }
+.history-216 { animation: history-frame-216 100s infinite; }
+.history-217 { animation: history-frame-217 100s infinite; }
+.history-218 { animation: history-frame-218 100s infinite; }
+.history-219 { animation: history-frame-219 100s infinite; }
+.history-220 { animation: history-frame-220 100s infinite; }
+.history-221 { animation: history-frame-221 100s infinite; }
+.history-222 { animation: history-frame-222 100s infinite; }
+.history-223 { animation: history-frame-223 100s infinite; }
+.history-224 { animation: history-frame-224 100s infinite; }
+.history-225 { animation: history-frame-225 100s infinite; }
+.history-226 { animation: history-frame-226 100s infinite; }
+.history-227 { animation: history-frame-227 100s infinite; }
+.history-228 { animation: history-frame-228 100s infinite; }
+.history-229 { animation: history-frame-229 100s infinite; }
+.history-230 { animation: history-frame-230 100s infinite; }
+.history-231 { animation: history-frame-231 100s infinite; }
+.history-232 { animation: history-frame-232 100s infinite; }
+.history-233 { animation: history-frame-50 100s infinite; animation-delay: 24s;}
+.history-234 { animation: history-frame-234 100s infinite; }
+.history-235 { animation: history-frame-235 100s infinite; }
+.history-236 { animation: history-frame-236 100s infinite; }
+.history-237 { animation: history-frame-237 100s infinite; }
+.history-238 { animation: history-frame-238 100s infinite; }
+.history-239 { animation: history-frame-239 100s infinite; }
+.history-240 { animation: history-frame-240 100s infinite; }
+.history-241 { animation: history-frame-241 100s infinite; }
+.history-242 { animation: history-frame-242 100s infinite; }
+.history-243 { animation: history-frame-243 100s infinite; }
+.history-244 { animation: history-frame-244 100s infinite; }
+.history-245 { animation: history-frame-245 100s infinite; }
+.history-246 { animation: history-frame-246 100s infinite; }
+.history-247 { animation: history-frame-247 100s infinite; }
+.history-248 { animation: history-frame-248 100s infinite; }
+.history-249 { animation: history-frame-249 100s infinite; }
+.history-250 { animation: history-frame-250 100s infinite; }
+.history-251 { animation: history-frame-251 100s infinite; }
+.history-252 { animation: history-frame-252 100s infinite; }
+.history-253 { animation: history-frame-253 100s infinite; }
+.history-254 { animation: history-frame-254 100s infinite; }
+.history-255 { animation: history-frame-255 100s infinite; }
+
+/* TODO: generate keyframes from 100 recently-saved canvases */
+@keyframes history-frame-50 {
+    0% { background: white; }
+    4% { background: orange; }
+    8% { background: orange; }
+    12% { background: red; }
+    16% { background: red; }
+    20% { background: white; }
+    25% { background: yellow; }
+    37% { background: lightgreen; }
+    50% { background: aqua; }
+    62% { background: mediumpurple; }
+    75% { background: white; }
+    87% { background: red; }
+    100% { background: red; }
+}
+
 span.color-picker {
     display: inline-block;
     border: 1px dotted midnightblue;
@@ -37,9 +331,9 @@ span.selected {
 }
 
 .red { background-color: red }
-.green { background-color: lightgreen }
-.blue { background-color: aqua }
-.yellow { background-color: yellow }
-.purple { background-color: mediumpurple }
 .orange { background-color: orange }
+.yellow { background-color: yellow }
+.blue { background-color: aqua }
+.green { background-color: lightgreen }
+.purple { background-color: mediumpurple }
 .white { background-color: white }

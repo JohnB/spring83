@@ -1,5 +1,5 @@
 <h3>Pixels with Frenemies</h3>
-<p>Pick & Paint - With Others!</p>
+<p>Painters: <%= @user_count %></p>
 <div class="color-picker">
   <span class={color_picker_class("red", @paint)} phx-click="set-color-red"></span>
   <span class={color_picker_class("orange", @paint)} phx-click="set-color-orange"></span>
@@ -8,10 +8,31 @@
   <span class={color_picker_class("green", @paint)} phx-click="set-color-green"></span>
   <span class={color_picker_class("purple", @paint)} phx-click="set-color-purple"></span>
   <span class={color_picker_class("white", @paint)} phx-click="set-color-white"></span>
-  (<%= @user_count %>)
 </div>
 <div class="collaborative_canvas">
   <%= for {index, color} <- @canvas do %>
     <div class={color} phx-click={"paint-one-cell_#{index}"}></div>
+  <% end %>
+</div>
+<style>
+    @keyframes history-frame-150 {
+        0% { background: mediumpurple; }
+        4% { background: mediumpurple; }
+        8% { background: white; }
+        12% { background: white; }
+        16% { background: red; }
+        20% { background: white; }
+        25% { background: white; }
+        37% { background: lightgreen; }
+        50% { background: yellow; }
+        62% { background: mediumpurple; }
+        75% { background: white; }
+        87% { background: red; }
+        100% { background: mediumpurple; }
+    }
+</style>
+<div class="historical_canvas">
+  <%= for {index, color} <- @canvas do %>
+    <div class={"history-#{index}"} ></div>
   <% end %>
 </div>
