@@ -28,7 +28,7 @@
     top: 14px;
     right: 488;
     bottom: 168;
-    left: 334px;
+    left: 200px;
 
     display: flex;
     flex-wrap: wrap;
@@ -43,6 +43,7 @@
     height: 9px;
 }
 
+/* Define a separate CSS animation for each history pixel */
 .history-0 { animation: history-frame-0 100s infinite; }
 .history-1 { animation: history-frame-1 100s infinite; }
 .history-2 { animation: history-frame-2 100s infinite; }
@@ -336,4 +337,5 @@ span.selected {
 .blue { background-color: aqua }
 .green { background-color: lightgreen }
 .purple { background-color: mediumpurple }
+.pink { background-color: pink }
 .white { background-color: white }
