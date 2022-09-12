@@ -7,6 +7,7 @@ defmodule Spring83Web.CanvasSharedState do
   @height 16
   @last_cell @width * @height - 1
   @default_canvas Enum.map(0..@last_cell, fn n -> {n, ""} end)
+  @autosave_timeout :timer.seconds(20)
 
   # Client
 
@@ -87,7 +88,7 @@ defmodule Spring83Web.CanvasSharedState do
       ) do
     # Reset our auto-save timer to be 2 minutes after this most-recent change
     autosave_pid && Process.cancel_timer(autosave_pid)
-    autosave_pid = Process.send_after(self(), :save_canvas, :timer.minutes(2))
+    autosave_pid = Process.send_after(self(), :save_canvas, @autosave_timeout)
 
     {:noreply,
      %{
