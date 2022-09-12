@@ -17,24 +17,10 @@
   <% end %>
 </div>
 <style>
-    @keyframes history-frame-150 {
-        0% { background: mediumpurple; }
-        4% { background: mediumpurple; }
-        8% { background: white; }
-        12% { background: white; }
-        16% { background: red; }
-        20% { background: white; }
-        25% { background: white; }
-        37% { background: lightgreen; }
-        50% { background: yellow; }
-        62% { background: mediumpurple; }
-        75% { background: white; }
-        87% { background: red; }
-        100% { background: mediumpurple; }
-    }
+  <%= Spring83.Canvas.historical_css() %>
 </style>
 <div class="historical_canvas">
-  <%= for {index, color} <- @canvas do %>
+  <%= for {index, _color} <- @canvas do %>
     <div class={"history-#{index}"} ></div>
   <% end %>
 </div>

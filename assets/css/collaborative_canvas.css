@@ -33,8 +33,8 @@
     display: flex;
     flex-wrap: wrap;
     border: 1px solid #111;
-    max-width: 154px;
-    max-height: 154px;
+    max-width: 146px;
+    max-height: 146px;
     height: 100vw;
 }
 
@@ -42,6 +42,28 @@
     width: 9px;
     height: 9px;
 }
+
+span.color-picker {
+    display: inline-block;
+    border: 1px dotted midnightblue;
+    border-radius: 0.4rem;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+}
+
+span.selected {
+    border: 2px dashed black;
+}
+
+.red { background-color: red }
+.orange { background-color: orange }
+.yellow { background-color: yellow }
+.blue { background-color: aqua }
+.green { background-color: lightgreen }
+.purple { background-color: mediumpurple }
+.pink { background-color: pink }
+.white { background-color: white }
 
 /* Define a separate CSS animation for each history pixel */
 .history-0 { animation: history-frame-0 100s infinite; }
@@ -300,42 +322,3 @@
 .history-253 { animation: history-frame-253 100s infinite; }
 .history-254 { animation: history-frame-254 100s infinite; }
 .history-255 { animation: history-frame-255 100s infinite; }
-
-/* TODO: generate keyframes from 100 recently-saved canvases */
-@keyframes history-frame-50 {
-    0% { background: white; }
-    4% { background: orange; }
-    8% { background: orange; }
-    12% { background: red; }
-    16% { background: red; }
-    20% { background: white; }
-    25% { background: yellow; }
-    37% { background: lightgreen; }
-    50% { background: aqua; }
-    62% { background: mediumpurple; }
-    75% { background: white; }
-    87% { background: red; }
-    100% { background: red; }
-}
-
-span.color-picker {
-    display: inline-block;
-    border: 1px dotted midnightblue;
-    border-radius: 0.4rem;
-    cursor: pointer;
-    width: 40px;
-    height: 40px;
-}
-
-span.selected {
-    border: 2px dashed black;
-}
-
-.red { background-color: red }
-.orange { background-color: orange }
-.yellow { background-color: yellow }
-.blue { background-color: aqua }
-.green { background-color: lightgreen }
-.purple { background-color: mediumpurple }
-.pink { background-color: pink }
-.white { background-color: white }
