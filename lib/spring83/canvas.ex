@@ -61,7 +61,7 @@ defmodule Spring83.Canvas do
     rows = Repo.all(query)
     case rows do
       nil -> nil
-      rows -> Enum.map(rows, fn row -> row.canvas end)
+      rows -> Enum.map(rows, fn row -> row.canvas end) |> Enum.reverse()
     end
   end
 
