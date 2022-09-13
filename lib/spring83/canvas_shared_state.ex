@@ -53,8 +53,11 @@ defmodule Spring83Web.CanvasSharedState do
 
   def get_pid(_options \\ %{}) do
     case(GenServer.start_link(__MODULE__, %{}, name: {:global, __MODULE__})) do
-      {:ok, pid} -> raise("CanvasSharedState should have been started already (pid #{inspect(pid)}})")
-      {:error, {:already_started, pid}} -> pid
+      {:ok, pid} ->
+        raise("CanvasSharedState should have been started already (pid #{inspect(pid)}})")
+
+      {:error, {:already_started, pid}} ->
+        pid
     end
   end
 
@@ -99,7 +102,7 @@ defmodule Spring83Web.CanvasSharedState do
   end
 
   @impl true
-  def handle_info(:save_canvas, %{canvas: canvas} =state) do
+  def handle_info(:save_canvas, %{canvas: canvas} = state) do
     Canvas.save(canvas)
     Logger.info("Canvas saved")
 

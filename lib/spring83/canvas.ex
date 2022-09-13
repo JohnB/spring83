@@ -50,7 +50,7 @@ defmodule Spring83.Canvas do
         "}"
       ]
     end)
-    |> List.flatten
+    |> List.flatten()
     |> Enum.join("\n")
   end
 
@@ -59,6 +59,7 @@ defmodule Spring83.Canvas do
     query = from c in __MODULE__, order_by: [desc: c.id], limit: 100, select: [:canvas]
 
     rows = Repo.all(query)
+
     case rows do
       nil -> nil
       rows -> Enum.map(rows, fn row -> row.canvas end) |> Enum.reverse()

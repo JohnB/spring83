@@ -43,6 +43,10 @@
     height: 9px;
 }
 
+div.color-picker {
+    font-weight: bolder;
+}
+
 span.color-picker {
     display: inline-block;
     border: 1px dotted midnightblue;
@@ -64,6 +68,19 @@ span.selected {
 .purple { background-color: mediumpurple }
 .pink { background-color: pink }
 .white { background-color: white }
+
+@keyframes last-click-frame {
+    0% { border: 3px solid #111; }
+    16% { border: 3px dashed #333; }
+    32% { border: 2px dot-dash #666; }
+    47% { border: 2px dot-dot-dash #999; }
+    63% { border: 1px dotted #ccc; }
+    78% { border: 1px solid #eee; }
+    100% { border: none ; }
+}
+.last-click {
+    animation: last-click-frame 22s;
+}
 
 /* Define a separate CSS animation for each history pixel */
 .history-0 { animation: history-frame-0 100s infinite; }

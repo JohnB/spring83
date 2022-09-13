@@ -25,12 +25,13 @@ defmodule Spring83Web.CollaborativeCanvasLive do
      })}
   end
 
+  # set the current brush color
   def handle_event("set-color-" <> color, _, socket) do
     {:noreply, assign(socket, paint: color)}
   end
 
-  def handle_event("paint-one-cell_" <> location, _, socket) do
-    %{paint: paint} = socket.assigns
+  # Update our shared state, and our peers and ourself about a cell being painted.
+  def handle_event("paint-one-cell_" <> location, _, %{assigns: %{paint: paint}} = socket) do
     {location, _} = Integer.parse(location)
 
     # Update the shared canvas for new people joining
@@ -39,15 +40,17 @@ defmodule Spring83Web.CollaborativeCanvasLive do
     PubSub.broadcast(
       Spring83.PubSub,
       "canvas_update_channel",
-      {:canvas_update, %{location: location, paint: paint}}
+      {:canvas_update, %{location: location, paint: "#{paint} last-click"}}
     )
 
     {:noreply, socket}
   end
 
-  def handle_info({:canvas_update, %{location: location, paint: paint}}, socket) do
-    %{canvas: canvas} = socket.assigns
-
+  # Overwrite a cell in the UI with the selected color.
+  def handle_info(
+        {:canvas_update, %{location: location, paint: paint}},
+        %{assigns: %{canvas: canvas}} = socket
+      ) do
     # Update our local canvas
     {:noreply,
      assign(socket, canvas: List.update_at(canvas, location, fn _ -> {location, paint} end))}
