@@ -40,22 +40,35 @@ defmodule Spring83.Canvas do
     # Transpose to get colors for each historical cell
     |> Enum.zip_with(& &1)
     |> Enum.with_index(fn cell_colors, keyframe_id ->
+      deduped =
+        cell_colors
+        |> Enum.with_index()
+        |> Enum.dedup_by(fn {color, _index} -> color end)
+        |> Enum.reverse()
+
+      last_pair = {elem(List.last(deduped), 0), 100}
+
       [
         "@keyframes history-frame-#{keyframe_id} {",
-        cell_colors
-        # Only write a keyframe when it changes (rarely) by
-        # structuring the data as follows:
-        #   [{color, progress_percent}, {previous_color, _previous_progress_percent}]
-        # to compare color to previous_color and only keep the changes.
-        |> Enum.with_index()
+        [last_pair | deduped]
+        |> Enum.chunk_every(2, 1, [{"transparent", 0}])
         |> Enum.reverse()
-        |> Enum.chunk_every(2, 1, [{"", 0}])
-        |> Enum.reverse()
-        |> Enum.map(fn [{color, progress_percent}, {previous_color, _previous_progress_percent}] ->
-          (color != previous_color && "#{progress_percent}% { background: #{cell_color(color)}; }") ||
-            nil
+        |> Enum.map(fn [{color, progress_percent}, {previous_color, previous_progress_percent}] ->
+          color = cell_color(color)
+          previous_color = cell_color(previous_color)
+          # Only write a keyframe when it changes (rarely) by
+          # comparing with the previous_color.
+          cond do
+            progress_percent == 0 || previous_progress_percent == progress_percent - 1 ->
+              "#{progress_percent}% { background: #{color}; }"
+
+            true ->
+              # Setting the N-1 color forces a quick transition between colors,
+              # instead of a slooow draaaag from one to the next.
+              "#{progress_percent - 1}% { background: #{previous_color}; } " <>
+                "#{progress_percent}% { background: #{color}; }"
+          end
         end),
-        "100% { background: #{cell_color(List.first(cell_colors))}; }",
         "}"
       ]
     end)

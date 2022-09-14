@@ -19,7 +19,7 @@
 <style>
   <%= Spring83.Canvas.historical_css() %>
 </style>
-<div class="historical_canvas">
+<div class="historical_canvas animation-parent">
   <%= for {index, _color} <- @canvas do %>
     <div class={"history-#{index}"} ></div>
   <% end %>
