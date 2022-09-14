@@ -43,20 +43,32 @@ defmodule Spring83.Canvas do
       [
         "@keyframes history-frame-#{keyframe_id} {",
         cell_colors
-        |> Enum.with_index(fn color, progress_percent ->
-          "#{progress_percent}% { background: #{cell_color(color)}; }"
+        # Only write a keyframe when it changes (rarely) by
+        # structuring the data as follows:
+        #   [{color, progress_percent}, {previous_color, _previous_progress_percent}]
+        # to compare color to previous_color and only keep the changes.
+        |> Enum.with_index()
+        |> Enum.reverse()
+        |> Enum.chunk_every(2, 1, [{"", 0}])
+        |> Enum.reverse()
+        |> Enum.map(fn [{color, progress_percent}, {previous_color, _previous_progress_percent}] ->
+          (color != previous_color && "#{progress_percent}% { background: #{cell_color(color)}; }") ||
+            nil
         end),
         "100% { background: #{cell_color(List.first(cell_colors))}; }",
         "}"
       ]
     end)
     |> List.flatten()
+    # drop out nils
+    |> Enum.filter(fn x -> x end)
     |> Enum.join("\n")
   end
 
   def raw_historical_canvases do
-    # max of 100 rows is important since we'll step from 0% to 100% thru the animation
-    query = from c in __MODULE__, order_by: [desc: c.id], limit: 100, select: [:canvas]
+    # max of 99 rows is important since we'll step from 0% to 100% thru the animation
+    # without short-changing the *current* image.
+    query = from c in __MODULE__, order_by: [desc: c.id], limit: 99, select: [:canvas]
 
     rows = Repo.all(query)
 
