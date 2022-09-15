@@ -7,8 +7,8 @@ defmodule Spring83Web.KenkenLive do
 
   def mount(_params, _query_params, socket) do
     {:ok,
-      assign(socket, %{
-        page_title: "Kenken Creator"
-      })}
+     assign(socket, %{
+       page_title: "Kenken Creator"
+     })}
   end
 end

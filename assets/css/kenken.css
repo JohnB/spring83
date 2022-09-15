@@ -1,0 +1,46 @@
+
+.kenken {
+    position: relative;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    /*margin: auto;*/
+
+    display: flex;
+    flex-wrap: wrap;
+    border: 1px solid #111;
+    max-width: 317px;
+    max-height: 317px;
+    height: 100vw;
+}
+.kenken .h-border {
+    height: 7px;
+    width: 70px;
+    border: 1px solid #111;
+    background-color: #111;
+}
+.kenken .h-border.off {
+    background-color: #fff;
+}
+.kenken .v-border {
+    width: 7px;
+    height: 70px;
+    border: 1px solid #111;
+    background-color: #111;
+}
+.kenken .v-border.off {
+    background-color: #fff;
+}
+.kenken .intersection {
+    width: 7px;
+    height: 7px;
+    border: 1px solid #111;
+    background-color: #111;
+}
+.kenken .cell {
+    width: 70px;
+    height: 70px;
+    /*border: 1px solid #111;*/
+}
+
