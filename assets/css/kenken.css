@@ -1,4 +1,7 @@
 
+body {
+    background-color: #666;
+}
 .kenken {
     position: relative;
     top: 0;
@@ -10,9 +13,23 @@
     display: flex;
     flex-wrap: wrap;
     border: 1px solid #111;
+    height: 100vw;
+}
+.kenken.size4 {
     max-width: 317px;
     max-height: 317px;
-    height: 100vw;
+}
+.kenken.size5 {
+    max-width: 394px;
+    max-height: 394px;
+}
+.kenken.size6 {
+    max-width: 471px;
+    max-height: 471px;
+}
+.kenken.size7 {
+    max-width: 548px;
+    max-height: 548px;
 }
 .kenken .h-border {
     height: 7px;
@@ -31,6 +48,12 @@
 }
 .kenken .v-border.off {
     background-color: #fff;
+}
+.kenken .v-border.clickable:hover {
+    background-color: #888;
+}
+.kenken .h-border.clickable:hover {
+    background-color: #888;
 }
 .kenken .intersection {
     width: 7px;
