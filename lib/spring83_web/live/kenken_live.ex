@@ -11,4 +11,16 @@ defmodule Spring83Web.KenkenLive do
        page_title: "Kenken Creator"
      })}
   end
+
+  def handle_event("toggle_border", %{"border" => border_id}, %{assigns: assigns} = socket) do
+    IO.inspect(border_id, label: "toggle_border")
+
+    {:noreply, socket}
+  end
+
+  def handle_event("edit_cell", %{"cell" => cell_id}, %{assigns: assigns} = socket) do
+    IO.inspect(cell_id, label: "edit_cell")
+
+    {:noreply, socket}
+  end
 end
