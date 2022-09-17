@@ -29,7 +29,7 @@ defmodule Spring83Web.Router do
     get "/pizza", PizzaController, :index
 
     # Kenken routes
-    live "/kenken", KenkenLive
+    live "/kenken/*puzzle_id", KenkenLive
   end
 
   # Other scopes may use custom stacks.

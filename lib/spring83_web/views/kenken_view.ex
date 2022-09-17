@@ -1,43 +1,42 @@
 defmodule Spring83Web.KenkenView do
   use Spring83Web, :view
+  alias Spring83.Kenken.Puzzle
 
-  def kenken_board(%{board_size: board_size} = assigns) do
-    {board_size, _} = Integer.parse(board_size)
-
+  def kenken_board(%{puzzle: %{size: board_size} = puzzle} = assigns) do
     ~H"""
     <div class={"kenken size#{board_size}"}>
-      <.full_horizontal_border board_size={board_size} />
+      <.full_horizontal_border puzzle={puzzle} />
       <%= for row_number <- 1..board_size do %>
-        <.row row_number={row_number} board_size={board_size} />
+        <.row row_number={row_number} puzzle={puzzle} />
       <% end %>
     </div>
     """
   end
 
-  def row(%{row_number: row_number, board_size: board_size} = assigns) do
+  def row(%{row_number: row_number, puzzle: %{size: board_size} = puzzle} = assigns) do
     ~H"""
       <.vertical_border_segment />
       <%= for column <- 1..board_size do %>
-        <.cell row_number={row_number}, column={column} />
-        <.vertical_border_segment row_number={row_number} column={column} board_size={board_size} />
+        <.cell row_number={row_number}, column={column}, puzzle={puzzle} />
+        <.vertical_border_segment row_number={row_number} column={column} puzzle={puzzle} />
       <% end %>
       <.intersection />
       <%= for column <- 1..board_size do %>
-        <.horizontal_border_segment row_number={row_number} column={column} board_size={board_size} />
+        <.horizontal_border_segment row_number={row_number} column={column} puzzle={puzzle} />
         <.intersection />
     <% end %>
     """
   end
 
-  def cell(%{row_number: row_number, column: column} = assigns) do
+  def cell(%{row_number: row_number, column: column, puzzle: puzzle} = assigns) do
     cell_id = "#{row_number}#{column}"
 
     ~H"""
-    <div class="cell" phx-click="edit_cell" phx-value-cell={cell_id}><%= cell_id %></div>
+    <div class="cell" phx-click="edit_cell" phx-value-cell={cell_id}><%= puzzle.cell_values[cell_id] %></div>
     """
   end
 
-  def full_horizontal_border(%{board_size: board_size} = assigns) do
+  def full_horizontal_border(%{puzzle: %{size: board_size}} = assigns) do
     ~H"""
     <.intersection />
     <%= for column  <- 1..board_size do %>
@@ -48,13 +47,17 @@ defmodule Spring83Web.KenkenView do
   end
 
   def horizontal_border_segment(
-        %{row_number: row_number, column: column, board_size: board_size} = assigns
+        %{
+          row_number: row_number,
+          column: column,
+          puzzle: %{size: board_size, borders: borders} = puzzle
+        } = assigns
       )
       when row_number < board_size do
     border_id = Enum.join([row_number, column, "-", row_number + 1, column])
 
     ~H"""
-    <div class="h-border clickable" phx-click="toggle_border" phx-value-border={border_id} ></div>
+    <div class={"h-border clickable #{borders[border_id]}"} phx-click="toggle_border" phx-value-border={border_id} ></div>
     """
   end
 
@@ -71,13 +74,14 @@ defmodule Spring83Web.KenkenView do
   end
 
   def vertical_border_segment(
-        %{row_number: row_number, column: column, board_size: board_size} = assigns
+        %{row_number: row_number, column: column, puzzle: %{size: board_size, borders: borders}} =
+          assigns
       )
       when column < board_size do
     border_id = Enum.join([row_number, column, "-", row_number, column + 1])
 
     ~H"""
-    <div class="v-border clickable" phx-click="toggle_border" phx-value-border={border_id} ></div>
+    <div class={"v-border clickable #{borders[border_id]}"} phx-click="toggle_border" phx-value-border={border_id} ></div>
     """
   end
 
