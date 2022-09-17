@@ -1,0 +1,24 @@
+<h1>Kenken Puzzles</h1>
+<p>
+  These puzzles are supplied as-is by our users and may not be valid puzzles.
+<p>
+</p>
+  They might have no solution, or they might have many solutions - solve at your own risk.
+</p>
+
+<div class="controls">
+  <button phx-click="create_puzzle" size="7">New 7x7</button>
+  <button phx-click="create_puzzle" size="6">New 6x6</button>
+  <button phx-click="create_puzzle" size="5">New 5x5</button>
+  <button phx-click="create_puzzle" size="4">New 4x4</button>
+</div>
+
+<ul>
+  <%= for puzzle <- @puzzles do %>
+    <li>
+      <a href={"/kenken/#{puzzle.id}"}>
+        <%= puzzle.name %>
+      </a>
+    </li>
+  <% end %>
+</ul>
