@@ -39,7 +39,10 @@ defmodule Spring83Web.KenkenView do
 
     ~H"""
     <%= if selected == cell_id do %>
-      <div class="cell"><%= cell_values[cell_id] || 13 %></div>
+      <div class="cell">
+        <input class="cell-input" style="width: 5em;" value={cell_values[cell_id]} type="text" maxlength="8"/>
+        <button class="cell-save" phx-click="save_cell">OK</button>
+      </div>
     <% else %>
       <div class="cell" phx-click="edit_cell" phx-value-cell={cell_id}><%= cell_values[cell_id] %></div>
     <% end %>

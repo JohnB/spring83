@@ -69,7 +69,20 @@ body {
     /*border: 1px solid #111;*/
 }
 
+/*Need !important to over-ride defaults */
 .name-input {
-    size: 25;
-    width: 50%;
+    width: 40%;
+    padding: 0 !important;
+}
+.cell-input {
+    padding: 0 !important;
+    height: 2rem !important;
+    margin: 0 0 0 2px;
+    border: 1px solid black !important;
+}
+.cell-save {
+    margin-left: 1rem;
+    padding: 0 3px 0 3px !important;
+    height: 22px;
+    line-height: 20px;
 }
