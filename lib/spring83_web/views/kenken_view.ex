@@ -1,6 +1,5 @@
 defmodule Spring83Web.KenkenView do
   use Spring83Web, :view
-  alias Spring83.Kenken.Puzzle
 
   def kenken_board(%{puzzle: %{size: board_size} = puzzle} = assigns) do
     ~H"""
@@ -17,7 +16,7 @@ defmodule Spring83Web.KenkenView do
     ~H"""
       <.vertical_border_segment />
       <%= for column <- 1..board_size do %>
-        <.cell row_number={row_number}, column={column}, puzzle={puzzle} />
+        <.cell row_number={row_number} column={column} puzzle={puzzle} />
         <.vertical_border_segment row_number={row_number} column={column} puzzle={puzzle} />
       <% end %>
       <.intersection />
@@ -58,7 +57,7 @@ defmodule Spring83Web.KenkenView do
   def full_horizontal_border(%{puzzle: %{size: board_size}} = assigns) do
     ~H"""
     <.intersection />
-    <%= for column  <- 1..board_size do %>
+    <%= for _column <- 1..board_size do %>
       <.horizontal_border_segment />
       <.intersection />
     <% end %>
@@ -69,7 +68,7 @@ defmodule Spring83Web.KenkenView do
         %{
           row_number: row_number,
           column: column,
-          puzzle: %{size: board_size, borders: borders} = puzzle
+          puzzle: %{size: board_size, borders: borders} = _puzzle
         } = assigns
       )
       when row_number < board_size do
