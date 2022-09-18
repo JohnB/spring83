@@ -70,14 +70,19 @@ defmodule Spring83Web.KenkenView do
         %{
           row_number: row_number,
           column: column,
-          puzzle: %{size: board_size, borders: borders} = _puzzle
+          puzzle: %{size: board_size, borders: borders, published_at: published_at} = _puzzle
         } = assigns
       )
       when row_number < board_size do
     border_id = Enum.join([row_number, column, "-", row_number + 1, column])
+    maybe_editable = (published_at && %{}) || %{"phx-click" => "toggle_border"}
+    maybe_clickable = (published_at && "") || "clickable"
 
     ~H"""
-    <div class={"h-border clickable #{borders[border_id]}"} phx-click="toggle_border" phx-value-border={border_id} ></div>
+    <div class={"h-border #{maybe_clickable} #{borders[border_id]}"}
+      {maybe_editable} phx-value-border={border_id}
+    >
+    </div>
     """
   end
 
@@ -94,14 +99,22 @@ defmodule Spring83Web.KenkenView do
   end
 
   def vertical_border_segment(
-        %{row_number: row_number, column: column, puzzle: %{size: board_size, borders: borders}} =
-          assigns
+        %{
+          row_number: row_number,
+          column: column,
+          puzzle: %{size: board_size, borders: borders, published_at: published_at}
+        } = assigns
       )
       when column < board_size do
     border_id = Enum.join([row_number, column, "-", row_number, column + 1])
+    maybe_editable = (published_at && %{}) || %{"phx-click" => "toggle_border"}
+    maybe_clickable = (published_at && "") || "clickable"
 
     ~H"""
-    <div class={"v-border clickable #{borders[border_id]}"} phx-click="toggle_border" phx-value-border={border_id} ></div>
+    <div class={"v-border #{maybe_clickable} #{borders[border_id]}"}
+      {maybe_editable} phx-value-border={border_id}
+    >
+    </div>
     """
   end
 
