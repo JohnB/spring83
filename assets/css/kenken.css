@@ -39,6 +39,7 @@ body {
 }
 .kenken .h-border.off {
     background-color: #fff;
+    border-color: #ccc;
 }
 .kenken .v-border {
     width: 7px;
@@ -48,6 +49,7 @@ body {
 }
 .kenken .v-border.off {
     background-color: #fff;
+    border-color: #ccc;
 }
 .kenken .v-border.clickable:hover {
     background-color: #888;
@@ -67,3 +69,7 @@ body {
     /*border: 1px solid #111;*/
 }
 
+.name-input {
+    size: 25;
+    width: 50%;
+}

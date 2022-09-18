@@ -2,24 +2,84 @@ defmodule Spring83Web.KenkenLive do
   use Phoenix.LiveView
   alias Spring83.Kenken.Puzzle
 
-  def render(assigns) do
+  # Edit page
+  def render(%{puzzle: _puzzle} = assigns) do
     Spring83Web.KenkenView.render("kenken.html", assigns)
   end
 
-  def mount(params, query_params, socket) do
-    puzzle_id = params["puzzle_id"]
+  # Index/create page
+  def render(assigns) do
+    Spring83Web.KenkenView.render("index.html", %{
+      puzzles: [
+        %{name: "test puzzle 1", id: 1},
+        %{name: "test puzzle 2", id: 2}
+      ]
+    })
+  end
 
-    puzzle =
-      case puzzle_id do
-        nil -> Puzzle.create_puzzle() |> elem(1)
-        [id] -> Puzzle.get_puzzle(id)
-      end
+  def handle_params(%{"puzzle_id" => [puzzle_id]} = params, _uri, socket) do
+    puzzle = Puzzle.get_puzzle(puzzle_id)
 
+    {
+      :noreply,
+      assign(socket, %{
+        page_title: "Kenken #{puzzle.id}: #{puzzle.name}",
+        puzzle: puzzle
+      })
+    }
+  end
+
+  def handle_params(params, _uri, socket) do
+    {:noreply, socket}
+  end
+
+  # Edit page
+  def mount(%{puzzle_id: puzzle_id} = params, _query_params, socket) do
     {:ok,
      assign(socket, %{
        page_title: "Kenken Creator",
-       puzzle: puzzle
+       puzzle: Puzzle.get_puzzle(puzzle_id)
      })}
+  end
+
+  # Index/create page
+  def mount(params, query_params, socket) do
+    {:ok, assign(socket, %{page_title: "Kenken Creator"})}
+  end
+
+  def handle_event(
+        "create_puzzle",
+        %{"size" => size},
+        socket
+      ) do
+    {size, _} = Integer.parse(size)
+
+    puzzle = Puzzle.create_puzzle(%{size: size})
+
+    {
+      :noreply,
+      assign(socket, %{puzzle: puzzle})
+      |> push_patch(to: "/kenken/#{puzzle.id}", replace: true)
+    }
+  end
+
+  def handle_event(
+        "publish",
+        _attrs,
+        %{assigns: %{puzzle: puzzle}} = socket
+      ) do
+    puzzle =
+      Puzzle.update_puzzle(puzzle, %{
+        published_at: NaiveDateTime.utc_now(),
+        cell_values: puzzle.cell_values,
+        borders: puzzle.borders
+      })
+
+    {
+      :noreply,
+      assign(socket, %{puzzle: puzzle})
+      |> push_patch(to: "/kenken/#{puzzle.id}", replace: true)
+    }
   end
 
   def handle_event(
@@ -33,15 +93,18 @@ defmodule Spring83Web.KenkenLive do
         _ -> %{borders | border_id => ""}
       end
 
-    {:noreply,
-     assign(socket, %{
-       puzzle: %{puzzle | borders: updated}
-     })}
+    puzzle = Puzzle.update_puzzle(puzzle, %{borders: updated})
+    {:noreply, assign(socket, %{puzzle: puzzle})}
   end
 
-  def handle_event("edit_cell", %{"cell" => cell_id}, %{assigns: _assigns} = socket) do
+  def handle_event("edit_cell", %{"cell" => cell_id}, socket) do
     IO.inspect(cell_id, label: "edit_cell")
 
     {:noreply, socket}
+  end
+
+  def handle_event("save_name", %{"value" => new_name} = _params, %{assigns: %{puzzle: puzzle}} = socket) do
+    puzzle = Puzzle.update_puzzle(puzzle, %{name: new_name})
+    {:noreply, assign(socket, %{puzzle: puzzle})}
   end
 end
