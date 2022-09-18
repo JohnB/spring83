@@ -28,11 +28,21 @@ defmodule Spring83Web.KenkenView do
     """
   end
 
-  def cell(%{row_number: row_number, column: column, puzzle: puzzle} = assigns) do
+  def cell(
+        %{
+          row_number: row_number,
+          column: column,
+          puzzle: %{cell_values: cell_values, selected: selected}
+        } = assigns
+      ) do
     cell_id = "#{row_number}#{column}"
 
     ~H"""
-    <div class="cell" phx-click="edit_cell" phx-value-cell={cell_id}><%= puzzle.cell_values[cell_id] %></div>
+    <%= if selected == cell_id do %>
+      <div class="cell"><%= cell_values[cell_id] || 13 %></div>
+    <% else %>
+      <div class="cell" phx-click="edit_cell" phx-value-cell={cell_id}><%= cell_values[cell_id] %></div>
+    <% end %>
     """
   end
 

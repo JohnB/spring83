@@ -11,13 +11,17 @@ defmodule Spring83.Kenken.Puzzle do
     field :published_at, :naive_datetime
     field :size, :integer
 
+    # Per-user data that is not persisted but handy to work with.
+    field :selected, :string, virtual: true
+    field :guesses, {:map, {:array, :string}}, virtual: true
+
     timestamps()
   end
 
   @doc false
   def changeset(puzzle, attrs) do
     puzzle
-    |> cast(attrs, [:name, :size, :borders, :cell_values, :published_at])
+    |> cast(attrs, [:name, :size, :borders, :cell_values, :published_at, :selected, :guesses])
     |> validate_required([:name, :size, :borders, :cell_values])
   end
 
@@ -29,6 +33,8 @@ defmodule Spring83.Kenken.Puzzle do
       size: 7,
       borders: %{},
       cell_values: %{},
+      guesses: %{},
+      selected: "",
       published_at: nil,
       name: NaiveDateTime.utc_now() |> NaiveDateTime.to_string() |> String.slice(0, 19)
     }

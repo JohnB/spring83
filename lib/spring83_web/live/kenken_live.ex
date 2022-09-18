@@ -97,13 +97,18 @@ defmodule Spring83Web.KenkenLive do
     {:noreply, assign(socket, %{puzzle: puzzle})}
   end
 
-  def handle_event("edit_cell", %{"cell" => cell_id}, socket) do
+  def handle_event("edit_cell", %{"cell" => cell_id}, %{assigns: %{puzzle: puzzle}} = socket) do
     IO.inspect(cell_id, label: "edit_cell")
 
-    {:noreply, socket}
+    puzzle = Puzzle.update_puzzle(puzzle, %{selected: cell_id})
+    {:noreply, assign(socket, %{puzzle: puzzle})}
   end
 
-  def handle_event("save_name", %{"value" => new_name} = _params, %{assigns: %{puzzle: puzzle}} = socket) do
+  def handle_event(
+        "save_name",
+        %{"value" => new_name} = _params,
+        %{assigns: %{puzzle: puzzle}} = socket
+      ) do
     puzzle = Puzzle.update_puzzle(puzzle, %{name: new_name})
     {:noreply, assign(socket, %{puzzle: puzzle})}
   end
