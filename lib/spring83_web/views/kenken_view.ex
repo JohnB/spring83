@@ -37,12 +37,13 @@ defmodule Spring83Web.KenkenView do
       ) do
     cell_id = "#{row_number}#{column}"
 
+    # NOTE: for ease of debugging the cell-input CSS, reverse this "if" statement.
     ~H"""
     <%= if selected == cell_id do %>
       <div class="cell">
-        <input class="cell-input" style="width: 5em;"
+        <input class="cell-input" style="width: 4.5em;"
           id="cell-editor"
-          value={cell_values[cell_id]} type="text" maxlength="8"
+          value={cell_values[cell_id]} type="text" maxlength="7"
           phx-keydown="update_cell"
           phx-blur="cancel_edit_cell"
           phx-hook="AutoFocus"
