@@ -31,10 +31,12 @@ defmodule Spring83Web.KenkenView do
         %{
           row_number: row_number,
           column: column,
-          puzzle: %{cell_values: cell_values, selected: selected}
+          puzzle: %{cell_values: cell_values, selected: selected, published_at: published_at}
         } = assigns
       ) do
     cell_id = "#{row_number}#{column}"
+    # cells are not editable after being published
+    maybe_edit = (published_at && %{}) || %{"phx-click" => "edit_cell"}
 
     # NOTE: for ease of debugging the cell-input CSS, reverse this "if" statement.
     ~H"""
@@ -49,7 +51,7 @@ defmodule Spring83Web.KenkenView do
         />
       </div>
     <% else %>
-      <div class="cell" phx-click="edit_cell" phx-value-cell={cell_id}><%= cell_values[cell_id] %></div>
+      <div class="cell" {maybe_edit} phx-value-cell={cell_id}><%= cell_values[cell_id] %></div>
     <% end %>
     """
   end
