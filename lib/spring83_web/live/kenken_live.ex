@@ -8,7 +8,7 @@ defmodule Spring83Web.KenkenLive do
   end
 
   # Index/create page
-  def render(assigns) do
+  def render(_assigns) do
     Spring83Web.KenkenView.render("index.html", %{
       puzzles: [
         %{name: "test puzzle 1", id: 1},
@@ -17,7 +17,7 @@ defmodule Spring83Web.KenkenLive do
     })
   end
 
-  def handle_params(%{"puzzle_id" => [puzzle_id]} = params, _uri, socket) do
+  def handle_params(%{"puzzle_id" => [puzzle_id]} = _params, _uri, socket) do
     puzzle = Puzzle.get_puzzle(puzzle_id)
 
     {
@@ -29,12 +29,12 @@ defmodule Spring83Web.KenkenLive do
     }
   end
 
-  def handle_params(params, _uri, socket) do
+  def handle_params(_params, _uri, socket) do
     {:noreply, socket}
   end
 
   # Edit page
-  def mount(%{puzzle_id: puzzle_id} = params, _query_params, socket) do
+  def mount(%{puzzle_id: puzzle_id} = _params, _query_params, socket) do
     {:ok,
      assign(socket, %{
        page_title: "Kenken Creator",
@@ -43,7 +43,7 @@ defmodule Spring83Web.KenkenLive do
   end
 
   # Index/create page
-  def mount(params, query_params, socket) do
+  def mount(_params, _query_params, socket) do
     {:ok, assign(socket, %{page_title: "Kenken Creator"})}
   end
 
@@ -98,10 +98,7 @@ defmodule Spring83Web.KenkenLive do
   end
 
   def handle_event("edit_cell", %{"cell" => cell_id}, %{assigns: %{puzzle: puzzle}} = socket) do
-    IO.inspect(cell_id, label: "edit_cell")
-
-    puzzle = Puzzle.update_puzzle(puzzle, %{selected: cell_id})
-    {:noreply, assign(socket, %{puzzle: puzzle})}
+    set_selection(puzzle, cell_id, socket)
   end
 
   def handle_event(
@@ -110,6 +107,53 @@ defmodule Spring83Web.KenkenLive do
         %{assigns: %{puzzle: puzzle}} = socket
       ) do
     puzzle = Puzzle.update_puzzle(puzzle, %{name: new_name})
+    {:noreply, assign(socket, %{puzzle: puzzle})}
+  end
+
+  # Enter saves the new cell value
+  def handle_event(
+        "update_cell",
+        %{"key" => "Enter", "value" => new_value},
+        %{assigns: %{puzzle: %{cell_values: cell_values, selected: selected} = puzzle}} = socket
+      ) do
+    cell_values = put_in(cell_values, [selected], new_value)
+    puzzle = Puzzle.update_puzzle(puzzle, %{cell_values: cell_values})
+    clear_selection(puzzle, socket)
+  end
+
+  # Escape cancels the edit operation
+  def handle_event(
+        "update_cell",
+        %{"key" => "Escape"},
+        %{assigns: %{puzzle: puzzle}} = socket
+      ) do
+    clear_selection(puzzle, socket)
+  end
+
+  # Ignore most key presses
+  def handle_event(
+        "update_cell",
+        _params,
+        socket
+      ) do
+    {:noreply, socket}
+  end
+
+  def handle_event(
+        "cancel_edit_cell",
+        _params,
+        %{assigns: %{puzzle: puzzle}} = socket
+      ) do
+    clear_selection(puzzle, socket)
+  end
+
+  def set_selection(puzzle, cell_id, socket) do
+    puzzle = Puzzle.update_puzzle(puzzle, %{selected: cell_id})
+    {:noreply, assign(socket, %{puzzle: puzzle})}
+  end
+
+  def clear_selection(puzzle, socket) do
+    puzzle = Puzzle.update_puzzle(puzzle, %{selected: ""})
     {:noreply, assign(socket, %{puzzle: puzzle})}
   end
 end
