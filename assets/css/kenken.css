@@ -1,6 +1,7 @@
 
 body {
-    background-color: #eee;
+    /*This is what allows border colors (the background-color) to print as black.*/
+    -webkit-print-color-adjust: exact !important;
 }
 .kenken {
     position: relative;
