@@ -28,7 +28,7 @@ defmodule Spring83.Kenken.Puzzle do
   def get_puzzle(id), do: Repo.get!(__MODULE__, id)
   def recent_puzzles() do
     Repo.all(from p in __MODULE__,
-             where: is_nil(p.published_at),
+             where: not is_nil(p.published_at),
              order_by: [desc: :published_at],
              select: [:id, :name]
     )
