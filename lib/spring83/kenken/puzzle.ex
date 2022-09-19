@@ -1,6 +1,6 @@
 defmodule Spring83.Kenken.Puzzle do
   use Ecto.Schema
-  alias Ecto.Query
+  import Ecto.Query
   import Ecto.Changeset
   alias Spring83.Repo
 
@@ -26,7 +26,13 @@ defmodule Spring83.Kenken.Puzzle do
   end
 
   def get_puzzle(id), do: Repo.get!(__MODULE__, id)
-  #  def recent_puzzles(), do: Repo.get!(__MODULE__, id)
+  def recent_puzzles() do
+    Repo.all(from p in __MODULE__,
+             where: is_nil(p.published_at),
+             order_by: [desc: :published_at],
+             select: [:id, :name]
+    )
+  end
 
   def create_puzzle(attrs \\ %{}) do
     defaults = %{

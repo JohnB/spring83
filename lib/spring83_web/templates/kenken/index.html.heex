@@ -14,7 +14,7 @@
 </div>
 
 <ul>
-  <%= for puzzle <- @puzzles do %>
+  <%= for puzzle <- Spring83.Kenken.Puzzle.recent_puzzles() do %>
     <li>
       <a href={"/kenken/#{puzzle.id}"}>
         <%= puzzle.name %>
