@@ -1,13 +1,9 @@
 <a href="/kenken"><h1>Kenken</h1></a>
 
 <div>
-  <%= if @puzzle.published_at == nil do %>
-    <input class="name-input" style="width: 20em;" value={@puzzle.name} type="text" maxlength="25" phx-blur="save_name"/>
-    <button phx-click="publish">Publish</button>
-    <br>
-    Multiplication is just an "<b>x</b>" and division (the "<b>÷</b>" character) is <i>option-/</i>.
-  <% else %>
-  Puzzle: <b><%= @puzzle.name %></b>
-  <% end %>
+  <input class="name-input" style="width: 20em;" value={@puzzle.name} type="text" maxlength="25" phx-blur="save_name"/>
+  <button phx-click="publish">Publish</button>
+  <br>
+  Multiplication is just an "<b>x</b>" and division (the "<b>÷</b>" character) is <i>option-/</i>.
 </div>
 <.kenken_board puzzle={@puzzle} />

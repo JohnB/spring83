@@ -1,10 +1,18 @@
 defmodule Spring83Web.KenkenLive do
   use Phoenix.LiveView
   alias Spring83.Kenken.Puzzle
+  require Logger
 
-  # Edit page
-  def render(%{puzzle: _puzzle} = assigns) do
+  # NOTE: these 3 render() functions all use the same route.
+
+  # Edit page for unpublished puzzles
+  def render(%{puzzle: %{published_at: nil} = _puzzle} = assigns) do
     Spring83Web.KenkenView.render("kenken.html", assigns)
+  end
+
+  # Solving page (when I get to it)
+  def render(%{puzzle: _puzzle} = assigns) do
+    Spring83Web.KenkenView.render("published.html", assigns)
   end
 
   # Index/create page
@@ -75,6 +83,20 @@ defmodule Spring83Web.KenkenLive do
         borders: puzzle.borders
       })
 
+    {
+      :noreply,
+      assign(socket, %{puzzle: puzzle})
+      |> push_patch(to: "/kenken/#{puzzle.id}", replace: true)
+    }
+  end
+
+  def handle_event(
+        "unpublish",
+        %{"puzzle-id" => puzzle_id},
+        %{assigns: %{puzzle: %{published_at: published_at} = puzzle}} = socket
+      ) do
+    Logger.info("unpublish puzzle #{puzzle_id}, previously published at #{published_at}")
+    puzzle = Puzzle.update_puzzle(puzzle, %{published_at: nil})
     {
       :noreply,
       assign(socket, %{puzzle: puzzle})

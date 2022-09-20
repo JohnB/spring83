@@ -88,3 +88,8 @@ body {
     height: 22px;
     line-height: 20px;
 }
+
+/* Hide special controls with white-on-white */
+.obfuscated {
+    color: white;
+}
