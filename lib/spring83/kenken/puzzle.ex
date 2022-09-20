@@ -10,6 +10,7 @@ defmodule Spring83.Kenken.Puzzle do
     field :name, :string
     field :published_at, :naive_datetime
     field :size, :integer
+    field :answers, {:map, :string}
 
     # Per-user data that is not persisted but handy to work with.
     field :selected, :string, virtual: true
@@ -21,7 +22,7 @@ defmodule Spring83.Kenken.Puzzle do
   @doc false
   def changeset(puzzle, attrs) do
     puzzle
-    |> cast(attrs, [:name, :size, :borders, :cell_values, :published_at, :selected, :guesses])
+    |> cast(attrs, [:name, :size, :borders, :cell_values, :published_at, :selected, :guesses, :answers])
     |> validate_required([:name, :size, :borders, :cell_values])
   end
 
@@ -39,6 +40,7 @@ defmodule Spring83.Kenken.Puzzle do
       size: 7,
       borders: %{},
       cell_values: %{},
+      answers: %{},
       guesses: %{},
       selected: "",
       published_at: nil,
