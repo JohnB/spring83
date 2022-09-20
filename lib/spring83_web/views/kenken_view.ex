@@ -94,7 +94,7 @@ defmodule Spring83Web.KenkenView do
 
   def intersection(assigns) do
     ~H"""
-    <div class="intersection" {assigns}></div>
+    <div class="intersection" ></div>
     """
   end
 
