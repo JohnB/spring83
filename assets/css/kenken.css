@@ -85,11 +85,11 @@ body {
     margin: 0 0 0 2px;
     border: 1px solid black !important;
 }
-.cell-save {
-    margin-left: 1rem;
-    padding: 0 3px 0 3px !important;
-    height: 22px;
-    line-height: 20px;
+.cell-answer {
+    padding: 0 !important;
+    height: 2rem !important;
+    margin: 0 0 0 2px;
+    border: 1px solid black !important;
 }
 
 /* Hide special controls with white-on-white */

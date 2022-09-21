@@ -33,7 +33,12 @@ defmodule Spring83Web.KenkenView do
         %{
           row_number: row_number,
           column: column,
-          puzzle: %{cell_values: cell_values, selected: selected, published_at: published_at}
+          puzzle: %{
+            cell_values: cell_values,
+            selected: selected,
+            published_at: published_at,
+            answers: answers
+          }
         } = assigns
       ) do
     cell_id = "#{row_number}#{column}"
@@ -46,10 +51,18 @@ defmodule Spring83Web.KenkenView do
       <div class="cell">
         <input class="cell-input" style="width: 4.5em;"
           id="cell-editor"
+          placeholder="Operation"
           value={cell_values[cell_id]} type="text" maxlength="7"
           phx-keydown="update_cell"
           phx-blur="cancel_edit_cell"
           phx-hook="AutoFocus"
+        />
+        <input class="cell-answer" style="width: 4em;"
+          id="answer-editor"
+          placeholder="Answer"
+          value={answers[cell_id]} type="text" maxlength="1"
+          phx-keydown="update_cell_answer"
+          phx-blur="cancel_edit_cell"
         />
       </div>
     <% else %>
