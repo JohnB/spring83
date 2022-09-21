@@ -48,6 +48,7 @@ defmodule Spring83Web.KenkenView do
     # These may be off-board, which is fine - their lookup will be nil
     border_above_id = border_id("h", row_number - 1, column)
     border_left_id = border_id("v", row_number, column - 1)
+
     disabled =
       (Enum.any?([border_above_id, border_left_id], fn border_id ->
          (borders[border_id] || "") =~ ~r/off/
