@@ -22,16 +22,27 @@ defmodule Spring83.Kenken.Puzzle do
   @doc false
   def changeset(puzzle, attrs) do
     puzzle
-    |> cast(attrs, [:name, :size, :borders, :cell_values, :published_at, :selected, :guesses, :answers])
+    |> cast(attrs, [
+      :name,
+      :size,
+      :borders,
+      :cell_values,
+      :published_at,
+      :selected,
+      :guesses,
+      :answers
+    ])
     |> validate_required([:name, :size, :borders, :cell_values])
   end
 
   def get_puzzle(id), do: Repo.get!(__MODULE__, id)
+
   def recent_puzzles() do
-    Repo.all(from p in __MODULE__,
-             where: not is_nil(p.published_at),
-             order_by: [desc: :published_at],
-             select: [:id, :name]
+    Repo.all(
+      from p in __MODULE__,
+        where: not is_nil(p.published_at),
+        order_by: [desc: :published_at],
+        select: [:id, :name]
     )
   end
 

@@ -97,6 +97,7 @@ defmodule Spring83Web.KenkenLive do
       ) do
     Logger.info("unpublish puzzle #{puzzle_id}, previously published at #{published_at}")
     puzzle = Puzzle.update_puzzle(puzzle, %{published_at: nil})
+
     {
       :noreply,
       assign(socket, %{puzzle: puzzle})

@@ -12,16 +12,18 @@ defmodule Spring83Web.KenkenView do
     """
   end
 
+  # Assume the border above this row has already been drawn, so just draw cells
+  # intersperced with vertical borders, then add the horizontal borders on the bottom edge.
   def row(%{row_number: row_number, puzzle: %{size: board_size} = puzzle} = assigns) do
     ~H"""
-      <.vertical_border_segment />
+      <.border_segment direction="v" />
       <%= for column <- 1..board_size do %>
         <.cell row_number={row_number} column={column} puzzle={puzzle} />
-        <.vertical_border_segment row_number={row_number} column={column} puzzle={puzzle} />
+        <.border_segment direction="v" allow_edits={column < board_size} row_number={row_number} column={column} puzzle={puzzle} />
       <% end %>
       <.intersection />
       <%= for column <- 1..board_size do %>
-        <.horizontal_border_segment row_number={row_number} column={column} puzzle={puzzle} />
+        <.border_segment direction="h" allow_edits={row_number < board_size} row_number={row_number} column={column} puzzle={puzzle} />
         <.intersection />
     <% end %>
     """
@@ -60,35 +62,9 @@ defmodule Spring83Web.KenkenView do
     ~H"""
     <.intersection />
     <%= for _column <- 1..board_size do %>
-      <.horizontal_border_segment />
+      <.border_segment direction="h" />
       <.intersection />
     <% end %>
-    """
-  end
-
-  def horizontal_border_segment(
-        %{
-          row_number: row_number,
-          column: column,
-          puzzle: %{size: board_size, borders: borders, published_at: published_at} = _puzzle
-        } = assigns
-      )
-      when row_number < board_size do
-    border_id = Enum.join([row_number, column, "-", row_number + 1, column])
-    maybe_editable = (published_at && %{}) || %{"phx-click" => "toggle_border"}
-    maybe_clickable = (published_at && "") || "clickable"
-
-    ~H"""
-    <div class={"h-border #{maybe_clickable} #{borders[border_id]}"}
-      {maybe_editable} phx-value-border={border_id}
-    >
-    </div>
-    """
-  end
-
-  def horizontal_border_segment(assigns) do
-    ~H"""
-    <div class="h-border" ></div>
     """
   end
 
@@ -98,29 +74,37 @@ defmodule Spring83Web.KenkenView do
     """
   end
 
-  def vertical_border_segment(
+  def border_segment(
         %{
+          direction: direction,
+          allow_edits: allow_edits,
           row_number: row_number,
           column: column,
           puzzle: %{size: board_size, borders: borders, published_at: published_at}
         } = assigns
-      )
-      when column < board_size do
+      ) do
     border_id = Enum.join([row_number, column, "-", row_number, column + 1])
-    maybe_editable = (published_at && %{}) || %{"phx-click" => "toggle_border"}
-    maybe_clickable = (published_at && "") || "clickable"
+    # Caller has their own reasons to think editing should be allowed,
+    # but we also require them to be un-published.
+    allow_edits = allow_edits && published_at == nil
 
     ~H"""
-    <div class={"v-border #{maybe_clickable} #{borders[border_id]}"}
-      {maybe_editable} phx-value-border={border_id}
+    <div class={"#{direction}-border #{maybe_clickable(allow_edits)} #{borders[border_id]}"}
+      {maybe_editable(allow_edits)} phx-value-border={border_id}
     >
     </div>
     """
   end
 
-  def vertical_border_segment(assigns) do
+  def border_segment(%{direction: direction} = assigns) do
     ~H"""
-    <div class="v-border" ></div>
+    <div class={"#{direction}-border"} ></div>
     """
   end
+
+  def maybe_clickable(true), do: "clickable"
+  def maybe_clickable(_), do: ""
+
+  def maybe_editable(true), do: %{"phx-click" => "toggle_border"}
+  def maybe_editable(_), do: %{}
 end
