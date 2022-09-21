@@ -70,8 +70,15 @@ body {
 .kenken .cell {
     width: 70px;
     height: 70px;
-    font-weight: 700;
     padding-left: 4px;
+}
+.kenken .cell .result {
+    font-weight: 700;
+    min-height: 1.5em;
+}
+.kenken .cell .answer {
+    font-style: italic;
+    text-align: center;
 }
 
 /*Need !important to over-ride defaults */
@@ -84,6 +91,9 @@ body {
     height: 2rem !important;
     margin: 0 0 0 2px;
     border: 1px solid black !important;
+}
+.cell-input:disabled {
+    opacity: 30%;
 }
 .cell-answer {
     padding: 0 !important;

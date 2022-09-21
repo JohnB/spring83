@@ -3,7 +3,13 @@
 <div>
   <input class="name-input" style="width: 20em;" value={@puzzle.name} type="text" maxlength="25" phx-blur="save_name"/>
   <button phx-click="publish">Publish</button>
-  <br>
-  Multiplication is just an "<b>x</b>" and division (the "<b>÷</b>" character) is <i>option-/</i>.
+  <h3>Building a Kenken</h3>
+  <ol>
+    <li>Pick answers that don't duplicate across columns or row</li>
+    <li>Toggle borders to make larger regions</li>
+    <li>For each region, pick an operation and result (e.g. "3+" for "Sums to 3")</li>
+    <li>Ensure there is only one solution</li>
+    <li>Publish it for people to solve</li>
+  </ol>
 </div>
 <.kenken_board puzzle={@puzzle} />

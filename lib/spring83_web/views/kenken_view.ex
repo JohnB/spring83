@@ -37,11 +37,23 @@ defmodule Spring83Web.KenkenView do
             cell_values: cell_values,
             selected: selected,
             published_at: published_at,
+            borders: borders,
             answers: answers
           }
         } = assigns
       ) do
     cell_id = "#{row_number}#{column}"
+
+    # Disable the Result input if the border above or left is off.
+    # These may be off-board, which is fine - their lookup will be nil
+    border_above_id = border_id("h", row_number - 1, column)
+    border_left_id = border_id("v", row_number, column - 1)
+    disabled =
+      (Enum.any?([border_above_id, border_left_id], fn border_id ->
+         (borders[border_id] || "") =~ ~r/off/
+       end) && %{"disabled" => "disabled"}) ||
+        %{}
+
     # cells are not editable after being published
     maybe_edit = (published_at && %{}) || %{"phx-click" => "edit_cell"}
 
@@ -51,22 +63,28 @@ defmodule Spring83Web.KenkenView do
       <div class="cell">
         <input class="cell-input" style="width: 4.5em;"
           id="cell-editor"
-          placeholder="Operation"
+          placeholder="Result"
           value={cell_values[cell_id]} type="text" maxlength="7"
-          phx-keydown="update_cell"
-          phx-blur="cancel_edit_cell"
-          phx-hook="AutoFocus"
+          phx-keydown="update_cell_result"
+          {disabled}
         />
-        <input class="cell-answer" style="width: 4em;"
+        <input class="cell-answer" style="width: 4em;" type="number"
           id="answer-editor"
           placeholder="Answer"
           value={answers[cell_id]} type="text" maxlength="1"
           phx-keydown="update_cell_answer"
-          phx-blur="cancel_edit_cell"
+          phx-hook="AutoFocus"
         />
       </div>
     <% else %>
-      <div class="cell" {maybe_edit} phx-value-cell={cell_id}><%= cell_values[cell_id] %></div>
+      <div class="cell" {maybe_edit} phx-value-cell={cell_id}>
+        <div class="result">
+          <%= cell_values[cell_id] %>
+        </div>
+        <div class="answer">
+          <%= answers[cell_id] %>
+        </div>
+      </div>
     <% end %>
     """
   end
@@ -118,7 +136,7 @@ defmodule Spring83Web.KenkenView do
           allow_edits: allow_edits,
           row_number: row_number,
           column: column,
-          puzzle: %{size: board_size, borders: borders, published_at: published_at}
+          puzzle: %{borders: borders, published_at: published_at}
         } = assigns
       ) do
     border_id = border_id(direction, row_number, column)
@@ -140,7 +158,7 @@ defmodule Spring83Web.KenkenView do
     """
   end
 
-  def border_id("v" = direction, row_number, column),
+  def border_id("v" = _direction, row_number, column),
     do: Enum.join([row_number, column, "-", row_number, column + 1])
 
   def border_id(_direction, row_number, column),

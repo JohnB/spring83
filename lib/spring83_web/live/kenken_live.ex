@@ -133,20 +133,40 @@ defmodule Spring83Web.KenkenLive do
     {:noreply, assign(socket, %{puzzle: puzzle})}
   end
 
-  # Enter saves the new cell value
+  # Enter saves the new cell value (aka Result)
   def handle_event(
-        "update_cell",
+        "update_cell_" <> cell_type,
         %{"key" => "Enter", "value" => new_value},
         %{assigns: %{puzzle: %{cell_values: cell_values, selected: selected} = puzzle}} = socket
       ) do
+    puzzle = update_cell_attribute(cell_type, new_value, puzzle)
+    clear_selection(puzzle, socket)
+  end
+
+  def update_cell_attribute(
+        _cell_type = "result",
+        new_value,
+        %{cell_values: cell_values, selected: selected} = puzzle
+      ) do
     cell_values = put_in(cell_values, [selected], new_value)
     puzzle = Puzzle.update_puzzle(puzzle, %{cell_values: cell_values})
-    clear_selection(puzzle, socket)
+  end
+
+  def update_cell_attribute(
+        _cell_type,
+        new_value,
+        %{answers: answers, selected: selected} = puzzle
+      ) do
+    # Force a map - older puzzles never set it
+    answers = answers || %{}
+
+    answers = put_in(answers, [selected], new_value)
+    puzzle = Puzzle.update_puzzle(puzzle, %{answers: answers})
   end
 
   # Escape cancels the edit operation
   def handle_event(
-        "update_cell",
+        "update_cell_" <> _cell_type,
         %{"key" => "Escape"},
         %{assigns: %{puzzle: puzzle}} = socket
       ) do
@@ -155,7 +175,7 @@ defmodule Spring83Web.KenkenLive do
 
   # Ignore most key presses
   def handle_event(
-        "update_cell",
+        "update_cell_" <> _cell_type,
         _params,
         socket
       ) do
