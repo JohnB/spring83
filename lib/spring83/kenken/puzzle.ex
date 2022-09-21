@@ -46,6 +46,15 @@ defmodule Spring83.Kenken.Puzzle do
     )
   end
 
+  def unpublished_puzzles() do
+    Repo.all(
+      from p in __MODULE__,
+        where: is_nil(p.published_at),
+        order_by: [desc: :id],
+        select: [:id, :name]
+    )
+  end
+
   def create_puzzle(attrs \\ %{}) do
     defaults = %{
       size: 7,

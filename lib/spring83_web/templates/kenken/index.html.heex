@@ -13,6 +13,7 @@
   <button phx-click="create_puzzle" phx-value-size="4">New 4x4</button>
 </div>
 
+<h2>Published Puzzles</h2>
 <ul>
   <%= for puzzle <- Spring83.Kenken.Puzzle.recent_puzzles() do %>
     <li>
@@ -20,5 +21,16 @@
         <%= puzzle.name %>
       </a>
     </li>
+  <% end %>
+</ul>
+<hr />
+<h3>Unpublished</h3>
+<ul>
+  <%= for puzzle <- Spring83.Kenken.Puzzle.unpublished_puzzles() do %>
+  <li>
+    <a href={"/kenken/#{puzzle.id}"}>
+      <%= puzzle.name %>
+    </a>
+  </li>
   <% end %>
 </ul>

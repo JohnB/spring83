@@ -83,7 +83,7 @@ defmodule Spring83Web.KenkenView do
           puzzle: %{size: board_size, borders: borders, published_at: published_at}
         } = assigns
       ) do
-    border_id = Enum.join([row_number, column, "-", row_number, column + 1])
+    border_id = border_id(direction, row_number, column)
     # Caller has their own reasons to think editing should be allowed,
     # but we also require them to be un-published.
     allow_edits = allow_edits && published_at == nil
@@ -101,6 +101,12 @@ defmodule Spring83Web.KenkenView do
     <div class={"#{direction}-border"} ></div>
     """
   end
+
+  def border_id("v" = direction, row_number, column),
+    do: Enum.join([row_number, column, "-", row_number, column + 1])
+
+  def border_id(_direction, row_number, column),
+    do: Enum.join([row_number, column, "-", row_number + 1, column])
 
   def maybe_clickable(true), do: "clickable"
   def maybe_clickable(_), do: ""
