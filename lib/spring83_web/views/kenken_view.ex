@@ -24,7 +24,7 @@ defmodule Spring83Web.KenkenView do
       <.intersection />
       <%= for column <- 1..board_size do %>
         <.border_segment direction="h" allow_edits={row_number < board_size} row_number={row_number} column={column} puzzle={puzzle} />
-        <.intersection />
+        <.intersection row_number={row_number} column={column} puzzle={puzzle} />
     <% end %>
     """
   end
@@ -65,6 +65,31 @@ defmodule Spring83Web.KenkenView do
       <.border_segment direction="h" />
       <.intersection />
     <% end %>
+    """
+  end
+
+  # Blank out the intersection when it doesn't connect to anything
+  def intersection(
+        %{
+          row_number: row_number,
+          column: column,
+          puzzle: %{borders: borders}
+        } = assigns
+      ) do
+    border_ids = [
+      border_id("v", row_number, column),
+      border_id("h", row_number, column),
+      border_id("v", row_number + 1, column),
+      border_id("h", row_number, column + 1)
+    ]
+
+    off =
+      (Enum.all?(border_ids, fn border_id ->
+         (borders[border_id] || "") =~ ~r/off/
+       end) && "off") || ""
+
+    ~H"""
+    <div class={"intersection #{off}"} ></div>
     """
   end
 

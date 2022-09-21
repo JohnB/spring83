@@ -64,6 +64,9 @@ body {
     border: 1px solid #111;
     background-color: #111;
 }
+.kenken .intersection.off {
+    background-color: #fff;
+}
 .kenken .cell {
     width: 70px;
     height: 70px;
