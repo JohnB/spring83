@@ -80,6 +80,11 @@ body {
     font-style: italic;
     text-align: center;
 }
+.kenken .cell .guesses span {
+    border: 1px solid blue;
+    padding: 0 1px;
+    font-size: small;
+}
 
 /*Need !important to over-ride defaults */
 .name-input {

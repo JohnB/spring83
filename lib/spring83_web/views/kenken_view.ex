@@ -39,7 +39,7 @@ defmodule Spring83Web.KenkenView do
             published_at: published_at,
             borders: borders,
             answers: answers
-          }
+          } = puzzle
         } = assigns
       ) do
     cell_id = "#{row_number}#{column}"
@@ -82,11 +82,26 @@ defmodule Spring83Web.KenkenView do
         <div class="result">
           <%= cell_values[cell_id] %>
         </div>
-        <div class="answer">
-          <%= answers[cell_id] %>
-        </div>
+          <%= if published_at do %>
+            <div class="guesses">
+              <.answer_options puzzle={puzzle} cell_id={cell_id} />
+            </div>
+          <%= else %>
+            <div class="answer">
+              <%= answers[cell_id] %>
+            </div>
+          <%= end %>
       </div>
     <% end %>
+    """
+  end
+
+  def answer_options(%{puzzle: %{guesses: guesses, size: board_size}, cell_id: cell_id} = assigns) do
+    guesses = guesses || %{}
+    ~H"""
+      <%= for guess <- 1..board_size do %>
+        <span><%= guess %></span>
+      <% end %>
     """
   end
 
