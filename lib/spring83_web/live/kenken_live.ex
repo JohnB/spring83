@@ -169,6 +169,32 @@ defmodule Spring83Web.KenkenLive do
     clear_selection(puzzle, socket)
   end
 
+  def handle_event(
+        "toggle_guess_" <> cell_id_and_guess,
+        _params,
+        %{assigns: %{puzzle: %{guesses: guesses} = puzzle}} = socket
+      ) do
+    [cell_id, guess] = String.split(cell_id_and_guess, "_")
+
+    # Older puzzles may not have guesses set.
+    guesses = guesses || %{}
+
+    new_value = toggle_guess(guesses[cell_id], guess)
+    guesses = put_in(guesses, [cell_id], new_value)
+    puzzle = Puzzle.update_puzzle(puzzle, %{guesses: guesses})
+    {:noreply, assign(socket, %{puzzle: puzzle})}
+  end
+
+  def toggle_guess(nil = guesses, guess), do: [guess]
+  def toggle_guess("" = guesses, guess), do: [guess]
+
+  def toggle_guess(guesses, guess) do
+    case Enum.member?(guesses, guess) do
+      true -> List.delete(guesses, guess)
+      _ -> [guess] ++ guesses
+    end
+  end
+
   def update_cell_attribute(
         _cell_type = "result",
         new_value,

@@ -33,13 +33,14 @@ defmodule Spring83Web.KenkenView do
         %{
           row_number: row_number,
           column: column,
-          puzzle: %{
-            cell_values: cell_values,
-            selected: selected,
-            published_at: published_at,
-            borders: borders,
-            answers: answers
-          } = puzzle
+          puzzle:
+            %{
+              cell_values: cell_values,
+              selected: selected,
+              published_at: published_at,
+              borders: borders,
+              answers: answers
+            } = puzzle
         } = assigns
       ) do
     cell_id = "#{row_number}#{column}"
@@ -86,11 +87,11 @@ defmodule Spring83Web.KenkenView do
             <div class="guesses">
               <.answer_options puzzle={puzzle} cell_id={cell_id} />
             </div>
-          <%= else %>
+          <% else %>
             <div class="answer">
               <%= answers[cell_id] %>
             </div>
-          <%= end %>
+          <% end %>
       </div>
     <% end %>
     """
@@ -98,11 +99,21 @@ defmodule Spring83Web.KenkenView do
 
   def answer_options(%{puzzle: %{guesses: guesses, size: board_size}, cell_id: cell_id} = assigns) do
     guesses = guesses || %{}
+
     ~H"""
       <%= for guess <- 1..board_size do %>
-        <span><%= guess %></span>
+        <span class={answer_class(guesses[cell_id], guess)}
+              phx-click={"toggle_guess_#{cell_id}_#{guess}"}
+        ><%= guess %></span>
       <% end %>
     """
+  end
+
+  def answer_class(guess_list, guess) do
+    # Older puzzles may not have guesses set.
+    guess_list = guess_list || []
+
+    (Enum.member?(guess_list, "#{guess}") && "possible") || "bad"
   end
 
   def full_horizontal_border(%{puzzle: %{size: board_size}} = assigns) do

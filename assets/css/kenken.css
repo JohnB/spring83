@@ -71,6 +71,7 @@ body {
     width: 70px;
     height: 70px;
     padding-left: 4px;
+    cursor: pointer;
 }
 .kenken .cell .result {
     font-weight: 700;
@@ -105,6 +106,13 @@ body {
     height: 2rem !important;
     margin: 0 0 0 2px;
     border: 1px solid black !important;
+}
+.guesses {
+    /*TODO: somehow narrow the space between rows*/
+    margin-top: -3px;
+}
+.guesses .possible {
+    background-color: orange;
 }
 
 /* Hide special controls with white-on-white */
