@@ -18,7 +18,7 @@
   <%= for puzzle <- Spring83.Kenken.Puzzle.recent_puzzles() do %>
     <li>
       <a href={"/kenken/#{puzzle.id}"}>
-        <%= puzzle.name %>
+        <%= puzzle.size %>x<%= puzzle.size %>: <%= puzzle.name %>
       </a>
     </li>
   <% end %>
@@ -29,7 +29,7 @@
   <%= for puzzle <- Spring83.Kenken.Puzzle.unpublished_puzzles() do %>
   <li>
     <a href={"/kenken/#{puzzle.id}"}>
-      <%= puzzle.name %>
+      <%= puzzle.size %>x<%= puzzle.size %>: <%= puzzle.name %>
     </a>
   </li>
   <% end %>

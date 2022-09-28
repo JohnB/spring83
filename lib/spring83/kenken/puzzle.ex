@@ -42,7 +42,7 @@ defmodule Spring83.Kenken.Puzzle do
       from p in __MODULE__,
         where: not is_nil(p.published_at),
         order_by: [desc: :published_at],
-        select: [:id, :name]
+        select: [:id, :name, :size]
     )
   end
 
@@ -51,7 +51,7 @@ defmodule Spring83.Kenken.Puzzle do
       from p in __MODULE__,
         where: is_nil(p.published_at),
         order_by: [desc: :id],
-        select: [:id, :name]
+        select: [:id, :name, :size]
     )
   end
 
