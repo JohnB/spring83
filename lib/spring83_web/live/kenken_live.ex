@@ -18,10 +18,8 @@ defmodule Spring83Web.KenkenLive do
   # Index/create page
   def render(_assigns) do
     Spring83Web.KenkenView.render("index.html", %{
-      puzzles: [
-        %{name: "test puzzle 1", id: 1},
-        %{name: "test puzzle 2", id: 2}
-      ]
+      recent: Puzzle.recent_puzzles(),
+      unpublished: Puzzle.unpublished_puzzles()
     })
   end
 
