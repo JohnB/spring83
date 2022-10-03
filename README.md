@@ -14,16 +14,26 @@ because it scrapes the slow pizza page during the request cycle).
   for a faster [/pizza](https://spring-83.fly.dev/pizza) page load.
 - [ ] Update previous repo(s) to point here.
 
+## Kenken
+Now at [/kenken](https://spring-83.fly.dev/kenken).
+
+### Roadmap
+- [ ] Verify at setup that all answers are filled and don't conflict.
+- [ ] Track groupings within the puzzle.
+- [ ] Make sure each grouping's result is valid (how?)
+- [ ] When a cell has only 1 guess, gray out that guess elsewhere (10% opacity).
+- [ ] When a cell has 2+ selected, slightly gray them elsewhere (40% opacity).
+
 ## Collaborative Canvas
 Now at [/collaborative_canvas](https://spring-83.fly.dev/collaborative_canvas).
 
 ### Roadmap
-- [ ] Periodically persist the canvas to the DB,
+- [x] Periodically persist the canvas to the DB,
   possibly every 100 clicks or maybe after 2 minutes of inactivity.
-- [ ] Show the persisted canvases as an animation.
-- [ ] After a restart, start from the latest DB canvas instead of _@default_canvas_.
-- [ ] Update previous repo(s) to point here.
-- [ ] Highlight just-placed pieces
+- [x] Show the persisted canvases as an animation.
+- [x] After a restart, start from the latest DB canvas instead of _@default_canvas_.
+- [x] Update [previous repo](https://github.com/JohnB/phoenix_live_view_example) to point here.
+- [x] Highlight just-placed pieces
 
 ## Pentomino Game
 Not yet moved over here from [phoenix_live_view_example](https://github.com/johnb/phoenix_live_view_example)

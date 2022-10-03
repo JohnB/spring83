@@ -27,6 +27,9 @@ defmodule Spring83Web.Router do
 
     # Cheese board routes (twitter: @Todays_pizza)
     get "/pizza", PizzaController, :index
+
+    # Kenken routes
+    live "/kenken/*puzzle_id", KenkenLive
   end
 
   # Other scopes may use custom stacks.

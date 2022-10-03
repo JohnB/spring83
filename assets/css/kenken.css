@@ -1,0 +1,121 @@
+
+body {
+    /*This is what allows border colors (the background-color) to print as black.*/
+    -webkit-print-color-adjust: exact !important;
+}
+.kenken {
+    position: relative;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    /*margin: auto;*/
+
+    display: flex;
+    flex-wrap: wrap;
+    border: 1px solid #111;
+    height: 100vw;
+}
+.kenken.size4 {
+    max-width: 317px;
+    max-height: 317px;
+}
+.kenken.size5 {
+    max-width: 394px;
+    max-height: 394px;
+}
+.kenken.size6 {
+    max-width: 471px;
+    max-height: 471px;
+}
+.kenken.size7 {
+    max-width: 548px;
+    max-height: 548px;
+}
+.kenken .h-border {
+    height: 7px;
+    width: 70px;
+    border: 1px solid #111;
+    background-color: #111;
+}
+.kenken .h-border.off {
+    background-color: #fff;
+    border-color: #ccc;
+}
+.kenken .v-border {
+    width: 7px;
+    height: 70px;
+    border: 1px solid #111;
+    background-color: #111;
+}
+.kenken .v-border.off {
+    background-color: #fff;
+    border-color: #ccc;
+}
+.kenken .v-border.clickable:hover {
+    background-color: #888;
+}
+.kenken .h-border.clickable:hover {
+    background-color: #888;
+}
+.kenken .intersection {
+    width: 7px;
+    height: 7px;
+    border: 1px solid #111;
+    background-color: #111;
+}
+.kenken .intersection.off {
+    background-color: #fff;
+}
+.kenken .cell {
+    width: 70px;
+    height: 70px;
+    padding-left: 4px;
+    cursor: pointer;
+}
+.kenken .cell .result {
+    font-weight: 700;
+    min-height: 1.5em;
+}
+.kenken .cell .answer {
+    font-style: italic;
+    text-align: center;
+}
+.kenken .cell .guesses span {
+    border: 1px solid blue;
+    padding: 0 1px;
+    font-size: small;
+}
+
+/*Need !important to over-ride defaults */
+.name-input {
+    width: 40%;
+    padding: 0 !important;
+}
+.cell-input {
+    padding: 0 !important;
+    height: 2rem !important;
+    margin: 0 0 0 2px;
+    border: 1px solid black !important;
+}
+.cell-input:disabled {
+    opacity: 30%;
+}
+.cell-answer {
+    padding: 0 !important;
+    height: 2rem !important;
+    margin: 0 0 0 2px;
+    border: 1px solid black !important;
+}
+.guesses {
+    /*TODO: somehow narrow the space between rows*/
+    margin-top: -3px;
+}
+.guesses .possible {
+    background-color: orange;
+}
+
+/* Hide special controls with white-on-white */
+.obfuscated {
+    color: white;
+}
