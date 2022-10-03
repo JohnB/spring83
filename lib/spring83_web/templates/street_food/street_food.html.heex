@@ -1,0 +1,7 @@
+<h1>Approved Street Food Vendors</h1>
+
+<ul>
+  <%= for venue <- @approved_street_foods do %>
+    <li><%= venue["fooditems"] %></li>
+  <% end %>
+</ul>
