@@ -13,6 +13,9 @@ defmodule Spring83.FoodTruck do
     timestamps()
   end
 
+  # In a globally-connected world, what is "japanese"?
+  @seems_japanese ~r/japan|tako|poke bowl/i
+
   def from_json(%{} = parsed_json) do
     %__MODULE__{
       applicant: Map.get(parsed_json, "applicant"),
@@ -45,6 +48,10 @@ defmodule Spring83.FoodTruck do
 
   def offerings(%__MODULE__{} = food_truck) do
     "<h3>#{vendor_name(food_truck)}</h3>" <> food_list(food_truck)
+  end
+
+  def maybe_japanese?(%__MODULE__{fooditems: fooditems}) do
+    fooditems =~ @seems_japanese
   end
 
   defp food_list(%__MODULE__{fooditems: fooditems}) do

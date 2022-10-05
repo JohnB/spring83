@@ -12,6 +12,7 @@ defmodule Spring83Web.StreetFoodLive do
   def render(_assigns) do
     Spring83Web.StreetFoodView.render("street_food.html", %{
       approved_street_foods: nearby_street_food(@union_square, 5000),
+      maybe_japanese_foods: maybe_japanese_foods(@union_square),
       locationdescription: "Union Square",
       location: @union_square
     })
@@ -23,6 +24,12 @@ defmodule Spring83Web.StreetFoodLive do
 
   def handle_params(_params, _uri, socket) do
     {:noreply, socket}
+  end
+
+  defp maybe_japanese_foods(user_location) do
+    approved_street_foods()
+    |> Enum.sort_by(&distance_squared(&1, user_location))
+    |> Enum.filter(&FoodTruck.maybe_japanese?/1)
   end
 
   defp nearby_street_food(user_location, limit) do

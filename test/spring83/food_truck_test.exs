@@ -61,6 +61,26 @@ defmodule Spring83.FoodTruckTest do
     end
   end
 
+  describe "maybe_japanese?" do
+    test "returns true if it mentions Japan" do
+      assert FoodTruck.maybe_japanese?(%FoodTruck{fooditems: "food that mentions jApaN!"})
+    end
+
+    test "returns true if it mentions a food that includes sashimi" do
+      assert FoodTruck.maybe_japanese?(%FoodTruck{
+               fooditems: "a poke bowl Japanese (and also Hawaiian)"
+             })
+    end
+
+    test "returns true for octopus (tako)" do
+      assert FoodTruck.maybe_japanese?(%FoodTruck{fooditems: "tako is from that island!"})
+    end
+
+    test "returns false for other foods" do
+      refute FoodTruck.maybe_japanese?(%FoodTruck{fooditems: "tacos are not from there"})
+    end
+  end
+
   describe "plausible_location?" do
     test "returns true iff latitude and longitude are non-zero" do
       refute FoodTruck.plausible_location?(%FoodTruck{latitude: 0.0})
