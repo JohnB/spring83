@@ -83,3 +83,4 @@ downloaded 10/3/2022 and likely won't be updated in a timely manner.
 - [ ] Prep a map centered on Union Square.
 - [ ] Show food trucks on map.
 - [ ] Respond to clicks with a new list of closest trucks.
+- [ ] Periodically (weekly?) fetch and cache the JSON file.
