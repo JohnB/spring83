@@ -14,7 +14,7 @@ defmodule Spring83.FoodTruck do
   end
 
   # In a globally-connected world, what is "japanese"?
-  @seems_japanese ~r/japan|tako|poke bowl/i
+  @seems_japanese ~r/japan|tako|poke bowl|donburi/i
 
   def from_json(%{} = parsed_json) do
     %__MODULE__{
@@ -46,17 +46,20 @@ defmodule Spring83.FoodTruck do
     |> String.replace_leading(".", "")
   end
 
+  # The Maps API expects a `content` option field to include HTML
+  # to display in the InfoWindow - and I don't see a way to use
+  # a ~H element to build the HTML so we're just generating it.
   def offerings(%__MODULE__{} = food_truck) do
     "<h3>#{vendor_name(food_truck)}</h3>" <> food_list(food_truck)
-  end
-
-  def maybe_japanese?(%__MODULE__{fooditems: fooditems}) do
-    fooditems =~ @seems_japanese
   end
 
   defp food_list(%__MODULE__{fooditems: fooditems}) do
     fooditems
     |> String.replace(~r/;|:/, "<br />")
+  end
+
+  def maybe_japanese?(%__MODULE__{fooditems: fooditems}) do
+    fooditems =~ @seems_japanese
   end
 
   def plausible_location?(%__MODULE__{latitude: 0.0}), do: false
