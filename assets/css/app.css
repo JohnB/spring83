@@ -2,6 +2,7 @@
 @import "./phoenix.css";
 @import "./collaborative_canvas.css";
 @import "./kenken.css";
+@import "./food_trucks.css";
 
 /* Alerts and form errors used by phx.new */
 .alert {
