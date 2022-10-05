@@ -1,6 +1,5 @@
 defmodule Spring83.FoodTruck do
   use Ecto.Schema
-  import Ecto.Changeset
 
   schema "food_trucks" do
     field :applicant, :string
@@ -12,13 +11,6 @@ defmodule Spring83.FoodTruck do
     field :status, :string
 
     timestamps()
-  end
-
-  @doc false
-  def changeset(food_truck, attrs \\ %{}) do
-    food_truck
-    |> cast(attrs, [:applicant, :locationdescription, :latitude, :longitude, :status])
-    |> validate_required([:latitude, :longitude, :status])
   end
 
   def from_json(%{} = parsed_json) do
@@ -35,8 +27,10 @@ defmodule Spring83.FoodTruck do
 
   def vendor_name(%__MODULE__{applicant: applicant}) do
     applicant
-    |> String.split("DBA") |> List.last()
-    |> String.split("/") |> List.last()
+    |> String.split("DBA")
+    |> List.last()
+    |> String.split("/")
+    |> List.last()
     |> String.replace(", LLC", "")
     |> String.replace("LLC", "")
     |> String.replace("Inc.", "")
