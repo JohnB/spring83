@@ -1,7 +1,9 @@
-<h1>Approved Street Food Vendors</h1>
+<h1>Approved Street Food Vendors - By Distance from <%= @locationdescription %></h1>
 
-<ul>
+<div class="nearby">
   <%= for venue <- @approved_street_foods do %>
-    <li><%= venue["fooditems"] %></li>
+    <div class="applicant"><%= venue.applicant %></div>
+    <div class="fooditems"><%= venue.fooditems %></div>
+    <div class="locationdescription"><%= venue.locationdescription %></div>
   <% end %>
-</ul>
+</div>
