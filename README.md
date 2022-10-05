@@ -78,9 +78,9 @@ downloaded 10/3/2022 and likely won't be updated in a timely manner.
 ### Roadmap
 (not necessarily in implementation order)
 - [x] Load the JSON data during compilation.
-- [x] List 10 food trucks.
-- [ ] List 10 _nearest_ food trucks.
-- [ ] Prep a map centered on Union Square.
-- [ ] Show food trucks on map.
-- [ ] Respond to clicks with a new list of closest trucks.
+- [x] List N food trucks.
+- [x] List N _nearest_ food trucks.
+- [x] Prep a map centered on Union Square.
+- [x] Show food trucks on map.
+- [ ] Add tests
 - [ ] Periodically (weekly?) fetch and cache the JSON file.

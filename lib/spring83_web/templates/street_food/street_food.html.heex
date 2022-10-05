@@ -41,3 +41,12 @@
         <% end %>
     }
 </script>
+
+<h1>Street-Food Vendors near <%= @locationdescription %></h1>
+<div class="nearby">
+  <%= for venue <- Enum.take(@approved_street_foods, 15) do %>
+    <div class="applicant"><%= venue.applicant %></div>
+    <div class="fooditems"><%= venue.fooditems %></div>
+    <div class="locationdescription"><%= venue.locationdescription %></div>
+  <% end %>
+</div>
