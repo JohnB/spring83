@@ -38,7 +38,9 @@ defmodule Spring83.FoodTruck do
     |> String.replace("Inc.", "")
     |> String.trim()
     |> String.replace_trailing(".", "")
+    |> String.replace_trailing(",", "")
     |> String.replace_leading(":", "")
+    |> String.replace_leading(".", "")
   end
 
   def offerings(%__MODULE__{} = food_truck) do

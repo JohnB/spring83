@@ -34,7 +34,7 @@ defmodule Spring83.FoodTruckTest do
       assert FoodTruck.vendor_name(%FoodTruck{applicant: "MOMO INNOVATION LLC"}) ==
                "MOMO INNOVATION"
 
-      assert FoodTruck.vendor_name(%FoodTruck{applicant: "Off the Grid Services, LLC"}) ==
+      assert FoodTruck.vendor_name(%FoodTruck{applicant: "Off the Grid Services, Inc."}) ==
                "Off the Grid Services"
     end
 
