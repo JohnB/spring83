@@ -11,7 +11,7 @@ defmodule Spring83Web.StreetFoodLive do
 
   def render(_assigns) do
     Spring83Web.StreetFoodView.render("street_food.html", %{
-      approved_street_foods: nearby_street_food(@union_square, 25),
+      approved_street_foods: nearby_street_food(@union_square, 5000),
       locationdescription: "Union Square",
       location: @union_square
     })
