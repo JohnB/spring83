@@ -18,7 +18,7 @@ defmodule Spring83Web.StreetFoodLive do
   end
 
   def mount(_params, _query_params, socket) do
-    {:ok, assign(socket, %{page_title: "Kenken Creator"})}
+    {:ok, assign(socket, %{page_title: "SF Street Food"})}
   end
 
   def handle_params(_params, _uri, socket) do
