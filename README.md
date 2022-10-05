@@ -18,6 +18,7 @@ because it scrapes the slow pizza page during the request cycle).
 Now at [/kenken](https://spring-83.fly.dev/kenken).
 
 ### Roadmap
+- [ ] Fix refresh bug in the middle of trying to solve the puzzle.
 - [ ] Verify at setup that all answers are filled and don't conflict.
 - [ ] Track groupings within the puzzle.
 - [ ] Make sure each grouping's result is valid (how?)
@@ -28,12 +29,7 @@ Now at [/kenken](https://spring-83.fly.dev/kenken).
 Now at [/collaborative_canvas](https://spring-83.fly.dev/collaborative_canvas).
 
 ### Roadmap
-- [x] Periodically persist the canvas to the DB,
-  possibly every 100 clicks or maybe after 2 minutes of inactivity.
-- [x] Show the persisted canvases as an animation.
-- [x] After a restart, start from the latest DB canvas instead of _@default_canvas_.
-- [x] Update [previous repo](https://github.com/JohnB/phoenix_live_view_example) to point here.
-- [x] Highlight just-placed pieces
+- [ ] Replace CSS animation for just-placed pieces.
 
 ## Pentomino Game
 Not yet moved over here from [phoenix_live_view_example](https://github.com/johnb/phoenix_live_view_example)
@@ -71,3 +67,4 @@ the correct `Spring-Version: 83` header. Like this:
 - [ ] Store cached boards in the DB
 - [ ] Periodically re-fetch cached boards
 - [ ] Expire boards when necessary
+
