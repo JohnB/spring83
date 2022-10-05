@@ -29,6 +29,8 @@ defmodule Spring83.FoodTruck do
     applicant
     |> String.split("DBA")
     |> List.last()
+    |> String.split("dba")
+    |> List.last()
     |> String.split("/")
     |> List.last()
     |> String.replace(", LLC", "")
@@ -39,8 +41,13 @@ defmodule Spring83.FoodTruck do
     |> String.replace_leading(":", "")
   end
 
-  def offerings(%__MODULE__{fooditems: fooditems} = food_truck) do
-    "<h3>#{vendor_name(food_truck)}</h3>" <> String.replace(fooditems, ":", "<br />")
+  def offerings(%__MODULE__{} = food_truck) do
+    "<h3>#{vendor_name(food_truck)}</h3>" <> food_list(food_truck)
+  end
+
+  defp food_list(%__MODULE__{fooditems: fooditems}) do
+    fooditems
+    |> String.replace(~r/;|:/, "<br />")
   end
 
   def plausible_location?(%__MODULE__{latitude: 0.0}), do: false

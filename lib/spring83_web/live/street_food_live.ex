@@ -25,21 +25,22 @@ defmodule Spring83Web.StreetFoodLive do
     {:noreply, socket}
   end
 
-  # For comparison sake - such as used by `sort_by` - using the
-  # distance squared is equivalent to sorting by the distance.
-  def distance_squared(
-        %{latitude: lat1, longitude: lon1} = _location1,
-        %{latitude: lat2, longitude: lon2} = _location2
-      ),
-      do: Float.pow(lat1 - lat2, 2) * Float.pow(lon1 - lon2, 2)
-
-  def nearby_street_food(user_location, limit) do
+  defp nearby_street_food(user_location, limit) do
     approved_street_foods()
     |> Enum.sort_by(&distance_squared(&1, user_location))
     |> Enum.take(limit)
   end
 
-  def approved_street_foods(raw_list \\ @raw_street_food) do
+  # For comparison sake - such as used by `sort_by` - using the
+  # distance squared is equivalent to sorting by the distance
+  # and saves us from having to take the square root.
+  defp distance_squared(
+         %{latitude: lat1, longitude: lon1} = _location1,
+         %{latitude: lat2, longitude: lon2} = _location2
+       ),
+       do: Float.pow(lat1 - lat2, 2) * Float.pow(lon1 - lon2, 2)
+
+  defp approved_street_foods(raw_list \\ @raw_street_food) do
     {:ok, decoded} = Jason.decode(raw_list)
 
     decoded
