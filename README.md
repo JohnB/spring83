@@ -84,3 +84,4 @@ downloaded 10/3/2022 and likely won't be updated in a timely manner.
 - [x] Show food trucks on map.
 - [ ] Add tests
 - [ ] Periodically (weekly?) fetch and cache the JSON file.
+
