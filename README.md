@@ -18,7 +18,7 @@ downloaded 10/3/2022 and likely won't be updated in a timely manner.
 - [x] List N _nearest_ food trucks.
 - [x] Prep a map centered on Union Square.
 - [x] Show food trucks on map.
-- [ ] Add tests
+- [x] Add unit tests
 - [ ] Periodically (weekly?) fetch and cache the JSON file.
 
 ## Pizza Bot
