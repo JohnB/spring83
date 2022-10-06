@@ -7,18 +7,6 @@
     <meta name="csrf-token" content={csrf_token_value()}>
     <%= live_title_tag assigns[:page_title] || "Bueller?" %>
     <link phx-track-static rel="stylesheet" href={Routes.static_path(@conn, "/assets/app.css")}/>
-    <!--
-     The `defer` attribute causes the callback to execute after the full HTML
-     document has been parsed. For non-blocking uses, avoiding race conditions,
-     and consistent behavior across browsers, consider loading using Promises
-     with https://www.npmjs.com/package/@googlemaps/js-api-loader.
-    -->
-    <script defer
-        src={"https://maps.googleapis.com/maps/api/js?key=#{
-            Spring83.FoodTruck.google_maps_api_key()
-            }&callback=initMap&v=weekly"}
-    ></script>
-
     <script defer phx-track-static type="text/javascript" src={Routes.static_path(@conn, "/assets/app.js")}></script>
   </head>
   <body>

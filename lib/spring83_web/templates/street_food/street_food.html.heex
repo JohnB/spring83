@@ -1,6 +1,18 @@
 
 <div id="map" phx-update="ignore"></div>
 
+<!--
+ The `defer` attribute causes the callback to execute after the full HTML
+ document has been parsed. For non-blocking uses, avoiding race conditions,
+ and consistent behavior across browsers, consider loading using Promises
+ with https://www.npmjs.com/package/@googlemaps/js-api-loader.
+-->
+<script id="loadscript" phx-update="ignore" defer
+        src={"https://maps.googleapis.com/maps/api/js?key=#{
+        Spring83.FoodTruck.google_maps_api_key()
+        }&callback=initMap&v=weekly"}
+></script>
+
 <script id="mapscript" phx-update="ignore">
     let map;
 
@@ -39,6 +51,8 @@
               infowindow<%= venue.objectid %>.close();
           });
         <% end %>
+
+        window.map = map;
     }
 </script>
 
