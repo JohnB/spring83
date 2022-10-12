@@ -1,6 +1,6 @@
 # Spring83 & Other Projects
 
-While this started out as an attempt at a Spring83 serbver,
+While this started out as an attempt at a Spring83 server,
 my forced shift from Heroku to Fly.io has allowed me to move
 existing projects (usually just a few main files) to migrate here.
 
@@ -12,7 +12,7 @@ because it scrapes the slow pizza page during the request cycle).
 - [ ] Switch FakeCron to [quantum](https://hexdocs.pm/quantum/readme.html)
 - [ ] Cache the pizza data on server restart,
   for a faster [/pizza](https://spring-83.fly.dev/pizza) page load.
-- [ ] Update previous repo(s) to point here.
+- [ ] Update [previous](https://github.com/JohnB/todays_pizza) repo(s) to point here.
 - [ ] Add Greek Theater (and others)
 - [ ] Extract a parsing library to extract a schema from a web scrape.
 
@@ -20,16 +20,18 @@ because it scrapes the slow pizza page during the request cycle).
 Now at [/kenken](https://spring-83.fly.dev/kenken).
 
 ### Roadmap
-- [ ] Reproduce refresh bug in the middle of trying to solve the puzzle.
-- [ ] Handle refreshes while solving (set a cookie and save their guesses?)
+- [ ] Fix CSS for cells
 - [ ] Verify at setup that all answers are filled and don't conflict.
 - [ ] Track groupings within the puzzle.
 - [ ] Make sure each grouping's result is valid (how?)
 - [ ] When a cell has only 1 guess, gray out that guess elsewhere (10% opacity).
 - [ ] When a cell has 2+ selected, slightly gray them elsewhere (40% opacity).
+- [ ] Reproduce refresh bug in the middle of trying to solve the puzzle.
+- [ ] Handle refreshes while solving (set a cookie and save their guesses?)
 
 ## Collaborative Canvas
 Now at [/collaborative_canvas](https://spring-83.fly.dev/collaborative_canvas).
+The code used to be in a clone of [phoenix_live_view_example](https://github.com/JohnB/phoenix_live_view_example).
 
 ### Roadmap
 - [ ] Replace CSS animation for just-placed pieces.

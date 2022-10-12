@@ -83,6 +83,7 @@ body {
 }
 .kenken .cell .guesses span {
     border: 1px solid blue;
+    border-radius: 4px;
     padding: 0 1px;
     font-size: small;
 }
@@ -112,7 +113,7 @@ body {
     margin-top: -3px;
 }
 .guesses .possible {
-    background-color: orange;
+    background-color: yellow;
 }
 
 /* Hide special controls with white-on-white */
