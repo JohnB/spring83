@@ -68,7 +68,7 @@ defmodule Spring83.FoodTruckTest do
 
     test "returns true if it mentions a food that includes sashimi" do
       assert FoodTruck.maybe_japanese?(%FoodTruck{
-               fooditems: "a poke bowl Japanese (and also Hawaiian)"
+               fooditems: "a poke bowl is Japanese (and also Hawaiian)"
              })
     end
 

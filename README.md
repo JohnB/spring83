@@ -19,7 +19,19 @@ downloaded 10/3/2022 and likely won't be updated in a timely manner.
 - [x] Prep a map centered on Union Square.
 - [x] Show food trucks on map.
 - [x] Add unit tests
+- [ ] Address tech debt
+  - [ ] Add elixir comments in the javascript (may need newer HEEX parser).
+  - [ ] Add _any_ sort of monitoring so I can do crash-driven-development.
+  - [ ] Test rendered page (not a full integration test - just verify
+    that the rendered HTML contains the ordering we expect)
+  - [ ] Create an `addVenueToMap()` javascript function
+    (to get rid of dynamically-named variables).
+  - [ ] Improve `from_json/1` tests - verify crashes on nil values.
+  - [ ] Decide how to handle nil values -   SF data might be bad or maybe
+    the format has changed and our code needs to adapt.
+  - [ ] Add _any_ `StreetFoodLive` tests.
 - [ ] Periodically (weekly?) fetch and cache the JSON file.
+- [ ] Search for other cities that offer a similar file.
 
 ## Pizza Bot
 Now at [/pizza](https://spring-83.fly.dev/pizza) (but slow 
@@ -35,7 +47,6 @@ because it scrapes the slow pizza page during the request cycle).
 Now at [/kenken](https://spring-83.fly.dev/kenken).
 
 ### Roadmap
-- [ ] Fix refresh bug in the middle of trying to solve the puzzle.
 - [ ] Verify at setup that all answers are filled and don't conflict.
 - [ ] Track groupings within the puzzle.
 - [ ] Make sure each grouping's result is valid (how?)
@@ -46,7 +57,12 @@ Now at [/kenken](https://spring-83.fly.dev/kenken).
 Now at [/collaborative_canvas](https://spring-83.fly.dev/collaborative_canvas).
 
 ### Roadmap
-- [ ] Replace CSS animation for just-placed pieces.
+- [x] Periodically persist the canvas to the DB,
+  possibly every 100 clicks or maybe after 2 minutes of inactivity.
+- [x] Show the persisted canvases as an animation.
+- [x] After a restart, start from the latest DB canvas instead of _@default_canvas_.
+- [x] Update [previous repo](https://github.com/JohnB/phoenix_live_view_example) to point here.
+- [x] Highlight just-placed pieces
 
 ## Pentomino Game
 Not yet moved over here from [phoenix_live_view_example](https://github.com/johnb/phoenix_live_view_example)
