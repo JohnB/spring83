@@ -13,12 +13,15 @@ because it scrapes the slow pizza page during the request cycle).
 - [ ] Cache the pizza data on server restart,
   for a faster [/pizza](https://spring-83.fly.dev/pizza) page load.
 - [ ] Update previous repo(s) to point here.
+- [ ] Add Greek Theater (and others)
+- [ ] Extract a parsing library to extract a schema from a web scrape.
 
 ## Kenken
 Now at [/kenken](https://spring-83.fly.dev/kenken).
 
 ### Roadmap
-- [ ] Fix refresh bug in the middle of trying to solve the puzzle.
+- [ ] Reproduce refresh bug in the middle of trying to solve the puzzle.
+- [ ] Handle refreshes while solving (set a cookie and save their guesses?)
 - [ ] Verify at setup that all answers are filled and don't conflict.
 - [ ] Track groupings within the puzzle.
 - [ ] Make sure each grouping's result is valid (how?)
