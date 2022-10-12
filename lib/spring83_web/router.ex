@@ -30,6 +30,9 @@ defmodule Spring83Web.Router do
 
     # Kenken routes
     live "/kenken/*puzzle_id", KenkenLive
+
+    # Street Food routes (for a job interview)
+    live "/street_food", StreetFoodLive
   end
 
   # Other scopes may use custom stacks.
