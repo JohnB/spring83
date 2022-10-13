@@ -83,4 +83,38 @@ defmodule Spring83.Kenken.Puzzle do
 
     puzzle
   end
+
+  def selected_guess?(%__MODULE__{guesses: guesses} = _puzzle, cell_id, guess) do
+    guess_list = guesses[cell_id] || []
+    Enum.member?(guess_list, "#{guess}")
+  end
+
+  def neighbor_selected?(%__MODULE__{guesses: guesses} = puzzle, cell_id, guess) do
+    cond do
+      # This assumes we know we're not the selected_guess - but a peer is selected
+      Enum.count(guesses[cell_id] || []) > 0 ->
+        true
+
+      # Did a row or column neighbor select this guess?
+      Enum.any?(neighboring_cell_ids(puzzle, cell_id), fn neighbor_id ->
+        selected_guess?(puzzle, neighbor_id, guess)
+      end) ->
+        true
+
+      true ->
+        false
+    end
+  end
+
+  # Return a list of all the neighbors in the same column and row,
+  # excluding our own cell.
+  defp neighboring_cell_ids(puzzle, cell_id) do
+    [x, y] = String.split(cell_id, "", trim: true)
+
+    for n <- 1..puzzle.size do
+      [["#{x}#{n}"], ["#{n}#{y}"]]
+    end
+    |> List.flatten()
+    |> Enum.reject(fn this_id -> this_id == cell_id end)
+  end
 end

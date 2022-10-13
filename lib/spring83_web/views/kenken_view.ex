@@ -1,5 +1,6 @@
 defmodule Spring83Web.KenkenView do
   use Spring83Web, :view
+  alias Spring83.Kenken.Puzzle
 
   def kenken_board(%{puzzle: %{size: board_size} = puzzle} = assigns) do
     ~H"""
@@ -97,23 +98,22 @@ defmodule Spring83Web.KenkenView do
     """
   end
 
-  def answer_options(%{puzzle: %{guesses: guesses, size: board_size}, cell_id: cell_id} = assigns) do
-    guesses = guesses || %{}
-
+  def answer_options(%{puzzle: %{size: board_size} = puzzle, cell_id: cell_id} = assigns) do
     ~H"""
       <%= for guess <- 1..board_size do %>
-        <span class={answer_class(guesses[cell_id], guess)}
+        <span class={answer_class(puzzle, cell_id, guess)}
               phx-click={"toggle_guess_#{cell_id}_#{guess}"}
         ><%= guess %></span>
       <% end %>
     """
   end
 
-  def answer_class(guess_list, guess) do
-    # Older puzzles may not have guesses set.
-    guess_list = guess_list || []
-
-    (Enum.member?(guess_list, "#{guess}") && "possible") || "bad"
+  def answer_class(puzzle, cell_id, guess) do
+    cond do
+      true == Puzzle.selected_guess?(puzzle, cell_id, guess) -> "possible"
+      true == Puzzle.neighbor_selected?(puzzle, cell_id, guess) -> "neighbor"
+      true -> ""
+    end
   end
 
   def full_horizontal_border(%{puzzle: %{size: board_size}} = assigns) do

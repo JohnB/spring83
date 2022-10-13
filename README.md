@@ -20,12 +20,10 @@ because it scrapes the slow pizza page during the request cycle).
 Now at [/kenken](https://spring-83.fly.dev/kenken).
 
 ### Roadmap
-- [ ] Fix CSS for cells
+- [x] Fix CSS for cells
 - [ ] Verify at setup that all answers are filled and don't conflict.
 - [ ] Track groupings within the puzzle.
 - [ ] Make sure each grouping's result is valid (how?)
-- [ ] When a cell has only 1 guess, gray out that guess elsewhere (10% opacity).
-- [ ] When a cell has 2+ selected, slightly gray them elsewhere (40% opacity).
 - [ ] Reproduce refresh bug in the middle of trying to solve the puzzle.
 - [ ] Handle refreshes while solving (set a cookie and save their guesses?)
 

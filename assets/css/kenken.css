@@ -115,6 +115,9 @@ body {
 .guesses .possible {
     background-color: yellow;
 }
+.guesses .neighbor {
+    opacity: 30%;
+}
 
 /* Hide special controls with white-on-white */
 .obfuscated {
