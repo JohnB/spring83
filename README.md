@@ -4,6 +4,35 @@ While this started out as an attempt at a Spring83 server,
 my forced shift from Heroku to Fly.io has allowed me to move
 existing projects (usually just a few main files) to migrate here.
 
+## Street Food
+Available at [/street_food](https://spring-83.fly.dev/street_food)
+with SF food-truck data for an interview question.
+
+**NOTE**: Data is from a [static file](https://data.sfgov.org/resource/rqzj-sfat.json)
+downloaded 10/3/2022 and likely won't be updated in a timely manner.
+
+### Roadmap
+(not necessarily in implementation order)
+- [x] Load the JSON data during compilation.
+- [x] List N food trucks.
+- [x] List N _nearest_ food trucks.
+- [x] Prep a map centered on Union Square.
+- [x] Show food trucks on map.
+- [x] Add unit tests
+- [ ] Address tech debt
+  - [ ] Add elixir comments in the javascript (may need newer HEEX parser).
+  - [ ] Add _any_ sort of monitoring so I can do crash-driven-development.
+  - [ ] Test rendered page (not a full integration test - just verify
+    that the rendered HTML contains the ordering we expect)
+  - [ ] Create an `addVenueToMap()` javascript function
+    (to get rid of dynamically-named variables).
+  - [ ] Improve `from_json/1` tests - verify crashes on nil values.
+  - [ ] Decide how to handle nil values -   SF data might be bad or maybe
+    the format has changed and our code needs to adapt.
+  - [ ] Add _any_ `StreetFoodLive` tests.
+- [ ] Periodically (weekly?) fetch and cache the JSON file.
+- [ ] Search for other cities that offer a similar file.
+
 ## Pizza Bot
 Now at [/pizza](https://spring-83.fly.dev/pizza) (but slow 
 because it scrapes the slow pizza page during the request cycle).

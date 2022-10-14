@@ -1,0 +1,17 @@
+
+.nearby .applicant {
+    font-weight: bolder;
+}
+.nearby .fooditems {
+    font-style: italic;
+}
+.nearby .locationdescription {
+    font-weight: lighter;
+}
+
+#map {
+    height: 900px;
+    margin: 0;
+    padding: 0;
+}
+
