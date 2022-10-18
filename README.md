@@ -38,6 +38,7 @@ Now at [/pizza](https://spring-83.fly.dev/pizza) (but slow
 because it scrapes the slow pizza page during the request cycle).
 
 ### Roadmap
+- [ ] Remove any phrase about "we'll update social media".
 - [ ] Switch FakeCron to [quantum](https://hexdocs.pm/quantum/readme.html)
 - [ ] Cache the pizza data on server restart,
   for a faster [/pizza](https://spring-83.fly.dev/pizza) page load.

@@ -1,10 +1,53 @@
-<section class="phx-hero">
-  <h1><%= gettext "Welcome to %{name}!", name: "Phoenix" %></h1>
-  <p>Peace of mind from prototype to production</p>
-</section>
-
-<h2>Go to <a href="/boards">all the boards</a></h2>
-<h2>Go to the <a href="/collaborative_canvas">Collaborative Canvas</a></h2>
-<h2>Go to the <a href="/pizza">pizza page</a></h2>
-<h2>Go to the <a href="/street_food">SF food truck map</a></h2>
-<h2>Go to the <a href="/kenken">Kenken puzzles</a></h2>
+<.modal page="index" >
+  <h1>Portfolio Site / Never-Finished Learnings</h1>
+  <p>Hello, I'm JohnB. I write software, mostly Elixir.</p>
+  <p>"Portfolio Site" has always seemed pretentious, so I've never created one - until now.</p>
+  <p>Given that software requires learning new things <em>all the time</em>,
+    I iterate on fun projects, to learn new techniques - usually spending as
+    little time as possible to see if I can bring the new skill up to MVP-level quality.</p>
+  <.learning project="Collaborative Canvas" theme="Multi-User Editing on a Shared Canvas" >
+    I first created this in 2017, to see how easy it was to use in-memory
+    server state to allow users to see each other's edits - like Google Docs.
+    Elixir and Phoenix and LiveView make it so easy -
+    one singleton Elixir GenServer holds the shared state,
+    and the LiveView holds the per-user state!
+  </.learning>
+  <.learning project="Collaborative Canvas" theme="PubSub & Channels to reduce latency" >
+    The initial version used a timer to force-refresh the page to pick up changes -
+    which lead to a noticeable lag.
+    I used the forced move from Heroku free tier to Fly.io free tier to replace the
+    timer with PubSub and channels.
+  </.learning>
+  <.learning project="Collaborative Canvas" theme="CSS Animation - and CSS Animation Optimization" >
+    The page was fun in multiple browsers, but it had no concept of history,
+    so I finally gave it history by persisting the state of the canvas and then
+    animating the last hundred "frames".
+    I could have easily implemented the animation in LiveView - at one frame per second I'm
+    sure it could keep up - but I wanted to learn a bit about CSS animations and see if I
+    could programmatically generate a "static" animation with a set ov CSS animation rules.
+    It worked fine, but I was setting the color 100 times per pixel - even if it rarely changed.
+    The fix, which reduced the sheer volume of CSS rules by 10x, was to only set the color
+    when it changed, and not when it was red red red for multiple frames.
+  </.learning>
+  <.learning project="Kenken puzzles" theme="Complex Multi-State UI" >
+    I love games and puzzles (and don't currently have a printer),
+    so I added a page where I can create and solve Kenken puzzles.
+    The HTML and CSS for it stretched my grid-building skills -
+    but the UI interactions were remarkably simple to implement with LiveView events.
+    It is far from finished - and only formats correctly on a desktop browser - but it works!
+  </.learning>
+  <.learning project="Pizza Page" theme="Scraping a Web Page for a Daily Tweet" >
+    My award-winning local pizza collective makes a different pizza every day -
+    and some 519 of my neighboars are too lazy to look at the pizza place's web page
+    and instead just look at the Twitter feed that I created.
+    Originally it was written in Ruby, using Nokogiri, then I moved it to Elixir
+    and then moved it from Heroku to Fly.io.
+    I only update it when it breks - usually due to a change on their pizza page.
+  </.learning>
+</.modal>
+<h1>Portfolio Site / Never-Finished Learnings</h1>
+<h2><a href="/collaborative_canvas">Collaborative Canvas</a></h2>
+<h2><a href="/kenken">Kenken puzzles</a></h2>
+<h2><a href="/boards">Spring83 boards</a></h2>
+<h2><a href="/pizza">Pizza Page <em>(slow due to scrape of pizza site)</em></a></h2>
+<h2><a href="/street_food">SF food truck map</a></h2>
