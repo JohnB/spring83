@@ -38,6 +38,7 @@ Now at [/pizza](https://spring-83.fly.dev/pizza) (but slow
 because it scrapes the slow pizza page during the request cycle).
 
 ### Roadmap
+- [ ] Remove any phrase about "we'll update social media".
 - [ ] Switch FakeCron to [quantum](https://hexdocs.pm/quantum/readme.html)
 - [ ] Cache the pizza data on server restart,
   for a faster [/pizza](https://spring-83.fly.dev/pizza) page load.
@@ -50,6 +51,9 @@ Now at [/kenken](https://spring-83.fly.dev/kenken).
 
 ### Roadmap
 - [x] Fix CSS for cells
+- [ ] Change entire CSS to be in view units
+- [ ] Remove solving-button border until selected
+- [ ] Use pubsub to post answers so everyone can see the live edits
 - [ ] Verify at setup that all answers are filled and don't conflict.
 - [ ] Track groupings within the puzzle.
 - [ ] Make sure each grouping's result is valid (how?)
