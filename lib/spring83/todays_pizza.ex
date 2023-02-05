@@ -29,6 +29,20 @@ defmodule TodaysPizza do
     end
   end
 
+  def post_pizza_to_mastodon do
+    conn = Hunter.new([
+      base_url: "https://sfba.social/",
+      bearer_token: System.get_env("mastodon_token")
+    ])
+    try do
+      Hunter.create_status(conn, pizza_message())
+    rescue
+      _ -> ExTwitter.update("@JohnB - mastodon broke and needed rescuing.")
+    catch
+      err -> ExTwitter.update("@JohnB mastodon caught #{err}.")
+    end
+  end
+
   def pizza_message_lines do
     pizza_message()
     |> each_line()

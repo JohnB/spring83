@@ -36,8 +36,10 @@ defmodule Spring83Web.FakeCron do
 
   @impl true
   def handle_info(:send_tweet, state) do
-    Logger.info("handle_info(:send_tweet)")
+    Logger.info("handle_info(:send_tweet) twitter")
     maybe_tweet_about_pizza(@mix_env)
+    Logger.info("handle_info(:send_tweet) mastodon")
+    TodaysPizza.post_pizza_to_mastodon()
     Logger.info("tweet maybe sent")
 
     Process.send_after(self(), :send_tweet, one_day_ms())

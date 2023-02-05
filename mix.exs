@@ -57,7 +57,8 @@ defmodule Spring83.MixProject do
       # Needed for todays_pizza
       {:oauther, "~> 1.1"},
       {:extwitter, "~> 0.13"},
-      {:timex, "~> 3.6"}
+      {:timex, "~> 3.6"},
+      {:hunter, "~> 0.5.1"}
     ]
   end
 
