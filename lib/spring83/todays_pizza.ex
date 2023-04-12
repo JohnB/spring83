@@ -6,12 +6,10 @@ defmodule TodaysPizza do
   Contexts are also responsible for managing your data, regardless
   if it comes from the database, an external API or others.
   """
-  # This function should eventually be called by some cron-like thing.
-  # TODO: Set up something on fly.io
-  #   ???
-  # Set this value in the Heroku scheduler UI
-  #   mix run -e 'IO.puts TodaysPizza.tweet_about_pizza'
-  #
+
+  @max_length_twitter 278
+  @max_length_mastodon 5000
+
   def tweet_about_pizza do
     ExTwitter.configure(
       consumer_key: System.get_env("consumer_key"),
@@ -21,7 +19,7 @@ defmodule TodaysPizza do
     )
 
     try do
-      ExTwitter.update(pizza_message())
+      ExTwitter.update(pizza_message(@max_length_twitter))
     rescue
       _ -> ExTwitter.update("@JohnB - something broke and needed rescuing.")
     catch
@@ -35,7 +33,7 @@ defmodule TodaysPizza do
       bearer_token: System.get_env("mastodon_token")
     ])
     try do
-      Hunter.create_status(conn, pizza_message())
+      Hunter.create_status(conn, pizza_message(@max_length_mastodon))
     rescue
       _ -> ExTwitter.update("@JohnB - mastodon broke and needed rescuing.")
     catch
@@ -48,7 +46,7 @@ defmodule TodaysPizza do
     |> each_line()
   end
 
-  def pizza_message do
+  def pizza_message(max_length \\ 278) do
     # NOTE: `h Timex.Format.DateTime.Formatters.Strftime` shows the format codes.
     # Try to match "Fri Jun 27" that we see from the cheeseboard site.
     # The name means: dow=DayOfWeek, mon=Month, day=DayOfMonth
@@ -68,7 +66,7 @@ defmodule TodaysPizza do
         "#{dow_mon_day}: Sadly, no pizza today."
 
       [_, message] ->
-        String.slice("#{dow_mon_day}: #{trimmed_message(message, dow_mon_day)}", 0, 278)
+        String.slice("#{dow_mon_day}: #{trimmed_message(message, max_length, dow_mon_day)}", 0, max_length)
 
       _ ->
         "@JohnB Unexpected todays_pizza array: #{inspect(todays_pizza)}."
@@ -81,7 +79,7 @@ defmodule TodaysPizza do
   @full_bake ~r/Hot whole and half pizza \(no slices yet\),? .* available at the pizzeria from 5 p\.m\. to 8 p\.m.? or until we sell out/
   @gluten ~r/We have a limited number.*as well/
 
-  def trimmed_message(message, dow_mon_day \\ "") do
+  def trimmed_message(message, max_length, dow_mon_day \\ "") do
     hot_sellout =
       (String.match?(dow_mon_day, ~r/Sat/) &&
          "\nHot whole or half (no slices): 5-8 (sold out at 7pm on recent Saturdays)") ||
@@ -107,7 +105,7 @@ defmodule TodaysPizza do
 
     "#{Enum.join(topping, " ")}\n\n#{boilerplate}"
     # only 280 chars max
-    |> String.slice(0, 278)
+    |> String.slice(0, max_length)
   end
 
   def each_line(msg) do

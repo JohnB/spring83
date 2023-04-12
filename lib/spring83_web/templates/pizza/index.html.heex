@@ -37,8 +37,13 @@
     <span>(<%= String.length(topping) %> characters)</span>
     <span><%= topping %></span>
     <br />
-    <i>Tweeted as <%= String.length(TodaysPizza.trimmed_message(topping, date)) %> characters:</i>
-    <%= for line <- TodaysPizza.each_line(TodaysPizza.trimmed_message(topping, date)) do %>
+    <i>Tweeted as <%= String.length(TodaysPizza.trimmed_message(topping, 278, date)) %> characters:</i>
+    <%= for line <- TodaysPizza.each_line(TodaysPizza.trimmed_message(topping, 278, date)) do %>
+      <br /><%= line %>
+    <% end %>
+    <hr />
+    <i>Tooted as <%= String.length(TodaysPizza.trimmed_message(topping, 5000, date)) %> characters:</i>
+    <%= for line <- TodaysPizza.each_line(TodaysPizza.trimmed_message(topping, 5000, date)) do %>
       <br /><%= line %>
     <% end %>
   </p>
