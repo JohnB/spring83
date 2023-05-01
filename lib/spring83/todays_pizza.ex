@@ -8,7 +8,7 @@ defmodule TodaysPizza do
   """
 
   @max_length_twitter 278
-  @max_length_mastodon 5000
+  @max_length_mastodon 500
 
   def tweet_about_pizza do
     ExTwitter.configure(
