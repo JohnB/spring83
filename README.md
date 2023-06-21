@@ -43,7 +43,16 @@ because it scrapes the slow pizza page during the request cycle).
 - [ ] Cache the pizza data on server restart,
   for a faster [/pizza](https://spring-83.fly.dev/pizza) page load.
 - [ ] Update [previous](https://github.com/JohnB/todays_pizza) repo(s) to point here.
-- [ ] Add Greek Theater (and others)
+- [ ] Add [Greek Theater](
+  "mix") (and others)
+  - ```azure
+    html = HTTPoison.get!(url).body
+    {:ok, document} = Floki.parse_document(html)
+    url = "https://tickets-center.com/search/v/Greek-Theatre/1928?venueId=1928&venueName=Greek+Theatre&maid=0"
+    Floki.find(document, ".eventList") |> List.first() |> Floki.find("a") |> Enum.map(fn x -> Floki.attribute(x, "aria-label") end)
+    # Generate today's date as "April 30, 2023" and look for it in the list
+    # Send out any found
+``` 
 - [ ] Extract a parsing library to extract a schema from a web scrape.
 
 ## Kenken
