@@ -33,6 +33,9 @@ defmodule Spring83Web.Router do
 
     # Street Food routes (for a job interview)
     live "/street_food", StreetFoodLive
+
+    # VDiff - visual diff (POC for a friend)
+    live "/vdiff", VDiffLive
   end
 
   # Other scopes may use custom stacks.
