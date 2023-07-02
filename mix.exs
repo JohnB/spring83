@@ -20,7 +20,11 @@ defmodule Spring83.MixProject do
   def application do
     [
       mod: {Spring83.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [
+        :logger,
+        :runtime_tools,
+        :bamboo
+      ]
     ]
   end
 
@@ -58,7 +62,9 @@ defmodule Spring83.MixProject do
       {:oauther, "~> 1.1"},
       {:extwitter, "~> 0.13"},
       {:timex, "~> 3.6"},
-      {:hunter, "~> 0.5.1"}
+      {:hunter, "~> 0.5.1"},
+      {:bamboo_smtp, "~> 4.2"},
+      {:bamboo_phoenix, "~> 1.0"}
     ]
   end
 
