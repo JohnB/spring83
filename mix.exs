@@ -23,7 +23,8 @@ defmodule Spring83.MixProject do
       extra_applications: [
         :logger,
         :runtime_tools,
-        :bamboo
+        :bamboo,
+        :bamboo_smtp
       ]
     ]
   end
