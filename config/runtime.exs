@@ -81,8 +81,8 @@ if config_env() == :prod do
          username: System.get_env("SMTP_USERNAME"),
          password: System.get_env("SMTP_PASSWORD"),
          tls: :if_available, # can be `:always`, ':if_available' or `:never`
-         tls_verify: :verify_none,
-         auth: :if_available,
+         tls_verify: :verify_peer,
+         auth: :always,
          ssl: true, # can be `true`
          retries: 1
 
