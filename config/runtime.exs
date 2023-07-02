@@ -63,16 +63,40 @@ if config_env() == :prod do
     ],
     secret_key_base: secret_key_base
 
+  # Configures the mailer
+  #
+  # By default it uses the "Local" adapter which stores the emails
+  # locally. You can see the emails in your browser, at "/dev/mailbox".
+  #
+  # For production it's recommended to configure a different adapter
+  # at the `config/runtime.exs`.
+  #config :spring83, Spring83.Mailer, adapter: Swoosh.Adapters.Local
+  # See https://us-west-2.console.aws.amazon.com/ses/home?region=us-west-2#smtp-settings:
+  # For what Amazon Simple Email Service allows.
+  # See also: https://www.google.com/search?q=standard+SMTP+ports&oq=standard+SMTP+ports&aqs=chrome..69i57j0.6194j0j7&sourceid=chrome&ie=UTF-8
+  config :spring83, Spring83.Mailer,
+         adapter: Bamboo.SMTPAdapter,
+         server: "email-smtp.us-west-2.amazonaws.com",
+         port: 587, # or 25, or 587,
+         username: System.get_env("SMTP_USERNAME"),
+         password: System.get_env("SMTP_PASSWORD"),
+         tls: :if_available, # can be `:always`, ':if_available' or `:never`
+         tls_verify: :verify_none,
+         auth: :if_available,
+         ssl: true, # can be `true`
+         retries: 1
+
   # ## Configuring the mailer
   #
   # In production you need to configure the mailer to use a different adapter.
   # Also, you may need to configure the Swoosh API client of your choice if you
   # are not using SMTP. Here is an example of the configuration:
   #
-  #     config :spring83, Spring83.Mailer,
-  #       adapter: Swoosh.Adapters.Mailgun,
-  #       api_key: System.get_env("MAILGUN_API_KEY"),
-  #       domain: System.get_env("MAILGUN_DOMAIN")
+  # consider https://hexdocs.pm/swoosh/Swoosh.Adapters.AmazonSES.html
+  #  config :spring83, Spring83.Mailer,
+  #   adapter: Swoosh.Adapters.Mailgun,
+  #   api_key: System.get_env("MAILGUN_API_KEY"),
+  #   domain: System.get_env("MAILGUN_DOMAIN")
   #
   # For this example you need include a HTTP client required by Swoosh API client.
   # Swoosh supports Hackney and Finch out of the box:
