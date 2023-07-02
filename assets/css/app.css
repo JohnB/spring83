@@ -4,6 +4,14 @@
 @import "./kenken.css";
 @import "./food_trucks.css";
 
+.menu ul {
+  font-size: larger;
+}
+
+/* ===================================== */
+/* Standard stuff below here - unchanged */
+/* ===================================== */
+
 /* Alerts and form errors used by phx.new */
 .alert {
   padding: 15px;

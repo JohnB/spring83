@@ -1,73 +1,13 @@
 # Spring83 & Other Projects
 
-While this started out as an attempt at a Spring83 server,
+While this started out as an attempt at a 
+[Spring83](https://github.com/robinsloan/spring-83) server,
 my forced shift from Heroku to Fly.io has allowed me to move
 existing projects (usually just a few main files) to migrate here.
 
-## Street Food
-Available at [/street_food](https://spring-83.fly.dev/street_food)
-with SF food-truck data for an interview question.
-
-**NOTE**: Data is from a [static file](https://data.sfgov.org/resource/rqzj-sfat.json)
-downloaded 10/3/2022 and likely won't be updated in a timely manner.
-
-### Roadmap
-(not necessarily in implementation order)
-- [x] Load the JSON data during compilation.
-- [x] List N food trucks.
-- [x] List N _nearest_ food trucks.
-- [x] Prep a map centered on Union Square.
-- [x] Show food trucks on map.
-- [x] Add unit tests
-- [ ] Address tech debt
-  - [ ] Add elixir comments in the javascript (may need newer HEEX parser).
-  - [ ] Add _any_ sort of monitoring so I can do crash-driven-development.
-  - [ ] Test rendered page (not a full integration test - just verify
-    that the rendered HTML contains the ordering we expect)
-  - [ ] Create an `addVenueToMap()` javascript function
-    (to get rid of dynamically-named variables).
-  - [ ] Improve `from_json/1` tests - verify crashes on nil values.
-  - [ ] Decide how to handle nil values -   SF data might be bad or maybe
-    the format has changed and our code needs to adapt.
-  - [ ] Add _any_ `StreetFoodLive` tests.
-- [ ] Periodically (weekly?) fetch and cache the JSON file.
-- [ ] Search for other cities that offer a similar file.
-
-## Pizza Bot
-Now at [/pizza](https://spring-83.fly.dev/pizza) (but slow 
-because it scrapes the slow pizza page during the request cycle).
-
-### Roadmap
-- [ ] Remove any phrase about "we'll update social media".
-- [ ] Switch FakeCron to [quantum](https://hexdocs.pm/quantum/readme.html)
-- [ ] Cache the pizza data on server restart,
-  for a faster [/pizza](https://spring-83.fly.dev/pizza) page load.
-- [ ] Update [previous](https://github.com/JohnB/todays_pizza) repo(s) to point here.
-- [ ] Add [Greek Theater](
-  "mix") (and others)
-  - ```azure
-    html = HTTPoison.get!(url).body
-    {:ok, document} = Floki.parse_document(html)
-    url = "https://tickets-center.com/search/v/Greek-Theatre/1928?venueId=1928&venueName=Greek+Theatre&maid=0"
-    Floki.find(document, ".eventList") |> List.first() |> Floki.find("a") |> Enum.map(fn x -> Floki.attribute(x, "aria-label") end)
-    # Generate today's date as "April 30, 2023" and look for it in the list
-    # Send out any found
-``` 
-- [ ] Extract a parsing library to extract a schema from a web scrape.
-
-## Kenken
-Now at [/kenken](https://spring-83.fly.dev/kenken).
-
-### Roadmap
-- [x] Fix CSS for cells
-- [ ] Change entire CSS to be in view units
-- [ ] Remove solving-button border until selected
-- [ ] Use pubsub to post answers so everyone can see the live edits
-- [ ] Verify at setup that all answers are filled and don't conflict.
-- [ ] Track groupings within the puzzle.
-- [ ] Make sure each grouping's result is valid (how?)
-- [ ] Reproduce refresh bug in the middle of trying to solve the puzzle.
-- [ ] Handle refreshes while solving (set a cookie and save their guesses?)
+## General Roadmap
+- [ ] Upgrade liveview?
+- [ ] Add Bamboo mailer to send myself a daily pizza email 
 
 ## Collaborative Canvas
 Now at [/collaborative_canvas](https://spring-83.fly.dev/collaborative_canvas).
@@ -75,6 +15,49 @@ The code used to be in a clone of [phoenix_live_view_example](https://github.com
 
 ### Roadmap
 - [ ] Replace CSS animation for just-placed pieces.
+- [ ] Add a [?] modal to describe it
+
+## Pizza Bot
+Now at [/pizza](https://spring-83.fly.dev/pizza) (but slow 
+because it scrapes the slow pizza page during the request cycle).
+
+### Roadmap
+- [ ] Switch FakeCron to [quantum](https://hexdocs.pm/quantum/readme.html)
+- [ ] Cache the pizza data on server restart,
+  for a faster [/pizza](https://spring-83.fly.dev/pizza) page load.
+- [ ] Update [previous](https://github.com/JohnB/todays_pizza) repo(s) to point here.
+- [ ] Bug my friend for their email address for the daily email
+- [ ] Add [Greek Theater](
+  "mix") (and others)
+  ```elxir
+  url = "https://tickets-center.com/search/v/Greek-Theatre/1928?venueId=1928&venueName=Greek+Theatre&maid=0"
+  html = HTTPoison.get!(url).body
+  {:ok, document} = Floki.parse_document(html)
+  Floki.find(document, ".eventList") |> List.first() |> Floki.find("a") |> Enum.map(fn x -> Floki.attribute(x, "aria-label") end)
+  # Generate today's date as "April 30, 2023" and look for it in the list
+  # Send out any found (at 2pm on weekdays, for a friend)
+  ``` 
+- [ ] Add a [?] modal to describe it
+
+## Kenken
+Now at [/kenken](https://spring-83.fly.dev/kenken).
+
+### Roadmap
+- [x] Fix CSS for cells
+- [ ] Add a [?] modal to describe it
+- [ ] ~~Make sure each grouping's result is valid (how?)~~
+  Just add some CSS when they've selected one value per square,
+  and it matches the actual answers.
+- [ ] Change entire CSS to be in view units so it works on mobile
+- [ ] Remove solving-button border until selected
+- [ ] Use pubsub to post answers so everyone can see the live edits
+- [ ] Verify at setup that all answers are filled and don't conflict.
+- [ ] Track groupings within the puzzle.
+- [ ] ~~Make sure each grouping's result is valid (how?)~~
+  Just flash the CSS when they've selected one value per square,
+  and it matches the actual answers.
+- [ ] Reproduce refresh bug in the middle of trying to solve the puzzle.
+- [ ] Handle refreshes while solving (set a cookie and save their guesses?)
 
 ## Pentomino Game
 Not yet moved over here from [phoenix_live_view_example](https://github.com/johnb/phoenix_live_view_example)
@@ -112,4 +95,11 @@ the correct `Spring-Version: 83` header. Like this:
 - [ ] Store cached boards in the DB
 - [ ] Periodically re-fetch cached boards
 - [ ] Expire boards when necessary
+
+## SF Street Food
+Available at [/street_food](https://spring-83.fly.dev/street_food)
+(for a job I didn't get - ignore the google watermarking - it works fine)
+
+**NOTE**: Data is from a [static file](https://data.sfgov.org/resource/rqzj-sfat.json)
+downloaded 6/1/2023 and likely won't be ever updated here.
 
