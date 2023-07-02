@@ -39,7 +39,7 @@ config :spring83, Spring83.Mailer,
        auth: :always,
 #       tls_verify: :verify_none,
 #       auth: :if_available,
-       ssl: true, # can be `true`
+       ssl: false, # can be `true`
        retries: 1
 
 # Swoosh API client is needed for adapters other than SMTP.

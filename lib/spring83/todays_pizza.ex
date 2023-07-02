@@ -28,17 +28,25 @@ defmodule TodaysPizza do
   end
 
   def post_pizza_to_mastodon do
-    conn = Hunter.new([
-      base_url: "https://sfba.social/",
-      bearer_token: System.get_env("mastodon_token")
-    ])
     try do
-      Hunter.create_status(conn, pizza_message(@max_length_mastodon))
+      attempt_to_post_pizza_to_mastodon()
     rescue
       _ -> ExTwitter.update("@JohnB - mastodon broke and needed rescuing.")
     catch
       err -> ExTwitter.update("@JohnB mastodon caught #{err}.")
     end
+  end
+
+  # if it stops sending, try this:
+  #   fiex
+  #   TodaysPizza.attempt_to_post_pizza_to_mastodon()
+  # and see what exception it throws up
+  def attempt_to_post_pizza_to_mastodon do
+    conn = Hunter.new([
+      base_url: "https://sfba.social/",
+      bearer_token: System.get_env("mastodon_token")
+    ])
+    Hunter.create_status(conn, pizza_message(@max_length_mastodon))
   end
 
   def pizza_message_lines do

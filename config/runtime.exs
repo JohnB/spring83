@@ -83,7 +83,7 @@ if config_env() == :prod do
          tls: :if_available, # can be `:always`, ':if_available' or `:never`
          tls_verify: :verify_peer,
          auth: :always,
-         ssl: true, # can be `true`
+         ssl: false, # can be `true`
          retries: 1
 
   # ## Configuring the mailer
