@@ -35,10 +35,9 @@ config :spring83, Spring83.Mailer,
        username: System.get_env("SMTP_USERNAME"),
        password: System.get_env("SMTP_PASSWORD"),
        tls: :if_available, # can be `:always`, ':if_available' or `:never`
-       tls_verify: :verify_peer,
-       auth: :always,
-#       tls_verify: :verify_none,
-#       auth: :if_available,
+       # these work locally, but not from fly
+       tls_verify: :verify_none,
+       auth: :if_available,
        ssl: false, # can be `true`
        retries: 1
 
