@@ -183,8 +183,8 @@ defmodule Spring83Web.KenkenLive do
     {:noreply, assign(socket, %{puzzle: puzzle})}
   end
 
-  def toggle_guess(nil = guesses, guess), do: [guess]
-  def toggle_guess("" = guesses, guess), do: [guess]
+  def toggle_guess(nil = _guesses, guess), do: [guess]
+  def toggle_guess("" = _guesses, guess), do: [guess]
 
   def toggle_guess(guesses, guess) do
     case Enum.member?(guesses, guess) do
