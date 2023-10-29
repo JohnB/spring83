@@ -10,7 +10,7 @@ defmodule Spring83Web.KenkenView do
     <div class={"kenken size#{@board_size}"}>
       <.full_horizontal_border puzzle={@puzzle} />
       <%= for row_number <- 1..@board_size do %>
-        <.row row_number={row_number} puzzle={@puzzle} />
+        <.row row_number={row_number} puzzle={@puzzle} board_size={@board_size} />
       <% end %>
     </div>
     """
@@ -18,10 +18,10 @@ defmodule Spring83Web.KenkenView do
 
   # Assume the border above this row has already been drawn, so just draw cells
   # intersperced with vertical borders, then add the horizontal borders on the bottom edge.
-  def row(%{row_number: row_number, puzzle: %{size: board_size} = puzzle} = assigns) do
-    assigns = assign(assigns, :board_size, board_size)
-    assigns = assign(assigns, :row_number, row_number)
-    assigns = assign(assigns, :puzzle, puzzle)
+  attr :board_size, :integer
+  attr :row_number, :integer
+  attr :puzzle, Puzzle
+  def row(assigns) do
     ~H"""
     <.border_segment direction="v" />
     <%= for column <- 1..@board_size do %>
@@ -48,6 +48,18 @@ defmodule Spring83Web.KenkenView do
     """
   end
 
+  attr :column, :integer
+  attr :row_number, :integer
+  attr :cell_id, :integer
+  attr :border_above_id, :integer
+  attr :border_left_id, :integer
+  attr :disabled, :map
+  attr :maybe_edit, :map
+  attr :cell_values, :map
+  attr :answers, :map
+  attr :published_at, :any
+  attr :selected, :integer
+  attr :puzzle, Puzzle
   def cell(
         %{
           row_number: row_number,
