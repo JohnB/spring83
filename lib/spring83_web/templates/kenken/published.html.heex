@@ -1,9 +1,11 @@
-<a href="/kenken"><h1>Kenken</h1></a>
+<a href="/kenken">
+  <h1>Kenken</h1>
+</a>
 
 <div>
   Puzzle: <b><%= @puzzle.name %></b>
 </div>
 <.kenken_board puzzle={@puzzle} />
 <div class="obfuscated">
-  <span phx-click="unpublish" phx-value-puzzle-id={@puzzle.id} >unpublish</span>
+  <span phx-click="unpublish" phx-value-puzzle-id={@puzzle.id}>unpublish</span>
 </div>

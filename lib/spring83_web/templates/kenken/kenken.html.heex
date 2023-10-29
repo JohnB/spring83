@@ -1,7 +1,16 @@
-<a href="/kenken"><h1>Kenken</h1></a>
+<a href="/kenken">
+  <h1>Kenken</h1>
+</a>
 
 <div>
-  <input class="name-input" style="width: 20em;" value={@puzzle.name} type="text" maxlength="25" phx-blur="save_name"/>
+  <input
+    class="name-input"
+    style="width: 20em;"
+    value={@puzzle.name}
+    type="text"
+    maxlength="25"
+    phx-blur="save_name"
+  />
   <button phx-click="publish">Publish</button>
   <h3>Building a Kenken</h3>
   <ol>

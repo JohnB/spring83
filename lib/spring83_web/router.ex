@@ -36,6 +36,12 @@ defmodule Spring83Web.Router do
 
     # VDiff - visual diff (POC for a friend)
     live "/vdiff", VDiffLive
+
+    # whoisatthegreek.com and whoisatthelagreek.com
+    #    live "/whoisatthegreek.com", WhoIsAtTheLive, :cal_greek
+    #    live "/whoisatthelagreek.com", WhoIsAtTheLive, :la_greek
+    # link to buy tix
+    # https://tickets-center.com/tickets/?eventId=4344297&venueId=1928&performerId=1716
   end
 
   # Other scopes may use custom stacks.

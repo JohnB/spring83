@@ -1,8 +1,7 @@
 <h1>Kenken Puzzles</h1>
 <p>
   These puzzles are supplied as-is by our users and may not be valid puzzles.
-<p>
-</p>
+  <p></p>
   They might have no solution, or they might have many solutions - solve at your own risk.
 </p>
 
@@ -27,10 +26,10 @@
 <h3>Unpublished</h3>
 <ul>
   <%= for puzzle <- @unpublished do %>
-  <li>
-    <a href={"/kenken/#{puzzle.id}"}>
-      <%= puzzle.size %>x<%= puzzle.size %>: <%= puzzle.name %>
-    </a>
-  </li>
+    <li>
+      <a href={"/kenken/#{puzzle.id}"}>
+        <%= puzzle.size %>x<%= puzzle.size %>: <%= puzzle.name %>
+      </a>
+    </li>
   <% end %>
 </ul>

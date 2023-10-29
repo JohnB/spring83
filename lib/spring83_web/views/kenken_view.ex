@@ -17,15 +17,27 @@ defmodule Spring83Web.KenkenView do
   # intersperced with vertical borders, then add the horizontal borders on the bottom edge.
   def row(%{row_number: row_number, puzzle: %{size: board_size} = puzzle} = assigns) do
     ~H"""
-      <.border_segment direction="v" />
-      <%= for column <- 1..board_size do %>
-        <.cell row_number={row_number} column={column} puzzle={puzzle} />
-        <.border_segment direction="v" allow_edits={column < board_size} row_number={row_number} column={column} puzzle={puzzle} />
-      <% end %>
-      <.intersection />
-      <%= for column <- 1..board_size do %>
-        <.border_segment direction="h" allow_edits={row_number < board_size} row_number={row_number} column={column} puzzle={puzzle} />
-        <.intersection row_number={row_number} column={column} puzzle={puzzle} />
+    <.border_segment direction="v" />
+    <%= for column <- 1..board_size do %>
+      <.cell row_number={row_number} column={column} puzzle={puzzle} />
+      <.border_segment
+        direction="v"
+        allow_edits={column < board_size}
+        row_number={row_number}
+        column={column}
+        puzzle={puzzle}
+      />
+    <% end %>
+    <.intersection />
+    <%= for column <- 1..board_size do %>
+      <.border_segment
+        direction="h"
+        allow_edits={row_number < board_size}
+        row_number={row_number}
+        column={column}
+        puzzle={puzzle}
+      />
+      <.intersection row_number={row_number} column={column} puzzle={puzzle} />
     <% end %>
     """
   end
@@ -64,17 +76,26 @@ defmodule Spring83Web.KenkenView do
     ~H"""
     <%= if selected == cell_id do %>
       <div class="cell">
-        <input class="cell-input" style="width: 4.5em;"
+        <input
+          class="cell-input"
+          style="width: 4.5em;"
           id="cell-editor"
           placeholder="Result"
-          value={cell_values[cell_id]} type="text" maxlength="7"
+          value={cell_values[cell_id]}
+          type="text"
+          maxlength="7"
           phx-keydown="update_cell_result"
           {disabled}
         />
-        <input class="cell-answer" style="width: 4em;" type="number"
+        <input
+          class="cell-answer"
+          style="width: 4em;"
+          type="number"
           id="answer-editor"
           placeholder="Answer"
-          value={answers[cell_id]} type="text" maxlength="1"
+          value={answers[cell_id]}
+          type="text"
+          maxlength="1"
           phx-keydown="update_cell_answer"
           phx-hook="AutoFocus"
         />
@@ -84,15 +105,15 @@ defmodule Spring83Web.KenkenView do
         <div class="result">
           <%= cell_values[cell_id] %>
         </div>
-          <%= if published_at do %>
-            <div class="guesses">
-              <.answer_options puzzle={puzzle} cell_id={cell_id} />
-            </div>
-          <% else %>
-            <div class="answer">
-              <%= answers[cell_id] %>
-            </div>
-          <% end %>
+        <%= if published_at do %>
+          <div class="guesses">
+            <.answer_options puzzle={puzzle} cell_id={cell_id} />
+          </div>
+        <% else %>
+          <div class="answer">
+            <%= answers[cell_id] %>
+          </div>
+        <% end %>
       </div>
     <% end %>
     """
@@ -100,11 +121,14 @@ defmodule Spring83Web.KenkenView do
 
   def answer_options(%{puzzle: %{size: board_size} = puzzle, cell_id: cell_id} = assigns) do
     ~H"""
-      <%= for guess <- 1..board_size do %>
-        <span class={answer_class(puzzle, cell_id, guess)}
-              phx-click={"toggle_guess_#{cell_id}_#{guess}"}
-        ><%= guess %></span>
-      <% end %>
+    <%= for guess <- 1..board_size do %>
+      <span
+        class={answer_class(puzzle, cell_id, guess)}
+        phx-click={"toggle_guess_#{cell_id}_#{guess}"}
+      >
+        <%= guess %>
+      </span>
+    <% end %>
     """
   end
 
@@ -147,13 +171,13 @@ defmodule Spring83Web.KenkenView do
        end) && "off") || ""
 
     ~H"""
-    <div class={"intersection #{off}"} ></div>
+    <div class={"intersection #{off}"}></div>
     """
   end
 
   def intersection(assigns) do
     ~H"""
-    <div class="intersection" ></div>
+    <div class="intersection"></div>
     """
   end
 
@@ -172,8 +196,10 @@ defmodule Spring83Web.KenkenView do
     allow_edits = allow_edits && published_at == nil
 
     ~H"""
-    <div class={"#{direction}-border #{maybe_clickable(allow_edits)} #{borders[border_id]}"}
-      {maybe_editable(allow_edits)} phx-value-border={border_id}
+    <div
+      class={"#{direction}-border #{maybe_clickable(allow_edits)} #{borders[border_id]}"}
+      {maybe_editable(allow_edits)}
+      phx-value-border={border_id}
     >
     </div>
     """
@@ -181,7 +207,7 @@ defmodule Spring83Web.KenkenView do
 
   def border_segment(%{direction: direction} = assigns) do
     ~H"""
-    <div class={"#{direction}-border"} ></div>
+    <div class={"#{direction}-border"}></div>
     """
   end
 

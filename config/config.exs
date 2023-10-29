@@ -24,22 +24,25 @@ config :spring83, Spring83Web.Endpoint,
 #
 # For production it's recommended to configure a different adapter
 # at the `config/runtime.exs`.
-#config :spring83, Spring83.Mailer, adapter: Swoosh.Adapters.Local
+# config :spring83, Spring83.Mailer, adapter: Swoosh.Adapters.Local
 # See https://us-west-2.console.aws.amazon.com/ses/home?region=us-west-2#smtp-settings:
 # For what Amazon Simple Email Service allows.
 # See also: https://www.google.com/search?q=standard+SMTP+ports&oq=standard+SMTP+ports&aqs=chrome..69i57j0.6194j0j7&sourceid=chrome&ie=UTF-8
 config :spring83, Spring83.Mailer,
-       adapter: Bamboo.SMTPAdapter,
-       server: "email-smtp.us-west-2.amazonaws.com",
-       port: 587, # or 25, or 587,
-       username: System.get_env("SMTP_USERNAME"),
-       password: System.get_env("SMTP_PASSWORD"),
-       tls: :if_available, # can be `:always`, ':if_available' or `:never`
-       # these work locally, but not from fly
-       tls_verify: :verify_none,
-       auth: :if_available,
-       ssl: false, # can be `true`
-       retries: 1
+  adapter: Bamboo.SMTPAdapter,
+  server: "email-smtp.us-west-2.amazonaws.com",
+  # or 25, or 587,
+  port: 587,
+  username: System.get_env("SMTP_USERNAME"),
+  password: System.get_env("SMTP_PASSWORD"),
+  # can be `:always`, ':if_available' or `:never`
+  tls: :if_available,
+  # these work locally, but not from fly
+  tls_verify: :verify_none,
+  auth: :if_available,
+  # can be `true`
+  ssl: false,
+  retries: 1
 
 # Swoosh API client is needed for adapters other than SMTP.
 config :swoosh, :api_client, false

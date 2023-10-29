@@ -2,7 +2,7 @@
 <p>
   This is a debugging page - please don't refresh too often.
   These should match
-  <a href={TodaysPizza.cheeseboard_url()} >
+  <a href={TodaysPizza.cheeseboard_url()}>
     the Cheese Board page
   </a>
   (which gets scraped on every refresh)
@@ -33,16 +33,19 @@
 </p>
 <%= for [date, topping] <- @dates_and_toppings do %>
   <p>
-    <b><%= date %></b>:
-    <span>(<%= String.length(topping) %> characters)</span>
+    <b><%= date %></b>: <span>(<%= String.length(topping) %> characters)</span>
     <span><%= topping %></span>
     <br />
-    <i>Tweeted as <%= String.length(TodaysPizza.trimmed_message(topping, 278, date)) %> characters:</i>
+    <i>
+      Tweeted as <%= String.length(TodaysPizza.trimmed_message(topping, 278, date)) %> characters:
+    </i>
     <%= for line <- TodaysPizza.each_line(TodaysPizza.trimmed_message(topping, 278, date)) do %>
       <br /><%= line %>
     <% end %>
     <hr />
-    <i>Tooted as <%= String.length(TodaysPizza.trimmed_message(topping, 5000, date)) %> characters:</i>
+    <i>
+      Tooted as <%= String.length(TodaysPizza.trimmed_message(topping, 5000, date)) %> characters:
+    </i>
     <%= for line <- TodaysPizza.each_line(TodaysPizza.trimmed_message(topping, 5000, date)) do %>
       <br /><%= line %>
     <% end %>

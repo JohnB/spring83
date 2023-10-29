@@ -1,59 +1,61 @@
-
 <div id="map" phx-update="ignore"></div>
-
 <!--
  The `defer` attribute causes the callback to execute after the full HTML
  document has been parsed. For non-blocking uses, avoiding race conditions,
  and consistent behavior across browsers, consider loading using Promises
  with https://www.npmjs.com/package/@googlemaps/js-api-loader.
 -->
-<script id="loadscript" phx-update="ignore" defer
-        src={"https://maps.googleapis.com/maps/api/js?key=#{
+<script
+  id="loadscript"
+  phx-update="ignore"
+  defer
+  src={"https://maps.googleapis.com/maps/api/js?key=#{
         Spring83.FoodTruck.google_maps_api_key()
         }&callback=initMap&v=weekly"}
-></script>
+>
+</script>
 
 <script id="mapscript" phx-update="ignore">
-    let map;
+  let map;
 
-    function initMap() {
-        map = new google.maps.Map(document.getElementById("map"), {
-            center: { lat: <%= @location.latitude %>, lng: <%= @location.longitude %> },
-            zoom: 17,
-            styles: [
-              {
-                featureType: "poi",
-                stylers: [
-                    { visibility: "off" }
-                ]
-              }
-            ]
+  function initMap() {
+      map = new google.maps.Map(document.getElementById("map"), {
+          center: { lat: <%= @location.latitude %>, lng: <%= @location.longitude %> },
+          zoom: 17,
+          styles: [
+            {
+              featureType: "poi",
+              stylers: [
+                  { visibility: "off" }
+              ]
+            }
+          ]
+      });
+
+      <%= for venue <- @approved_street_foods do %>
+        marker<%= venue.objectid %> = new google.maps.Marker({
+            position: { lat: <%= venue.latitude %> , lng: <%= venue.longitude %> },
+            map,
+            clickable: true
+        });
+        infowindow<%= venue.objectid %> = new google.maps.InfoWindow({
+            content: "<%= raw(Spring83.FoodTruck.offerings(venue)) %>",
         });
 
-        <%= for venue <- @approved_street_foods do %>
-          marker<%= venue.objectid %> = new google.maps.Marker({
-              position: { lat: <%= venue.latitude %> , lng: <%= venue.longitude %> },
-              map,
-              clickable: true
-          });
-          infowindow<%= venue.objectid %> = new google.maps.InfoWindow({
-              content: "<%= raw(Spring83.FoodTruck.offerings(venue)) %>",
-          });
+        marker<%= venue.objectid %>.addListener("mouseover", () => {
+            infowindow<%= venue.objectid %>.open({
+                anchor: marker<%= venue.objectid %>,
+                map,
+                shouldFocus: false,
+            });
+        });
+        marker<%= venue.objectid %>.addListener("mouseout", () => {
+            infowindow<%= venue.objectid %>.close();
+        });
+      <% end %>
 
-          marker<%= venue.objectid %>.addListener("mouseover", () => {
-              infowindow<%= venue.objectid %>.open({
-                  anchor: marker<%= venue.objectid %>,
-                  map,
-                  shouldFocus: false,
-              });
-          });
-          marker<%= venue.objectid %>.addListener("mouseout", () => {
-              infowindow<%= venue.objectid %>.close();
-          });
-        <% end %>
-
-        window.map = map;
-    }
+      window.map = map;
+  }
 </script>
 
 <h1>Possibly-Japanese Street-Food Vendors near <%= @locationdescription %></h1>

@@ -42,10 +42,12 @@ defmodule TodaysPizza do
   #   TodaysPizza.attempt_to_post_pizza_to_mastodon()
   # and see what exception it throws up
   def attempt_to_post_pizza_to_mastodon do
-    conn = Hunter.new([
-      base_url: "https://sfba.social/",
-      bearer_token: System.get_env("mastodon_token")
-    ])
+    conn =
+      Hunter.new(
+        base_url: "https://sfba.social/",
+        bearer_token: System.get_env("mastodon_token")
+      )
+
     Hunter.create_status(conn, pizza_message(@max_length_mastodon))
   end
 
@@ -74,7 +76,11 @@ defmodule TodaysPizza do
         "#{dow_mon_day}: Sadly, no pizza today."
 
       [_, message] ->
-        String.slice("#{dow_mon_day}: #{trimmed_message(message, max_length, dow_mon_day)}", 0, max_length)
+        String.slice(
+          "#{dow_mon_day}: #{trimmed_message(message, max_length, dow_mon_day)}",
+          0,
+          max_length
+        )
 
       _ ->
         "@JohnB Unexpected todays_pizza array: #{inspect(todays_pizza)}."
