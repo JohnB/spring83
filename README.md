@@ -1,5 +1,7 @@
 # Spring83 & Other Projects
 
+[![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
+
 While this started out as an attempt at a 
 [Spring83](https://github.com/robinsloan/spring-83) server,
 my forced shift from Heroku to Fly.io has allowed me to move

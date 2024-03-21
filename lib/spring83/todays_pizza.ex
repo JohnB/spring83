@@ -7,6 +7,8 @@ defmodule TodaysPizza do
   if it comes from the database, an external API or others.
   """
 
+  require Logger
+
   @max_length_twitter 278
   @max_length_mastodon 500
 
@@ -21,9 +23,9 @@ defmodule TodaysPizza do
     try do
       ExTwitter.update(pizza_message(@max_length_twitter))
     rescue
-      _ -> ExTwitter.update("@JohnB - something broke and needed rescuing.")
+      err -> Logger.info("@JohnB - something broke and needed rescuing: #{inspect(err)}}")
     catch
-      err -> ExTwitter.update("@JohnB caught #{err}.")
+      err -> Logger.info("@JohnB caught #{inspect(err)}.")
     end
   end
 
@@ -31,9 +33,9 @@ defmodule TodaysPizza do
     try do
       attempt_to_post_pizza_to_mastodon()
     rescue
-      _ -> ExTwitter.update("@JohnB - mastodon broke and needed rescuing.")
+      err -> Logger.info("@JohnB - mastodon broke and needed rescuing: #{inspect(err)}}")
     catch
-      err -> ExTwitter.update("@JohnB mastodon caught #{err}.")
+      err -> Logger.info("@JohnB mastodon caught #{inspect(err)}.")
     end
   end
 
