@@ -1,5 +1,6 @@
 defmodule Spring83.PizzaCache do
   use Agent
+  require Logger
 
   @month_to_number %{
     "Jan" => "01",
@@ -18,7 +19,8 @@ defmodule Spring83.PizzaCache do
   @extract_month_and_day ~r/\w+ (?<month>.+) (?<day>.+)/
 
   def start_link(_) do
-    Agent.start_link(fn -> %{} end, name: __MODULE__)
+  Logger.info("Starting PizzaCache")
+  Agent.start_link(fn -> %{} end, name: __MODULE__)
   end
 
   def pizza_for(yyyymmdd) do
