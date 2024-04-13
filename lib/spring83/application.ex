@@ -23,6 +23,7 @@ defmodule Spring83.Application do
        ]},
       Spring83Web.FakeCron,
       Spring83Web.CanvasSharedState,
+      Spring83.PizzaCache,
 
       # Start the Endpoint (http/https)
       Spring83Web.Endpoint

@@ -59,19 +59,10 @@ defmodule TodaysPizza do
   end
 
   def pizza_message(max_length \\ 278) do
-    # NOTE: `h Timex.Format.DateTime.Formatters.Strftime` shows the format codes.
-    # Try to match "Fri Jun 27" that we see from the cheeseboard site.
-    # The name means: dow=DayOfWeek, mon=Month, day=DayOfMonth
-    # Note: the timex formatting allows for "08" or " 8" but not just "8".
     now = Timex.now("America/Los_Angeles")
+    yyyymmdd = Timex.format!(now, "{YYYY}{0M}{0D}")
+    todays_pizza = [:ok, Spring83.PizzaCache.pizza_for(yyyymmdd)]
     dow_mon_day = Timex.format!(now, "%a %b #{now.day}", :strftime)
-
-    todays_pizza =
-      fetch_dates_and_topping()
-      |> Enum.find(fn [date, _message] ->
-        # IO.inspect([date, _message])
-        date == dow_mon_day
-      end)
 
     case todays_pizza do
       nil ->
@@ -85,7 +76,7 @@ defmodule TodaysPizza do
         )
 
       _ ->
-        "@JohnB Unexpected todays_pizza array: #{inspect(todays_pizza)}."
+        "@JohnB Unexpected todays_pizza value: #{inspect(todays_pizza)}."
     end
   end
 
@@ -98,7 +89,7 @@ defmodule TodaysPizza do
   def trimmed_message(message, max_length, dow_mon_day \\ "") do
     hot_sellout =
       (String.match?(dow_mon_day, ~r/Sat/) &&
-         "\nHot whole or half (no slices): 5-8 (sold out at 7pm on recent Saturdays)") ||
+         "\nHot whole or half (no slices): 5-8 (sold out at 7pm on some Saturdays)") ||
         "\nHot whole or half (no slices): 5-8 or until sold out"
 
     message = Regex.replace(@partial_bake, message, "Partially baked: 9-4 or until sold out.")
@@ -166,26 +157,26 @@ defmodule TodaysPizza do
 
   # We likely won't need this static test data very often
   # but I captured it so might as well use it.
-  @example_data_20200621 [
-    [
-      "Tue Jun 23",
-      "TEST DATA Shiitake mushroom, leek, mozzarella cheese, and sesame-citrus sauce"
-    ],
-    [
-      "Wed Jun 24",
-      "TEST DATA Artichoke, kalamata olive, fresh ricotta made in Berkeley by Belfiore, mozzarella cheese, and house made tomato sauce"
-    ],
-    [
-      "Thu Jun 25",
-      "TEST DATA Crushed tomato, red onion, cheddar cheese, mozzarella cheese, garlic olive oil, and cilantro"
-    ],
-    [
-      "Fri Jun 26",
-      "TEST DATA Peach, Dunbarton blue cheese, mozzarella cheese, and arugula dressed in lemon vinaigrette"
-    ],
-    [
-      "Sat Jun 27",
-      "TEST DATA A rainbow of mixed sweet bell peppers, red onion, mozzarella cheese, Ossau Iraty cheese, garlic olive oil, and Italian parsley"
-    ]
-  ]
+  #  @example_data_20200621 [
+  #    [
+  #      "Tue Jun 23",
+  #      "TEST DATA Shiitake mushroom, leek, mozzarella cheese, and sesame-citrus sauce"
+  #    ],
+  #    [
+  #      "Wed Jun 24",
+  #      "TEST DATA Artichoke, kalamata olive, fresh ricotta made in Berkeley by Belfiore, mozzarella cheese, and house made tomato sauce"
+  #    ],
+  #    [
+  #      "Thu Jun 25",
+  #      "TEST DATA Crushed tomato, red onion, cheddar cheese, mozzarella cheese, garlic olive oil, and cilantro"
+  #    ],
+  #    [
+  #      "Fri Jun 26",
+  #      "TEST DATA Peach, Dunbarton blue cheese, mozzarella cheese, and arugula dressed in lemon vinaigrette"
+  #    ],
+  #    [
+  #      "Sat Jun 27",
+  #      "TEST DATA A rainbow of mixed sweet bell peppers, red onion, mozzarella cheese, Ossau Iraty cheese, garlic olive oil, and Italian parsley"
+  #    ]
+  #  ]
 end
