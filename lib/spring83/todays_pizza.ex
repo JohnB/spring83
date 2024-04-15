@@ -61,14 +61,14 @@ defmodule TodaysPizza do
   def pizza_message(max_length \\ 278) do
     now = Timex.now("America/Los_Angeles")
     yyyymmdd = Timex.format!(now, "{YYYY}{0M}{0D}")
-    todays_pizza = [:ok, Spring83.PizzaCache.pizza_for(yyyymmdd)]
+    todays_pizza = Spring83.PizzaCache.pizza_for(yyyymmdd)
     dow_mon_day = Timex.format!(now, "%a %b #{now.day}", :strftime)
 
     case todays_pizza do
       nil ->
         "#{dow_mon_day}: Sadly, no pizza today."
 
-      [_, message] ->
+      message when is_binary(message) ->
         String.slice(
           "#{dow_mon_day}: #{trimmed_message(message, max_length, dow_mon_day)}",
           0,
