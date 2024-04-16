@@ -28,42 +28,25 @@ defmodule Spring83Web.FakeCron do
   end
 
   def set_up_cron(pid) do
-    delay = time_until_tweet()
+    delay = time_until_toot()
     Logger.info("Sending next tweet in #{delay}ms")
-    Process.send_after(pid, :send_tweet, delay)
+    Process.send_after(pid, :send_toot, delay)
     {:ok, pid}
   end
 
   @impl true
-  def handle_info(:send_tweet, state) do
-    Logger.info("handle_info(:send_tweet) mastodon")
+  def handle_info(:send_toot, state) do
+    Logger.info("handle_info(:send_toot) mastodon")
     TodaysPizza.post_pizza_to_mastodon()
-    Logger.info("handle_info(:send_tweet) twitter")
-    maybe_tweet_about_pizza(@mix_env)
-    Logger.info("tweet maybe sent")
 
-    Process.send_after(self(), :send_tweet, one_day_ms())
+    Process.send_after(self(), :send_toot, one_day_ms())
     Logger.info("timer restarted for #{one_day_ms()}ms}")
     {:noreply, state}
   end
 
-  # TODO: rework for prod vs test vs CI vs dev
-  def maybe_tweet_about_pizza(:dev = _env) do
-    IO.puts("NOT TWEETING FROM :dev ENVIRONMENT")
-    Logger.info("NOT TWEETING FROM :dev ENVIRONMENT")
-  end
-
-  def maybe_tweet_about_pizza(env) do
-    Logger.info("Really sending the tweet for the #{env} environment!")
-
-    # IF ACCIDENTALLY SPAMMING:
-    # Disable this line and re-deploy
-    TodaysPizza.tweet_about_pizza()
-  end
-
   # we don't care *when* we send it within the hour, so the minutes will be
   # whatever the minutes were when we last deployed.
-  def time_until_tweet do
+  def time_until_toot do
     now = Timex.now()
 
     cond do
