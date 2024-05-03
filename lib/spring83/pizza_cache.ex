@@ -19,8 +19,8 @@ defmodule Spring83.PizzaCache do
   @extract_month_and_day ~r/\w+ (?<month>.+) (?<day>.+)/
 
   def start_link(_) do
-  Logger.info("Starting PizzaCache")
-  Agent.start_link(fn -> %{} end, name: __MODULE__)
+    Logger.info("Starting PizzaCache")
+    Agent.start_link(fn -> %{} end, name: __MODULE__)
   end
 
   def pizza_for(yyyymmdd) do
@@ -42,7 +42,7 @@ defmodule Spring83.PizzaCache do
     year = DateTime.utc_now().year
     Enum.reduce(dates_and_pizzas, existing, fn [date, pizza], acc ->
       %{"day" => day, "month" => month} = Regex.named_captures(@extract_month_and_day, date)
-      Map.put(acc, "#{year}#{@month_to_number[month]}#{day}", pizza)
+      Map.put(acc, "#{year}#{@month_to_number[month]}#{String.pad_leading(day, 2, "0")}", pizza)
     end)
   end
 end
