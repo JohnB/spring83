@@ -25,6 +25,7 @@ defmodule Spring83.PizzaCache do
 
   def pizza_for(yyyymmdd) do
     map = get()
+
     if map[yyyymmdd] do
       map[yyyymmdd]
     else
@@ -40,6 +41,7 @@ defmodule Spring83.PizzaCache do
 
   def normalize_dates(dates_and_pizzas, existing \\ %{}) do
     year = DateTime.utc_now().year
+
     Enum.reduce(dates_and_pizzas, existing, fn [date, pizza], acc ->
       %{"day" => day, "month" => month} = Regex.named_captures(@extract_month_and_day, date)
       Map.put(acc, "#{year}#{@month_to_number[month]}#{String.pad_leading(day, 2, "0")}", pizza)

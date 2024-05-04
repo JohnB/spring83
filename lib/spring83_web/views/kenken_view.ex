@@ -1,6 +1,6 @@
 defmodule Spring83Web.KenkenView do
   use Spring83Web, :view
-#  import Phoenix.LiveView.Helpers
+  #  import Phoenix.LiveView.Helpers
   alias Spring83.Kenken.Puzzle
 
   def kenken_board(%{puzzle: %{size: board_size}} = assigns) do
@@ -21,6 +21,7 @@ defmodule Spring83Web.KenkenView do
   attr :board_size, :integer
   attr :row_number, :integer
   attr :puzzle, Puzzle
+
   def row(assigns) do
     ~H"""
     <.border_segment direction="v" />
@@ -60,6 +61,7 @@ defmodule Spring83Web.KenkenView do
   attr :published_at, :any
   attr :selected, :integer
   attr :puzzle, Puzzle
+
   def cell(
         %{
           row_number: row_number,
@@ -148,6 +150,7 @@ defmodule Spring83Web.KenkenView do
 
   def answer_options(%{puzzle: %{size: board_size} = _puzzle, cell_id: _cell_id} = assigns) do
     assigns = assign(assigns, :board_size, board_size)
+
     ~H"""
     <%= for guess <- 1..@board_size do %>
       <span
@@ -170,6 +173,7 @@ defmodule Spring83Web.KenkenView do
 
   def full_horizontal_border(%{puzzle: %{size: board_size}} = assigns) do
     assigns = assign(assigns, :board_size, board_size)
+
     ~H"""
     <.intersection />
     <%= for _column <- 1..@board_size do %>
@@ -200,6 +204,7 @@ defmodule Spring83Web.KenkenView do
        end) && "off") || ""
 
     assigns = assign(assigns, :off, off)
+
     ~H"""
     <div class={"intersection #{@off}"}></div>
     """
@@ -228,6 +233,7 @@ defmodule Spring83Web.KenkenView do
     assigns = assign(assigns, :borders, borders)
     assigns = assign(assigns, :border_id, border_id)
     assigns = assign(assigns, :allow_edits, allow_edits)
+
     ~H"""
     <div
       class={"#{@direction}-border #{maybe_clickable(@allow_edits)} #{@borders[@border_id]}"}
