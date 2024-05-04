@@ -9,25 +9,8 @@ defmodule TodaysPizza do
 
   require Logger
 
-  @max_length_twitter 278
+  #  @max_length_twitter 278
   @max_length_mastodon 500
-
-  def tweet_about_pizza do
-    ExTwitter.configure(
-      consumer_key: System.get_env("consumer_key"),
-      consumer_secret: System.get_env("consumer_secret"),
-      access_token: System.get_env("oauth_token"),
-      access_token_secret: System.get_env("oauth_token_secret")
-    )
-
-    try do
-      ExTwitter.update(pizza_message(@max_length_twitter))
-    rescue
-      err -> Logger.info("@JohnB - something broke and needed rescuing: #{inspect(err)}}")
-    catch
-      err -> Logger.info("@JohnB caught #{inspect(err)}.")
-    end
-  end
 
   def post_pizza_to_mastodon do
     try do

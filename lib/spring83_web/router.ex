@@ -38,16 +38,8 @@ defmodule Spring83Web.Router do
     live "/vdiff", VDiffLive
 
     # whoisatthegreek.com and whoisatthelagreek.com
-    #    live "/whoisatthegreek.com", WhoIsAtTheLive, :cal_greek (1928)
-    #    live "/whoisatthelagreek.com", WhoIsAtTheLive, :la_greek (672)
-    # link to buy tix
-    # https://tickets-center.com/tickets/?eventId=4344297&venueId=1928&performerId=1716
-    #
-    # regex = ~r/^(?<dow>.+), (?<month>.+) (?<day>.+), (?<year>\d{4}) at (?<time>.+?), (?<performer>.+) at.*/
-    # html = HTTPoison.get!("https://tickets-center.com/search?venueId=1928").body
-    # {:ok, document} = Floki.parse_document(html)
-    # events = Floki.find(document, "#event-list") |> Floki.find("[aria-label]") |> Floki.attribute("aria-label") |> Enum.reject(fn x -> x == "Click to View Tickets" end)
-    # Enum.map(events, fn x -> Regex.named_captures(regex, x) end)
+    get "/whoisatthegreek.com", PageController, :cal_greek # (1928)
+    get "/whoisatthelagreek.com", PageController, :la_greek # (672)
   end
 
   # Other scopes may use custom stacks.

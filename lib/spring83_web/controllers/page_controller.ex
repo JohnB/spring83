@@ -6,10 +6,13 @@ defmodule Spring83Web.PageController do
     render(conn, "index.html", %{dates_and_toppings: dates_and_toppings})
   end
 
-  def send_pizza_message(conn, _params) do
-    TodaysPizza.tweet_about_pizza()
+  def cal_greek(conn, _params) do
+    events = Spring83.VenueCache.venue_list(:cal_greek)
+    render(conn, "who_is_at_the.html", %{events: events})
+  end
 
-    put_flash(conn, :info, "Pizza tweet sent.")
-    |> redirect(external: "/")
+  def la_greek(conn, _params) do
+    events = Spring83.VenueCache.venue_list(:la_greek)
+    render(conn, "who_is_at_the.html", %{events: events})
   end
 end

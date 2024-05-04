@@ -1,0 +1,7 @@
+<%= for {date, event} <- @events.events do %>
+  <p>
+    <b><%= event["dow"] %>, <%= event["month"] %> <%= event["day"] %></b>,
+    <%= event["time"] %>:
+    <%= event["performer"] %>
+  </p>
+<% end %>

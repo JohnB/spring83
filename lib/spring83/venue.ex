@@ -31,14 +31,14 @@ defmodule Venue do
       |> Floki.find("[aria-label]")
       |> Floki.attribute("aria-label")
       |> Enum.reject(fn x -> x == "Click to View Tickets" end)
-      |> IO.inspect(label: "events")
+#      |> IO.inspect(label: "events")
 
     event_summaries =
       events
       |> Enum.reduce(%{}, fn event_string, acc ->
         event_captures =
           Regex.named_captures(regex, event_string)
-          |> IO.inspect(label: "event_captures")
+#          |> IO.inspect(label: "event_captures")
 
         case event_captures do
           nil ->
