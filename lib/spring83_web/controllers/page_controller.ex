@@ -11,7 +11,7 @@ defmodule Spring83Web.PageController do
       Spring83.VenueCache.venue_list(:cal_greek)
       |> split_into_past_present_future()
 
-    render(conn, "who_is_at_the.html", past_present_future)
+    render(conn, "who_is_at_the.html", put_in(past_present_future, [:page_title], "Cal Berkeley Greek Theater"))
   end
 
   def la_greek(conn, _params) do
@@ -19,7 +19,7 @@ defmodule Spring83Web.PageController do
       Spring83.VenueCache.venue_list(:la_greek)
       |> split_into_past_present_future()
 
-    render(conn, "who_is_at_the.html", past_present_future)
+    render(conn, "who_is_at_the.html", put_in(past_present_future, [:page_title], "LA Greek Theater"))
   end
 
   defp split_into_past_present_future(map) do
