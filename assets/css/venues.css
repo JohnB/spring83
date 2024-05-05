@@ -1,0 +1,26 @@
+
+.headliner {
+    font-size: xxx-large;
+    font-weight: bolder;
+    text-align: center;
+}
+
+.time_tonight {
+    font-size: x-large;
+    font-weight: bold;
+    text-align: center;
+}
+
+.future_events {
+    /*text-align: center;*/
+}
+.future_events .date_and_time {
+    display: block;
+    font-size: medium;
+    padding-top: 8px;
+}
+.future_events .performer {
+    font-size: medium;
+    font-weight: bolder;
+    padding-left: 2rem;
+}

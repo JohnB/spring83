@@ -3,6 +3,7 @@
 @import "./collaborative_canvas.css";
 @import "./kenken.css";
 @import "./food_trucks.css";
+@import "./venues.css";
 
 .menu ul {
   font-size: larger;

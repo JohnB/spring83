@@ -1,21 +1,28 @@
 <%= if @present == [] do %>
-  Nothing scheduled today.
+  <div class="headliner">
+    Nothing Scheduled Today
+  </div>
 <% else %>
   <% event = @events.events[List.first(@present)] %>
-  <p>
-    <b><%= event["dow"] %>, <%= event["month"] %> <%= event["day"] %></b>, <%= event["time"] %>: <%= event[
-      "performer"
-    ] %>
-  </p>
+  <div class="headliner">
+    <%= event["performer"] %>
+  </div>
+  <div class="time_tonight">
+    <%= event["time"] %> Tonight <br />
+    <%= event["dow"] %>, <%= event["month"] %> <%= event["day"] %>
+  </div>
 <% end %>
 <hr />
-<div style="opacity: 40%">
+<div class="future_events">
   <%= for date <- @future do %>
     <% event = @events.events[date] %>
-    <p>
-      <b><%= event["dow"] %>, <%= event["month"] %> <%= event["day"] %></b>, <%= event["time"] %>: <%= event[
-        "performer"
-      ] %>
-    </p>
+
+    <span class="date_and_time">
+      <%= event["dow"] %>, <%= event["month"] %>
+      <%= event["day"] %>, <%= event["time"] %>
+    </span>
+    <span class="performer">
+      <%= event["performer"] %>
+    </span>
   <% end %>
 </div>
