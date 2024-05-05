@@ -38,8 +38,8 @@ defmodule Spring83Web.Router do
     live "/vdiff", VDiffLive
 
     # whoisatthegreek.com and whoisatthelagreek.com
-    get "/whoisatthegreek.com", PageController, :cal_greek # (1928)
-    get "/whoisatthelagreek.com", PageController, :la_greek # (672)
+    get "/whoisatthegreek.com", PageController, :cal_greek
+    get "/whoisatthelagreek.com", PageController, :la_greek
   end
 
   # Other scopes may use custom stacks.
