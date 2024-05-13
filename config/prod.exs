@@ -14,12 +14,6 @@ config :spring83, Spring83Web.Endpoint, cache_static_manifest: "priv/static/cach
 # Do not print debug messages in production
 config :logger, level: :info
 
-config :spring83, Spring83Web.Endpoint,
-       url: [host: "whoisatthegreek.com"],
-       render_errors: [view: Spring83Web.ErrorView, accepts: ~w(html json), layout: false],
-       pubsub_server: Spring83.PubSub,
-       live_view: [signing_salt: "3ERewZ/C"]
-
 # ## SSL Support
 #
 # To get SSL working, you will need to add the `https` key
