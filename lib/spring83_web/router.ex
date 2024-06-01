@@ -14,18 +14,6 @@ defmodule Spring83Web.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", Spring83Web, host: "whoisatthegreek.com" do
-    pipe_through :browser
-    get "/", PageController, :cal_greek
-    get "/whoisatthegreek.com", PageController, :cal_greek
-  end
-
-  scope "/", Spring83Web, host: "whoisatthelagreek.com" do
-    pipe_through :browser
-    get "/", PageController, :la_greek
-    get "/whoisatthelagreek.com", PageController, :la_greek
-  end
-
   scope "/", Spring83Web do
     pipe_through :browser
 

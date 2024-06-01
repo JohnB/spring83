@@ -10,7 +10,6 @@ defmodule Spring83Web.PageController do
 
   def cal_greek(conn, _params) do
     Logger.info("conn.host: #{conn.host}}")
-
     past_present_future =
       Spring83.VenueCache.venue_list(:cal_greek)
       |> split_into_past_present_future()
