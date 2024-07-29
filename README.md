@@ -20,25 +20,17 @@ The code used to be in a clone of [phoenix_live_view_example](https://github.com
 - [ ] Add a [?] modal to describe it
 
 ## Pizza Bot
-Now at [/pizza](https://spring-83.fly.dev/pizza) (but slow 
-because it scrapes the slow pizza page during the request cycle).
+Now at [/pizza](https://spring-83.fly.dev/pizza) (now fast 
+due to caching in long-running Agent).
 
 ### Roadmap
 - [ ] Switch FakeCron to [quantum](https://hexdocs.pm/quantum/readme.html)
-- [ ] Cache the pizza data on server restart,
+- [x] Cache the pizza data on server restart,
   for a faster [/pizza](https://spring-83.fly.dev/pizza) page load.
 - [ ] Update [previous](https://github.com/JohnB/todays_pizza) repo(s) to point here.
 - [ ] Bug my friend for their email address for the daily email
-- [ ] Add [Greek Theater](
-  "mix") (and others)
-  ```elxir
-  url = "https://tickets-center.com/search/v/Greek-Theatre/1928?venueId=1928&venueName=Greek+Theatre&maid=0"
-  html = HTTPoison.get!(url).body
-  {:ok, document} = Floki.parse_document(html)
-  Floki.find(document, ".eventList") |> List.first() |> Floki.find("a") |> Enum.map(fn x -> Floki.attribute(x, "aria-label") end)
-  # Generate today's date as "April 30, 2023" and look for it in the list
-  # Send out any found (at 2pm on weekdays, for a friend)
-  ``` 
+- [X] Add [Greek Theater](https://spring-83.fly.dev/whoisatthegreek.com)
+- [X] Add the [LA Greek Theater](https://spring-83.fly.dev/whoisatthelagreek.com)
 - [ ] Add a [?] modal to describe it
 
 ## Kenken
