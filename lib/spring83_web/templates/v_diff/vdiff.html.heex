@@ -7,7 +7,7 @@
     .video {
         width: 100%;
         height: auto;
-        position: absolute;
+        /*position: absolute; allows */
         top: 0;
         left: 0;
         z-index: 5;
@@ -31,17 +31,24 @@
         height: 100%;
     }
     .seethru {
-        opacity: 20%;
+        opacity: 90%;
     }
     .mostlyvisible {
-        opacity: 80%;
+        opacity: 40%;
+    }
+
+    .captureButton {
+        z-index: 10;
+        position: fixed;
+        top: 40px;
+        left: 125px;
     }
 </style>
 
 <div class="container">
   <video id="player" class="video seethru" controls autoplay
          onplay="resize_canvas(this)">111</video>
-  <button id="capture" style="z-index: 10">Capture</button>
+  <button id="capture" class="captureButton">Capture</button>
   <canvas id="canvas" class="referenceImage mostlyvisible" style="z-index: 5;">222</canvas>
 </div>
 
