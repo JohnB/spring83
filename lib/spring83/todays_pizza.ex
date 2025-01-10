@@ -117,11 +117,10 @@ defmodule TodaysPizza do
   # TODO: update the return signature to include salad somehow
   # and then restore the salad tweets.
   def fetch_dates_and_topping do
-    html = HTTPoison.get!("https://cheeseboardcollective.coop/pizza/").body
+    html = HTTPoison.get!("https://cheeseboardcollective.coop/pizza/pizza-schedule/").body
     {:ok, document} = Floki.parse_document(html)
 
-    pizza_articles =
-      Floki.find(document, ".pizza-list")
+    pizza_articles = Floki.find(document, ".daily-pizza")
       |> Floki.find("article")
 
     # pizza_article = List.first(pizza_articles)
