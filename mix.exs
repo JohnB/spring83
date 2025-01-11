@@ -20,7 +20,10 @@ defmodule Spring83.MixProject do
   def application do
     [
       mod: {Spring83.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [
+        :logger,
+        :runtime_tools
+      ]
     ]
   end
 
@@ -56,8 +59,7 @@ defmodule Spring83.MixProject do
       {:ets, "~> 0.9"},
       # Needed for todays_pizza
       {:oauther, "~> 1.1"},
-      {:extwitter, "~> 0.13"},
-      {:timex, "~> 3.6"},
+      {:timex, "~> 3.7"},
       {:hunter, "~> 0.5.1"}
     ]
   end
