@@ -95,17 +95,21 @@ defmodule TodaysPizza do
     message = Regex.replace(~r/is available /i, message, "")
     message = Regex.replace(~r/\(whole, half, slices\) /i, message, "")
 
-    [boilerplate | topping] =
-      String.split(message, ~r/\n\n+/, trim: true)
-      # Force a period onto every sentence (then remove doubles)
-      |> Enum.map(fn line -> line <> "." end)
-      |> Enum.map(fn line -> Regex.replace(~r/\.{2,}/i, line, ".") end)
+    if message == "" do
+      "No data. Probably closed."
+    else
+      [boilerplate | topping] =
+        String.split(message, ~r/\n\n+/, trim: true)
+        # Force a period onto every sentence (then remove doubles)
+        |> Enum.map(fn line -> line <> "." end)
+        |> Enum.map(fn line -> Regex.replace(~r/\.{2,}/i, line, ".") end)
 
-    boilerplate = Regex.replace(~r/Partially baked pizza/i, boilerplate, "Half-baked")
+      boilerplate = Regex.replace(~r/Partially baked pizza/i, boilerplate, "Half-baked")
 
-    "#{Enum.join(topping, " ")}\n\n#{boilerplate}"
-    # only 280 chars max
-    |> String.slice(0, max_length)
+      "#{Enum.join(topping, " ")}\n\n#{boilerplate}"
+      # only 280 chars max
+      |> String.slice(0, max_length)
+    end
   end
 
   def each_line(msg) do
