@@ -21,7 +21,7 @@ config :spring83, Spring83Web.Endpoint,
   server: false
 
 # In test we don't send emails.
-config :spring83, Spring83.Mailer, adapter: Swoosh.Adapters.Test
+#config :spring83, Spring83.Mailer, adapter: Swoosh.Adapters.Test
 
 # Print only warnings and errors during test
 config :logger, level: :warn
