@@ -29,7 +29,7 @@ defmodule Spring83Web.FakeCron do
 
   def set_up_cron(pid) do
     delay = time_until_toot()
-    Logger.info("Sending next tweet in #{delay}ms")
+    Logger.info("Sending next toot to mastodon in #{delay}ms")
     Process.send_after(pid, :send_toot, delay)
     {:ok, pid}
   end

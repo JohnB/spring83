@@ -10,23 +10,6 @@ defmodule TodaysPizza do
   @max_length_twitter 278
   @max_length_mastodon 500
 
-  def tweet_about_pizza do
-    ExTwitter.configure(
-      consumer_key: System.get_env("consumer_key"),
-      consumer_secret: System.get_env("consumer_secret"),
-      access_token: System.get_env("oauth_token"),
-      access_token_secret: System.get_env("oauth_token_secret")
-    )
-
-    try do
-      ExTwitter.update(pizza_message(@max_length_twitter))
-    rescue
-      _ -> ExTwitter.update("@JohnB - something broke and needed rescuing.")
-    catch
-      err -> ExTwitter.update("@JohnB caught #{err}.")
-    end
-  end
-
   def post_pizza_to_mastodon do
     conn = Hunter.new([
       base_url: "https://sfba.social/",
