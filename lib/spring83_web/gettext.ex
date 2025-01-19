@@ -20,5 +20,5 @@ defmodule Spring83Web.Gettext do
 
   See the [Gettext Docs](https://hexdocs.pm/gettext) for detailed usage.
   """
-  use Gettext, otp_app: :spring83
+  use Gettext.Backend, otp_app: :spring83
 end

@@ -6,7 +6,7 @@ defmodule Spring83Web.PageController do
   def index(conn, _params) do
     log_referer(conn, "PageController.index")
     dates_and_toppings = TodaysPizza.fetch_dates_and_topping()
-    render(conn, "index.html", %{dates_and_toppings: dates_and_toppings})
+    render(conn, "index.html", %{dates_and_toppings: dates_and_toppings, page_title: "JohnB Random Code"})
   end
 
   def cal_greek(conn, _params) do

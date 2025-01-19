@@ -1,4 +1,6 @@
 defmodule Spring83Web.PageView do
+
+  use Gettext, backend: Spring83Web.Gettext
   use Spring83Web, :view
 
   def color_picker_class(color, selected_color) do
