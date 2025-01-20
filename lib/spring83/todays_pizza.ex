@@ -40,7 +40,7 @@ defmodule TodaysPizza do
     |> each_line()
   end
 
-  def pizza_message(max_length \\ 278) do
+  def pizza_message(max_length \\ 500) do
     # NOTE: `h Timex.Format.DateTime.Formatters.Strftime` shows the format codes.
     # Try to match "Fri Jun 27" that we see from the cheeseboard site.
     # The name means: dow=DayOfWeek, mon=Month, day=DayOfMonth
@@ -66,43 +66,8 @@ defmodule TodaysPizza do
     end
   end
 
-  # Since the followers all know the drill, just
-  # cut to the chase for whatever boilerplate.
-  @partial_bake ~r/\*\*\*.*artially baked pizzas .*available at the bakery from 9 a.m. to 4 p.m.( or until we sell out.)?/
-  @full_bake ~r/Hot whole and half pizza \(no slices yet\),? .* available at the pizzeria from 5 p\.m\. to 8 p\.m.? or until we sell out/
-  @gluten ~r/We have a limited number.*as well/
-
-  def trimmed_message(message, max_length, dow_mon_day \\ "") do
-    hot_sellout =
-      (String.match?(dow_mon_day, ~r/Sat/) &&
-         "\nHot whole or half (no slices): 5-8 (sold out at 7pm on some Saturdays)") ||
-        "\nHot whole or half (no slices): 5-8 or until sold out"
-
-    message = Regex.replace(@partial_bake, message, "Partially baked: 9-4 or until sold out.")
-    message = Regex.replace(@full_bake, message, hot_sellout)
-    message = Regex.replace(@gluten, message, "(some gluten/vegan available)")
-    message = Regex.replace(~r/\*\*\*/, message, "\n")
-    message = Regex.replace(~r/we sell out/, message, "sold out")
-    message = Regex.replace(~r/ and /, message, " & ")
-    message = Regex.replace(~r/the /i, message, "")
-    message = Regex.replace(~r/is available /i, message, "")
-    message = Regex.replace(~r/\(whole, half, slices\) /i, message, "")
-
-    if message == "" do
-      "No data. Probably closed."
-    else
-      [boilerplate | topping] =
-        String.split(message, ~r/\n\n+/, trim: true)
-        # Force a period onto every sentence (then remove doubles)
-        |> Enum.map(fn line -> line <> "." end)
-        |> Enum.map(fn line -> Regex.replace(~r/\.{2,}/i, line, ".") end)
-
-      boilerplate = Regex.replace(~r/Partially baked pizza/i, boilerplate, "Half-baked")
-
-      "#{Enum.join(topping, " ")}\n\n#{boilerplate}"
-      # only 280 chars max
-      |> String.slice(0, max_length)
-    end
+  def trimmed_message(message, _max_length, _dow_mon_day \\ "") do
+    message == "" && "No data. Probably closed." || message
   end
 
   def each_line(msg) do
@@ -117,27 +82,30 @@ defmodule TodaysPizza do
     html = HTTPoison.get!(cheeseboard_url()).body
     {:ok, document} = Floki.parse_document(html)
 
-    pizza_articles = Floki.find(document, ".daily-pizza")
-      |> Floki.find("article")
+    pizza_articles = Floki.find(document, ".daily-pizza article")
+    hours = Floki.find(document, ".chalkboard article") |> Enum.reduce(%{}, fn {"article", _, [day | rest]}, acc ->
+      hour_data = Enum.map(rest, &Floki.text/1)
+      three_char_day = Floki.text(day) |> String.slice(0, 3)
+      Map.put(acc, three_char_day, Enum.join(hour_data, "\n"))
+    end)
 
-    # pizza_article = List.first(pizza_articles)
     Enum.map(pizza_articles, fn pizza_article ->
       date = Floki.find(pizza_article, "div.date") |> Floki.text()
+      three_char_day = String.slice(date, 0, 3)
+
       menu = Floki.find(pizza_article, "div.menu")
-      _titles = Floki.find(menu, "h3")
-      topping_and_salad = Floki.find(menu, "p")
-      topping = topping_and_salad |> List.first() |> Floki.text()
-      # salad = topping_and_salad |> List.last |> Floki.text
+      [{_, _, elements}] = menu
+      topping_and_salad = Enum.map(elements, fn element ->
+        Floki.text(element)
+      end) |> Enum.join("\n")
+      
+      topping_and_salad = topping_and_salad <> "\n\n" <> (hours[three_char_day] || "")
 
       [
         date,
-        topping
-        # salad,
+        topping_and_salad
       ]
     end)
-
-    # For offline debugging, comment above and uncomment below.
-    # @example_data_20200621
   end
 
   def cheeseboard_url do
