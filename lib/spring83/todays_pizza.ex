@@ -52,11 +52,12 @@ defmodule TodaysPizza do
 
     case todays_pizza do
       nil ->
-        "#{dow_mon_day}: Sadly, no pizza today."
+        "#{dow_mon_day}: Sadly, no pizza today.\n\n#{cheeseboard_url()}"
 
       message when is_binary(message) ->
         String.slice(
-          "#{dow_mon_day}: #{trimmed_message(message, max_length, dow_mon_day)}",
+          "#{dow_mon_day}: #{trimmed_message(message,
+            max_length, dow_mon_day)}\n\nDetails: #{cheeseboard_url()}",
           0,
           max_length
         )
