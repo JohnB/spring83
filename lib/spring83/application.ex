@@ -25,6 +25,7 @@ defmodule Spring83.Application do
       Spring83Web.CanvasSharedState,
       Spring83.PizzaCache,
       Spring83.VenueCache,
+      Spring83.TheNewParkwayCache,
 
       # Start the Endpoint (http/https)
       Spring83Web.Endpoint
