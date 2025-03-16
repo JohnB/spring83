@@ -40,7 +40,7 @@ defmodule Spring83Web.FakeCron do
     TodaysPizza.post_pizza_to_mastodon()
 
     Logger.info("post_movie_to_mastodon???")
-    TheNewParkwayCache.post_movie_to_mastodon()
+    Spring83.TheNewParkwayCache.post_movie_to_mastodon()
 
     Process.send_after(self(), :send_toot, one_day_ms())
     Logger.info("timer restarted for #{one_day_ms()}ms}")
