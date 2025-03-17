@@ -23,8 +23,8 @@ defmodule Spring83.MixProject do
       extra_applications: [
         :logger,
         :runtime_tools
-        #:bamboo,
-        #:bamboo_smtp
+        # :bamboo,
+        # :bamboo_smtp
       ]
     ]
   end
@@ -64,9 +64,10 @@ defmodule Spring83.MixProject do
       {:oauther, "~> 1.1"},
       # {:extwitter, "~> 0.13"},
       {:timex, "~> 3.7"},
-      {:hunter, "~> 0.5.1"}
+      {:hunter, "~> 0.5.1"},
       # {:bamboo_smtp, "~> 4.2"},
       # {:bamboo_phoenix, "~> 1.0"}
+      {:req, "~> 0.5.8"}
     ]
   end
 
