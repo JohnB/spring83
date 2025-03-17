@@ -36,14 +36,16 @@ defmodule Spring83Web.FakeCron do
 
   @impl true
   def handle_info(:send_toot, state) do
+    Process.send_after(self(), :send_toot, one_day_ms())
+    Logger.info("timer restarted for #{one_day_ms()}ms}")
+
     Logger.info("handle_info(:send_toot) mastodon")
     TodaysPizza.post_pizza_to_mastodon()
 
     Logger.info("post_movie_to_mastodon???")
     Spring83.TheNewParkwayCache.post_movie_to_mastodon()
+    Spring83.TheNewParkwayCache.post_movie_to_blue_sky()
 
-    Process.send_after(self(), :send_toot, one_day_ms())
-    Logger.info("timer restarted for #{one_day_ms()}ms}")
     {:noreply, state}
   end
 
