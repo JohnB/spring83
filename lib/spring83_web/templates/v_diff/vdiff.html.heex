@@ -1,83 +1,84 @@
 <style>
-    .container {
-        margin: 0 auto;
-        position: relative;
-    }
+  .container {
+      margin: 0 auto;
+      position: relative;
+  }
 
-    .video {
-        width: 100%;
-        height: auto;
-        /*position: absolute; allows */
-        top: 0;
-        left: 0;
-        z-index: 5;
-    }
+  .video {
+      width: 100%;
+      height: auto;
+      /*position: absolute; allows */
+      top: 0;
+      left: 0;
+      z-index: 5;
+  }
 
-    .referenceImage {
-        position: absolute;
-        top: 0;
-        left: 0;
-        z-index: 1;
-        /*background-color: red;*/
-    }
+  .referenceImage {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      /*background-color: red;*/
+  }
 
-    .fullsize {
-        /*position:absolute;*/
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-    }
-    .seethru {
-        opacity: 90%;
-    }
-    .mostlyvisible {
-        opacity: 40%;
-    }
+  .fullsize {
+      /*position:absolute;*/
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+  }
+  .seethru {
+      opacity: 90%;
+  }
+  .mostlyvisible {
+      opacity: 40%;
+  }
 
-    .captureButton {
-        z-index: 10;
-        position: fixed;
-        top: 40px;
-        left: 125px;
-    }
+  .captureButton {
+      z-index: 10;
+      position: fixed;
+      top: 40px;
+      left: 125px;
+  }
 </style>
 
 <div class="container">
-  <video id="player" class="video seethru" controls autoplay
-         onplay="resize_canvas(this)">111</video>
+  <video id="player" class="video seethru" controls autoplay onplay="resize_canvas(this)">
+    111
+  </video>
   <button id="capture" class="captureButton">Capture</button>
   <canvas id="canvas" class="referenceImage mostlyvisible" style="z-index: 5;">222</canvas>
 </div>
 
 <script>
-    const player = document.getElementById('player');
-    const canvas = document.getElementById('canvas');
-    const context = canvas.getContext('2d');
-    const captureButton = document.getElementById('capture');
+  const player = document.getElementById('player');
+  const canvas = document.getElementById('canvas');
+  const context = canvas.getContext('2d');
+  const captureButton = document.getElementById('capture');
 
-    function resize_canvas(element)
-    {
-        var ww = element.offsetWidth;
-        var hh = element.offsetHeight;
-        var cv = document.getElementById("canvas");
-        cv.width = ww;
-        cv.height = hh;
-    }
+  function resize_canvas(element)
+  {
+      var ww = element.offsetWidth;
+      var hh = element.offsetHeight;
+      var cv = document.getElementById("canvas");
+      cv.width = ww;
+      cv.height = hh;
+  }
 
-    const constraints = {
-        video: true,
-    };
+  const constraints = {
+      video: true,
+  };
 
-    captureButton.addEventListener('click', () => {
-        // Draw the video frame to the canvas.
-        context.drawImage(player, 0, 0, canvas.width, canvas.height);
-    });
+  captureButton.addEventListener('click', () => {
+      // Draw the video frame to the canvas.
+      context.drawImage(player, 0, 0, canvas.width, canvas.height);
+  });
 
-    // Attach the video stream to the video element and autoplay.
-    navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
-        player.srcObject = stream;
-    });
+  // Attach the video stream to the video element and autoplay.
+  navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
+      player.srcObject = stream;
+  });
 </script>

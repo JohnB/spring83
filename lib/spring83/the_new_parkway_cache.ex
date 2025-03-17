@@ -52,23 +52,28 @@ defmodule Spring83.TheNewParkwayCache do
     {_, _, days_and_junk} = List.first(calendar)
     days = Enum.reject(days_and_junk, fn x -> Floki.find(x, "h2") == [] end)
     complete_days = Enum.reject(days, fn day -> Floki.raw_html(day) =~ @incomplete_day end)
+
     Enum.reduce(complete_days, %{}, fn complete_day, acc ->
       [{_, _, [date]}] = Floki.find(complete_day, "h2")
       %{"day" => day, "month" => month} = Regex.named_captures(@extract_month_and_day, date)
-      yyyymmdd = "#{year}#{@month_to_number[month]}#{day}"
-      |> IO.inspect()
 
-      movies = Floki.find(complete_day, ".new-parkway-style-list")
-      |> Enum.reject(fn one_day -> one_day == [] end)
-      |> Enum.reject(fn one_day -> Floki.raw_html(one_day) =~ @check_the_date end)
-      |> Enum.map(fn one_day ->
-        IO.inspect(one_day)
-        [{_, _, [sktime]}] = Floki.find(one_day, ".sktime")
-        [{_, _, [sktitle]}] = Floki.find(one_day, ".sktitle")
-        "#{sktime}: #{sktitle}"
+      yyyymmdd =
+        "#{year}#{@month_to_number[month]}#{day}"
         |> IO.inspect()
-      end)
-      |> Enum.join("\n")
+
+      movies =
+        Floki.find(complete_day, ".new-parkway-style-list")
+        |> Enum.reject(fn one_day -> one_day == [] end)
+        |> Enum.reject(fn one_day -> Floki.raw_html(one_day) =~ @check_the_date end)
+        |> Enum.map(fn one_day ->
+          IO.inspect(one_day)
+          [{_, _, [sktime]}] = Floki.find(one_day, ".sktime")
+          [{_, _, [sktitle]}] = Floki.find(one_day, ".sktitle")
+
+          "#{sktime}: #{sktitle}"
+          |> IO.inspect()
+        end)
+        |> Enum.join("\n")
 
       Map.put(acc, yyyymmdd, date <> "\n" <> movies)
     end)
@@ -78,7 +83,10 @@ defmodule Spring83.TheNewParkwayCache do
     try do
       attempt_to_post_movie_to_mastodon()
     rescue
-      err -> Logger.info("@JohnB - MOVIE POSTING to mastodon broke and needed rescuing: #{inspect(err)}}")
+      err ->
+        Logger.info(
+          "@JohnB - MOVIE POSTING to mastodon broke and needed rescuing: #{inspect(err)}}"
+        )
     catch
       err -> Logger.info("@JohnB MOVIE POSTING to mastodon caught #{inspect(err)}.")
     end

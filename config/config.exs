@@ -28,7 +28,7 @@ config :spring83, Spring83Web.Endpoint,
 # See https://us-west-2.console.aws.amazon.com/ses/home?region=us-west-2#smtp-settings:
 # For what Amazon Simple Email Service allows.
 # See also: https://www.google.com/search?q=standard+SMTP+ports&oq=standard+SMTP+ports&aqs=chrome..69i57j0.6194j0j7&sourceid=chrome&ie=UTF-8
-#config :spring83, Spring83.Mailer,
+# config :spring83, Spring83.Mailer,
 #  adapter: Bamboo.SMTPAdapter,
 #  server: "email-smtp.us-west-2.amazonaws.com",
 #  # or 25, or 587,

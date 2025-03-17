@@ -56,8 +56,7 @@ defmodule TodaysPizza do
 
       message when is_binary(message) ->
         String.slice(
-          "#{dow_mon_day}: #{trimmed_message(message,
-            max_length, dow_mon_day)}\n\nDetails: #{cheeseboard_url()}",
+          "#{dow_mon_day}: #{trimmed_message(message, max_length, dow_mon_day)}\n\nDetails: #{cheeseboard_url()}",
           0,
           max_length
         )
@@ -68,7 +67,7 @@ defmodule TodaysPizza do
   end
 
   def trimmed_message(message, _max_length, _dow_mon_day \\ "") do
-    message == "" && "No data. Probably closed." || message
+    (message == "" && "No data. Probably closed.") || message
   end
 
   def each_line(msg) do
@@ -84,11 +83,14 @@ defmodule TodaysPizza do
     {:ok, document} = Floki.parse_document(html)
 
     pizza_articles = Floki.find(document, ".daily-pizza article")
-    hours = Floki.find(document, ".chalkboard article") |> Enum.reduce(%{}, fn {"article", _, [day | rest]}, acc ->
-      hour_data = Enum.map(rest, &Floki.text/1)
-      three_char_day = Floki.text(day) |> String.slice(0, 3)
-      Map.put(acc, three_char_day, Enum.join(hour_data, "\n"))
-    end)
+
+    hours =
+      Floki.find(document, ".chalkboard article")
+      |> Enum.reduce(%{}, fn {"article", _, [day | rest]}, acc ->
+        hour_data = Enum.map(rest, &Floki.text/1)
+        three_char_day = Floki.text(day) |> String.slice(0, 3)
+        Map.put(acc, three_char_day, Enum.join(hour_data, "\n"))
+      end)
 
     Enum.map(pizza_articles, fn pizza_article ->
       date = Floki.find(pizza_article, "div.date") |> Floki.text()
@@ -96,10 +98,13 @@ defmodule TodaysPizza do
 
       menu = Floki.find(pizza_article, "div.menu")
       [{_, _, elements}] = menu
-      topping_and_salad = Enum.map(elements, fn element ->
-        Floki.text(element)
-      end) |> Enum.join("\n")
-      
+
+      topping_and_salad =
+        Enum.map(elements, fn element ->
+          Floki.text(element)
+        end)
+        |> Enum.join("\n")
+
       topping_and_salad = topping_and_salad <> "\n\n" <> (hours[three_char_day] || "")
 
       [
