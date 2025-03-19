@@ -20,22 +20,11 @@ defmodule Spring83.TheNewParkwayCache do
   @incomplete_day "NOT ALL SHOWINGS ARE LISTED"
   @check_the_date "CHECK THE DATE!"
   @max_length_mastodon 500
+  @max_length_blue_sky 300
 
   def start_link(_) do
     Logger.info("Starting TheNewParkwayCache")
     Agent.start_link(fn -> %{} end, name: __MODULE__)
-  end
-
-  def movie_for(yyyymmdd) do
-    map = get()
-
-    if map[yyyymmdd] do
-      map[yyyymmdd]
-    else
-      latest = fetch_movies()
-      Agent.update(__MODULE__, fn x -> Map.merge(x, latest) end)
-      latest[yyyymmdd]
-    end
   end
 
   def get do
@@ -89,7 +78,7 @@ defmodule Spring83.TheNewParkwayCache do
   end
 
   def post_movie_to_blue_sky() do
-    msg = movie_message(@max_length_mastodon)
+    msg = movie_message(@max_length_blue_sky)
 
     Spring83.Bluesky.post(
       "new-parkway-bot.bsky.social",

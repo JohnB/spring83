@@ -10,6 +10,7 @@ defmodule TodaysPizza do
   require Logger
 
   @max_length_mastodon 500
+  @max_length_blue_sky 300
 
   def post_pizza_to_mastodon do
     try do
@@ -19,6 +20,16 @@ defmodule TodaysPizza do
     catch
       err -> Logger.info("@JohnB mastodon caught #{inspect(err)}.")
     end
+  end
+
+  def post_pizza_to_blue_sky() do
+    msg = pizza_message(@max_length_blue_sky)
+
+    Spring83.Bluesky.post(
+      "todays-pizza.bsky.social",
+      System.get_env("bsky_app_password_for_pizza"),
+      msg
+    )
   end
 
   # if it stops sending, try this:
