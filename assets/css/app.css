@@ -5,6 +5,11 @@
 @import "./food_trucks.css";
 @import "./venues.css";
 
+/* https://www.amitmerchant.com/bare-minimum-view-transitions/ */
+@view-transition {
+  navigation: auto;
+}
+
 .menu ul {
   font-size: larger;
 }
