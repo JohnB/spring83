@@ -1,6 +1,9 @@
 defmodule Spring83.Bluesky do
+  # https://docs.bsky.app/docs/api/com-atproto-server-create-session
   @create_session_url "https://bsky.social/xrpc/com.atproto.server.createSession"
+  # https://docs.bsky.app/docs/api/com-atproto-repo-create-record
   @create_record_url "https://bsky.social/xrpc/com.atproto.repo.createRecord"
+
   @collection "app.bsky.feed.post"
   @langs ["en-US"]
 
@@ -16,6 +19,25 @@ defmodule Spring83.Bluesky do
       "$type": @collection,
       langs: @langs
     }
+
+    # If message contains TodaysPizza.cheeseboard_url(),
+    # update the record to add a facet like this:
+    # https://docs.bsky.app/docs/advanced-guides/post-richtext
+    #  {
+    #   text: 'Go to this site',
+    #   facets: [
+    #     {
+    #       index: {
+    #         byteStart: 6,
+    #         byteEnd: 15
+    #       },
+    #       features: [{
+    #         $type: 'app.bsky.richtext.facet#link',
+    #        uri: 'https://example.com'
+    #       }]
+    #     }
+    #    ]
+    #  }
 
     %{"commit" => %{"rev" => _rev}} =
       Req.post!(@create_record_url,
