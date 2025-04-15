@@ -126,6 +126,6 @@ defmodule TodaysPizza do
   end
 
   def cheeseboard_url do
-    "https://cheeseboardcollective.coop/bakery-cheese/pizza/pizza-schedule/"
+    "https://cheeseboardcollective.coop/home/pizza/pizza-schedule/"
   end
 end
