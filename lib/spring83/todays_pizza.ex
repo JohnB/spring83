@@ -28,7 +28,8 @@ defmodule TodaysPizza do
     Spring83.Bluesky.post(
       "todays-pizza.bsky.social",
       System.get_env("bsky_app_password_for_pizza"),
-      msg
+      msg <> "\n\nDETAILS",
+      cheeseboard_url()
     )
   end
 
@@ -43,7 +44,7 @@ defmodule TodaysPizza do
         bearer_token: System.get_env("mastodon_token")
       )
 
-    Hunter.create_status(conn, pizza_message(@max_length_mastodon))
+    Hunter.create_status(conn, pizza_message(@max_length_mastodon) <> "\n\n#{cheeseboard_url()}")
   end
 
   def pizza_message_lines do
@@ -67,7 +68,7 @@ defmodule TodaysPizza do
 
       message when is_binary(message) ->
         String.slice(
-          "#{dow_mon_day}: #{trimmed_message(message, max_length, dow_mon_day)}\n\nDetails: #{cheeseboard_url()}",
+          "#{dow_mon_day}: #{trimmed_message(message, max_length, dow_mon_day)}",
           0,
           max_length
         )

@@ -83,7 +83,8 @@ defmodule Spring83.TheNewParkwayCache do
     Spring83.Bluesky.post(
       "new-parkway-bot.bsky.social",
       System.get_env("bsky_app_password_for_movies"),
-      msg
+      msg <> "\n\nDETAILS",
+      current_calendar_url()
     )
   end
 
@@ -98,7 +99,10 @@ defmodule Spring83.TheNewParkwayCache do
         bearer_token: System.get_env("mastodon_token_for_movies")
       )
 
-    Hunter.create_status(conn, movie_message(@max_length_mastodon))
+    Hunter.create_status(
+      conn,
+      movie_message(@max_length_mastodon) <> "\n\n#{current_calendar_url()}"
+    )
   end
 
   def movie_message(max_length \\ 500) do
@@ -112,11 +116,11 @@ defmodule Spring83.TheNewParkwayCache do
 
     case todays_movies do
       nil ->
-        "#{yyyymmdd}: Cannot find today's movies.\n\n#{current_calendar_url()}"
+        "#{yyyymmdd}: Cannot find today's movies."
 
       message when is_binary(message) ->
         String.slice(
-          "#{message}\n\nDetails: #{current_calendar_url()}",
+          message,
           0,
           max_length
         )
