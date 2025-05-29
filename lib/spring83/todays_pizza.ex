@@ -79,7 +79,12 @@ defmodule TodaysPizza do
   end
 
   def trimmed_message(message, _max_length, _dow_mon_day \\ "") do
-    (message == "" && "No data. Probably closed.") || message
+    (message == "" && "No data. Probably closed.") ||
+      message
+      |> String.replace(" made in Berkeley by Belfiore", "")
+      |> String.replace(" Farm", "")
+      |> String.replace("\r\n", "\n", global: true)
+      |> String.replace("\n\n", "\n", global: true)
   end
 
   def each_line(msg) do
