@@ -41,10 +41,12 @@ defmodule Spring83Web.FakeCron do
 
     Logger.info("handle_info(:send_toot) mastodon")
     TodaysPizza.post_pizza_to_mastodon()
+    Logger.info("post_pizza_to_blue_sky")
     TodaysPizza.post_pizza_to_blue_sky()
 
-    Logger.info("post_movie_to_mastodon???")
+    Logger.info("post_movie_to_mastodon")
     Spring83.TheNewParkwayCache.post_movie_to_mastodon()
+    Logger.info("post_movie_to_blue_sky")
     Spring83.TheNewParkwayCache.post_movie_to_blue_sky()
 
     {:noreply, state}

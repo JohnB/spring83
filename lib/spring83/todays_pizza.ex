@@ -83,6 +83,10 @@ defmodule TodaysPizza do
       message
       |> String.replace(" made in Berkeley by Belfiore", "")
       |> String.replace(" Farm", "")
+      |> String.replace(" and ", " & ")
+      |> String.replace("Organically grown ", "")
+      |> String.replace("organic ", "")
+      |> String.replace(" (contains sesame)", "")
       |> String.replace("\r\n", "\n", global: true)
       |> String.replace("\n\n", "\n", global: true)
   end
