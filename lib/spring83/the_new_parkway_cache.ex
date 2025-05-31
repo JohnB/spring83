@@ -119,8 +119,9 @@ defmodule Spring83.TheNewParkwayCache do
         "#{yyyymmdd}: Cannot find today's movies."
 
       message when is_binary(message) ->
-        String.slice(
-          message,
+        message
+        |> trim_message()
+        |> String.slice(
           0,
           max_length
         )
@@ -128,6 +129,13 @@ defmodule Spring83.TheNewParkwayCache do
       _ ->
         "@JohnB Unexpected todays_movies value: #{inspect(todays_movies)}."
     end
+  end
+
+  def trim_message(msg) do
+    msg
+    |> String.replace(", classic cartoons & all-you-can-eat cereal", "")
+    |> String.replace("UEFA CHAMPIONS LEAGUE FINAL: ", "")
+    |> String.replace(" (free on the Mezzanine)", "")
   end
 
   def movie_for(yyyymmdd) do
