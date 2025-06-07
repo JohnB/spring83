@@ -52,6 +52,7 @@ defmodule Spring83.TheNewParkwayCache do
         Floki.find(complete_day, ".new-parkway-style-list")
         |> Enum.reject(fn one_day -> one_day == [] end)
         |> Enum.reject(fn one_day -> Floki.raw_html(one_day) =~ @check_the_date end)
+        |> Enum.reject(fn one_day -> timeless?(one_day) end)
         |> Enum.map(fn one_day ->
           [{_, _, [sktime]}] = Floki.find(one_day, ".sktime")
           [{_, _, [sktitle]}] = Floki.find(one_day, ".sktitle")
@@ -62,6 +63,16 @@ defmodule Spring83.TheNewParkwayCache do
 
       Map.put(acc, yyyymmdd, date <> "\n" <> movies)
     end)
+  end
+
+  # Actual movies always have a show time.
+  # Weird place-holder entries have no time.
+  def timeless?(one_day) do
+    case Floki.find(one_day, ".sktime") do
+      [{_, _, []}] -> true
+      [{_, _, [_sktime]}] -> false
+    end
+
   end
 
   def post_movie_to_mastodon() do

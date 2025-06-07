@@ -9,8 +9,9 @@ defmodule TodaysPizza do
 
   require Logger
 
+  @details "\n\nDETAILS"
   @max_length_mastodon 500
-  @max_length_blue_sky 300
+  @max_length_blue_sky 300 - String.length(@details)
 
   def post_pizza_to_mastodon do
     try do
