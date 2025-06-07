@@ -33,7 +33,7 @@ defmodule Spring83Web.PageController do
     )
   end
 
-  # Unused as of 2025/6/6 ()
+  # Unused as of 2025/6/6 (fe09f27)
   #  defp log_referer(conn, caller) do
   #    referer = List.keyfind(conn.req_headers, "referer", 0, {"", "no referer"}) |> elem(1)
   #    Logger.info("#{caller} referer=#{referer}}")
