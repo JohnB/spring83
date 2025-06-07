@@ -72,7 +72,6 @@ defmodule Spring83.TheNewParkwayCache do
       [{_, _, []}] -> true
       [{_, _, [_sktime]}] -> false
     end
-
   end
 
   def post_movie_to_mastodon() do
