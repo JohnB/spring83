@@ -19,16 +19,22 @@ defmodule Spring83.TheNewParkwayCache do
   @extract_month_and_day ~r/\w+, (?<month>.+) (?<day>.+)/
   @incomplete_day "NOT ALL SHOWINGS ARE LISTED"
   @check_the_date "CHECK THE DATE!"
+  @details "\n\nDETAILS"
   @max_length_mastodon 500
-  @max_length_blue_sky 300
+  @max_length_blue_sky 300 - String.length(@details)
+  @default_state %{}
 
   def start_link(_) do
     Logger.info("Starting TheNewParkwayCache")
-    Agent.start_link(fn -> %{} end, name: __MODULE__)
+    Agent.start_link(fn -> @default_state end, name: __MODULE__)
   end
 
   def get do
     Agent.get(__MODULE__, & &1)
+  end
+
+  def clear() do
+    Agent.update(__MODULE__, fn _previous_cache -> @default_state end)
   end
 
   def fetch_movies() do
@@ -57,7 +63,7 @@ defmodule Spring83.TheNewParkwayCache do
           [{_, _, [sktime]}] = Floki.find(one_day, ".sktime")
           [{_, _, [sktitle]}] = Floki.find(one_day, ".sktitle")
 
-          "#{sktime}: #{sktitle}"
+          "#{String.replace(sktime, " ", "", global: true)}: #{sktitle}"
         end)
         |> Enum.join("\n")
 
@@ -88,19 +94,19 @@ defmodule Spring83.TheNewParkwayCache do
   end
 
   def post_movie_to_blue_sky() do
-    msg = movie_message(@max_length_blue_sky)
+    message = movie_message(@max_length_blue_sky)
 
     Spring83.Bluesky.post(
       "new-parkway-bot.bsky.social",
       System.get_env("bsky_app_password_for_movies"),
-      msg <> "\n\nDETAILS",
+      message <> @details,
       current_calendar_url()
     )
   end
 
   # if it stops sending, try this:
   #   iex -S mix phx.server
-  #   TodaysPizza.attempt_to_post_movie_to_mastodon()
+  #   Spring83.TheNewParkwayCache.attempt_to_post_movie_to_mastodon()
   # and see what exception it throws up
   def attempt_to_post_movie_to_mastodon() do
     conn =
@@ -115,9 +121,9 @@ defmodule Spring83.TheNewParkwayCache do
     )
   end
 
-  def movie_message(max_length \\ 500) do
+  def movie_message(max_length \\ @max_length_mastodon) do
     # NOTE: `h Timex.Format.DateTime.Formatters.Strftime` shows the format codes.
-    # Try to match "Fri Jun 27" that we see from the cheeseboard site.
+    # Try to match "Fri Jun 27" that we see from the New Parkway site.
     # The name means: dow=DayOfWeek, mon=Month, day=DayOfMonth
     # Note: the timex formatting allows for "08" or " 8" but not just "8".
     now = Timex.now("America/Los_Angeles")
@@ -130,7 +136,7 @@ defmodule Spring83.TheNewParkwayCache do
 
       message when is_binary(message) ->
         message
-        |> trim_message()
+        |> trim_message(max_length)
         |> String.slice(
           0,
           max_length
@@ -141,11 +147,23 @@ defmodule Spring83.TheNewParkwayCache do
     end
   end
 
-  def trim_message(msg) do
-    msg
-    |> String.replace(", classic cartoons & all-you-can-eat cereal", "")
-    |> String.replace("UEFA CHAMPIONS LEAGUE FINAL: ", "")
-    |> String.replace(" (free on the Mezzanine)", "")
+  def too_long?(message, max_length), do: String.length(message) > max_length
+
+  def trim_message(message, max_length) do
+    message
+    |> String.replace(", classic cartoons & all-you-can-eat cereal", "", global: true)
+    |> String.replace("UEFA CHAMPIONS LEAGUE FINAL: ", "", global: true)
+    |> String.replace(" (free on the Mezzanine)", "", global: true)
+    |> trim_if_too_long(max_length, " THE ", " ")
+    |> trim_if_too_long(max_length, " A ", " ")
+  end
+
+  def trim_if_too_long(message, max_length, search_for, replace_with) do
+    if too_long?(message, max_length) do
+      String.replace(message, search_for, replace_with, global: true)
+    else
+      message
+    end
   end
 
   def movie_for(yyyymmdd) do
@@ -155,7 +173,7 @@ defmodule Spring83.TheNewParkwayCache do
       map[yyyymmdd]
     else
       latest = fetch_movies()
-      Agent.update(__MODULE__, fn x -> Map.merge(x, latest) end)
+      Agent.update(__MODULE__, fn previous_cache -> Map.merge(previous_cache, latest) end)
       latest[yyyymmdd]
     end
   end
