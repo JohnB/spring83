@@ -39,7 +39,7 @@ defmodule Spring83Web.PageController do
   #    Logger.info("#{caller} referer=#{referer}}")
   #  end
 
-  defp split_into_past_present_future(map) do
+  def split_into_past_present_future(map) do
     today = Venue.today_yyyymmdd()
     event_dates = Map.keys(map.events) |> Enum.sort()
 
