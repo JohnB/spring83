@@ -21,5 +21,45 @@
       <a href="https://github.com/JohnB/spring83/blob/main/README.md">README</a>
       (stuff I might get to, whenever)
     </li>
+    <hr />
+    <label for="sgf-upload">Choose an SGF file to reverse</label>
+    <input type="file" id="sgf-upload" name="sgf-upload" accept=".sgf" multiple />
+    <div id="download_links"></div>
   </ul>
 </div>
+<script>
+    const reverser = new Map([['a','s'],['b','r'],['c','q'],['d','p'],['e','o'],['f','n'],
+        ['g','m'],['h','l'],['i','k'],['j','j'],['k','i'],['l','h'],['m','g'],['n','f'],
+        ['o','e'],['p','d'],['q','c'],['r','b'],['s','a']])
+    const input = document.querySelector("input[type=file]");
+    const output = document.querySelector("#download_links");
+    function createReverseSGFlink() {
+        const curFiles = input.files;
+        if (curFiles.length === 0) {
+            const para = document.createElement("p");
+            para.textContent = "No files currently selected for upload";
+            input.appendChild(para);
+        } else {
+            for (const file of curFiles) {
+                const reversed_filename = `reversed_${file.name}`
+                const reader = new FileReader();
+                reader.addEventListener("load", () => {
+                    const contents = reader.result;
+                    reversed = contents.replaceAll(/\[([a-s])([a-s])\]/g,
+                        function(all, a, b) {return `[${reverser.get(b)}${reverser.get(a)}]`} )
+                    const encoder = new TextEncoder();
+                    const uint8Array = encoder.encode(reversed);
+
+                    const download_link = document.createElement("a");
+                    download_link.textContent = ` DOWNLOAD ${reversed_filename} `;
+                    download_link.download = reversed_filename;
+                    download_link.href = `data:text/plain;base64,${uint8Array.toBase64()}`;
+
+                    output.appendChild(download_link);
+                });
+                const readerText = reader.readAsText(file);
+            }
+        }
+    }
+    input.addEventListener("change", createReverseSGFlink);
+</script>
