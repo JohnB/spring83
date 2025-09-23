@@ -45,8 +45,8 @@
                 const reader = new FileReader();
                 reader.addEventListener("load", () => {
                     const contents = reader.result;
-                    reversed = contents.replaceAll(/\[([a-s])([a-s])\]/g,
-                        function(all, a, b) {return `[${reverser.get(b)}${reverser.get(a)}]`} )
+                    reversed = contents.replaceAll(/\[([a-s]{1})([a-s]{1})\]/g,
+                        function(all, a, b) {return `[${reverser.get(a)}${reverser.get(b)}]`} )
                     const encoder = new TextEncoder();
                     const uint8Array = encoder.encode(reversed);
 
