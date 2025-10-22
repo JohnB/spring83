@@ -6,7 +6,14 @@ defmodule Spring83.VenueCache do
   def start_link(_) do
     Logger.info("Starting VenueCache")
 
-    Agent.start_link(fn -> %{cal_greek: Venue.cal_default(), la_greek: Venue.la_default()} end,
+    Agent.start_link(
+      fn ->
+        %{
+          cal_greek: Venue.cal_default(),
+          la_greek: Venue.la_default(),
+          cornerstone: Venue.cornerstone()
+        }
+      end,
       name: __MODULE__
     )
   end

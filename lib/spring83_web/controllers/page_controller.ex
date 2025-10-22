@@ -33,6 +33,18 @@ defmodule Spring83Web.PageController do
     )
   end
 
+  def cornerstone(conn, _params) do
+    past_present_future =
+      Spring83.VenueCache.venue_list(:cornerstone)
+      |> split_into_past_present_future()
+
+    render(
+      conn,
+      "who_is_at_the.html",
+      put_in(past_present_future, [:page_title], "Berkeley Cornerstone")
+    )
+  end
+
   # Unused as of 2025/6/6 (fe09f27)
   #  defp log_referer(conn, caller) do
   #    referer = List.keyfind(conn.req_headers, "referer", 0, {"", "no referer"}) |> elem(1)

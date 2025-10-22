@@ -13,6 +13,7 @@
     <li>
       <a href="whoisatthegreek.com">Who is at Cal's Greek theater?</a>
       vs. <a href="whoisatthelagreek.com">LA's?</a>
+      vs. <a href="cornerstone">or Berkeley Cornerstone?</a>
     </li>
     <li>
       <a href="/vdiff">Prototype Visual Diff Tool</a> (barely started - intended for mobile use)
@@ -28,38 +29,39 @@
   </ul>
 </div>
 <script>
-    const reverser = new Map([['a','s'],['b','r'],['c','q'],['d','p'],['e','o'],['f','n'],
-        ['g','m'],['h','l'],['i','k'],['j','j'],['k','i'],['l','h'],['m','g'],['n','f'],
-        ['o','e'],['p','d'],['q','c'],['r','b'],['s','a']])
-    const input = document.querySelector("input[type=file]");
-    const output = document.querySelector("#download_links");
-    function createReverseSGFlink() {
-        const curFiles = input.files;
-        if (curFiles.length === 0) {
-            const para = document.createElement("p");
-            para.textContent = "No files currently selected for upload";
-            input.appendChild(para);
-        } else {
-            for (const file of curFiles) {
-                const reversed_filename = `reversed_${file.name}`
-                const reader = new FileReader();
-                reader.addEventListener("load", () => {
-                    const contents = reader.result;
-                    reversed = contents.replaceAll(/\[([a-s]{1})([a-s]{1})\]/g,
-                        function(all, a, b) {return `[${reverser.get(a)}${reverser.get(b)}]`} )
-                    const encoder = new TextEncoder();
-                    const uint8Array = encoder.encode(reversed);
+  /* In-browser SGF reversal code */
+  const reverser = new Map([['a','s'],['b','r'],['c','q'],['d','p'],['e','o'],['f','n'],
+      ['g','m'],['h','l'],['i','k'],['j','j'],['k','i'],['l','h'],['m','g'],['n','f'],
+      ['o','e'],['p','d'],['q','c'],['r','b'],['s','a']])
+  const input = document.querySelector("input[type=file]");
+  const output = document.querySelector("#download_links");
+  function createReverseSGFlink() {
+      const curFiles = input.files;
+      if (curFiles.length === 0) {
+          const para = document.createElement("p");
+          para.textContent = "No files currently selected for upload";
+          input.appendChild(para);
+      } else {
+          for (const file of curFiles) {
+              const reversed_filename = `reversed_${file.name}`
+              const reader = new FileReader();
+              reader.addEventListener("load", () => {
+                  const contents = reader.result;
+                  reversed = contents.replaceAll(/\[([a-s]{1})([a-s]{1})\]/g,
+                      function(all, a, b) {return `[${reverser.get(a)}${reverser.get(b)}]`} )
+                  const encoder = new TextEncoder();
+                  const uint8Array = encoder.encode(reversed);
 
-                    const download_link = document.createElement("a");
-                    download_link.textContent = ` DOWNLOAD ${reversed_filename} `;
-                    download_link.download = reversed_filename;
-                    download_link.href = `data:text/plain;base64,${uint8Array.toBase64()}`;
+                  const download_link = document.createElement("a");
+                  download_link.textContent = ` DOWNLOAD ${reversed_filename} `;
+                  download_link.download = reversed_filename;
+                  download_link.href = `data:text/plain;base64,${uint8Array.toBase64()}`;
 
-                    output.appendChild(download_link);
-                });
-                const readerText = reader.readAsText(file);
-            }
-        }
-    }
-    input.addEventListener("change", createReverseSGFlink);
+                  output.appendChild(download_link);
+              });
+              const readerText = reader.readAsText(file);
+          }
+      }
+  }
+  input.addEventListener("change", createReverseSGFlink);
 </script>
