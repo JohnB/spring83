@@ -23,6 +23,7 @@ defmodule Spring83.TheNewParkwayCache do
   @max_length_mastodon 500
   @max_length_blue_sky 300 - String.length(@details)
   @default_state %{}
+  @hashtags "\n#oakland #movie"
 
   def start_link(_) do
     Logger.info("Starting TheNewParkwayCache")
@@ -117,7 +118,7 @@ defmodule Spring83.TheNewParkwayCache do
 
     Hunter.create_status(
       conn,
-      movie_message(@max_length_mastodon) <> "\n\n#{current_calendar_url()}"
+      movie_message(@max_length_mastodon) <> @hashtags <> "\n\n#{current_calendar_url()}"
     )
   end
 

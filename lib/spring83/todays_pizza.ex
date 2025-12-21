@@ -12,6 +12,7 @@ defmodule TodaysPizza do
   @details "\n\nDETAILS"
   @max_length_mastodon 500
   @max_length_blue_sky 300 - String.length(@details)
+  @hashtags "\n#berkeley #pizza"
 
   def post_pizza_to_mastodon do
     try do
@@ -45,7 +46,10 @@ defmodule TodaysPizza do
         bearer_token: System.get_env("mastodon_token")
       )
 
-    Hunter.create_status(conn, pizza_message(@max_length_mastodon) <> "\n\n#{cheeseboard_url()}")
+    Hunter.create_status(
+      conn,
+      pizza_message(@max_length_mastodon) <> @hashtags <> "\n\n#{cheeseboard_url()}"
+    )
   end
 
   def pizza_message_lines do
