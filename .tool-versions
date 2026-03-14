@@ -1,3 +1,5 @@
+# DON'T FORGET TO UPDATE Dockerfile SO DEPLOYS USE THE SAME VERSION
+#
 nodejs 14.3.0
 #elixir 1.12.3-otp-24
 elixir 1.16.2-otp-26
