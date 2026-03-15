@@ -19,7 +19,7 @@ defmodule Spring83Web do
 
   def controller do
     quote do
-      use Phoenix.Controller, namespace: Spring83Web
+      use Phoenix.Controller, formats: [html: "View"]
 
       import Plug.Conn
       import Spring83Web.Gettext
