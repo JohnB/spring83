@@ -67,7 +67,8 @@ defmodule Spring83.MixProject do
       {:hunter, "~> 0.5.1"},
       # {:bamboo_smtp, "~> 4.2"},
       # {:bamboo_phoenix, "~> 1.0"}
-      {:req, "~> 0.5.8"}
+      {:req, "~> 0.5.8"},
+      {:castore, "~> 1.0"}
     ]
   end
 
