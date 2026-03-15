@@ -17,7 +17,7 @@
   <%= for puzzle <- @recent do %>
     <li>
       <a href={"/kenken/#{puzzle.id}"}>
-        <%= puzzle.size %>x<%= puzzle.size %>: <%= puzzle.name %>
+        {puzzle.size}x{puzzle.size}: {puzzle.name}
       </a>
     </li>
   <% end %>
@@ -28,7 +28,7 @@
   <%= for puzzle <- @unpublished do %>
     <li>
       <a href={"/kenken/#{puzzle.id}"}>
-        <%= puzzle.size %>x<%= puzzle.size %>: <%= puzzle.name %>
+        {puzzle.size}x{puzzle.size}: {puzzle.name}
       </a>
     </li>
   <% end %>

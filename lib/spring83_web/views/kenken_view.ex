@@ -132,7 +132,7 @@ defmodule Spring83Web.KenkenView do
     <% else %>
       <div class="cell" {@maybe_edit} phx-value-cell={@cell_id}>
         <div class="result">
-          <%= @cell_values[@cell_id] %>
+          {@cell_values[@cell_id]}
         </div>
         <%= if {@published_at} do %>
           <div class="guesses">
@@ -140,7 +140,7 @@ defmodule Spring83Web.KenkenView do
           </div>
         <% else %>
           <div class="answer">
-            <%= @answers[@cell_id] %>
+            {@answers[@cell_id]}
           </div>
         <% end %>
       </div>
@@ -157,7 +157,7 @@ defmodule Spring83Web.KenkenView do
         class={answer_class(@puzzle, @cell_id, guess)}
         phx-click={"toggle_guess_#{@cell_id}_#{guess}"}
       >
-        <%= guess %>
+        {guess}
       </span>
     <% end %>
     """

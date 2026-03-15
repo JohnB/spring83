@@ -5,11 +5,11 @@
 <% else %>
   <% event = @events.events[List.first(@present)] %>
   <div class="headliner">
-    <%= event["performer"] %>
+    {event["performer"]}
   </div>
   <div class="time_tonight">
-    <%= event["time"] %> Tonight <br />
-    <%= event["dow"] %>, <%= event["month"] %> <%= event["day"] %>
+    {event["time"]} Tonight <br />
+    {event["dow"]}, {event["month"]} {event["day"]}
   </div>
 <% end %>
 <hr />
@@ -18,11 +18,11 @@
     <% event = @events.events[date] %>
 
     <span class="date_and_time">
-      <%= event["dow"] %>, <%= event["month"] %>
-      <%= event["day"] %>, <%= event["time"] %>
+      {event["dow"]}, {event["month"]}
+      {event["day"]}, {event["time"]}
     </span>
     <span class="performer">
-      <%= event["performer"] %>
+      {event["performer"]}
     </span>
   <% end %>
 </div>

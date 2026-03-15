@@ -40,6 +40,7 @@ defmodule Spring83Web.FakeCron do
 
   def attempt(log_msg, what_to_attempt) do
     Logger.info("Attempting #{log_msg}")
+
     try do
       what_to_attempt.()
     rescue

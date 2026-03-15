@@ -21,7 +21,7 @@
   TODAY:
   <b>
     <%= for line <- TodaysPizza.pizza_message_lines() do %>
-      <br /><%= line %>
+      <br />{line}
     <% end %>
   </b>
 </p>
@@ -31,12 +31,12 @@
 </p>
 <%= for [date, topping] <- @dates_and_toppings do %>
   <p>
-    <b><%= date %></b>: <span>(<%= String.length(topping) %> characters)</span>
+    <b><%= date %></b>: <span>({String.length(topping)} characters)</span>
     <i>
-      Tooted as <%= String.length(TodaysPizza.trimmed_message(topping, 5000, date)) %> characters:
+      Tooted as {String.length(TodaysPizza.trimmed_message(topping, 5000, date))} characters:
     </i>
     <%= for line <- TodaysPizza.each_line(TodaysPizza.trimmed_message(topping, 5000, date)) do %>
-      <br /><%= line %>
+      <br />{line}
     <% end %>
   </p>
 <% end %>

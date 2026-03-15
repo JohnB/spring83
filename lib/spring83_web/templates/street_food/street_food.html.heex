@@ -58,11 +58,11 @@
   }
 </script>
 
-<h1>Possibly-Japanese Street-Food Vendors near <%= @locationdescription %></h1>
+<h1>Possibly-Japanese Street-Food Vendors near {@locationdescription}</h1>
 <div class="nearby">
   <%= for venue <- @maybe_japanese_foods do %>
-    <div class="applicant"><%= Spring83.FoodTruck.vendor_name(venue) %></div>
-    <div class="fooditems"><%= venue.fooditems %></div>
-    <div class="locationdescription"><%= venue.locationdescription %></div>
+    <div class="applicant">{Spring83.FoodTruck.vendor_name(venue)}</div>
+    <div class="fooditems">{venue.fooditems}</div>
+    <div class="locationdescription">{venue.locationdescription}</div>
   <% end %>
 </div>

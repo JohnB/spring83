@@ -7,10 +7,10 @@
 </style>
 <span class="board-container">
   <%= for board <- @boards do %>
-    <h3><%= board.name %></h3>
+    <h3>{board.name}</h3>
     <span>
       <template shadowroot="open">
-        <%= raw(board.data) %>
+        {raw(board.data)}
       </template>
     </span>
   <% end %>

@@ -8,7 +8,7 @@
     <meta name="view-transition" content="same-origin" />
     <meta name="color-scheme" content="light dark" />
     <.live_title>
-      <%= assigns[:page_title] || "Mjr Tom" %>
+      {assigns[:page_title] || "Mjr Tom"}
     </.live_title>
     <link phx-track-static rel="stylesheet" href={Routes.static_path(@conn, "/assets/app.css")} />
     <script
@@ -21,6 +21,6 @@
   </head>
   <body>
     <header></header>
-    <%= @inner_content %>
+    {@inner_content}
   </body>
 </html>
