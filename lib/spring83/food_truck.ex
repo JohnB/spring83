@@ -62,8 +62,8 @@ defmodule Spring83.FoodTruck do
     fooditems =~ @seems_japanese
   end
 
-  def plausible_location?(%__MODULE__{latitude: 0.0}), do: false
-  def plausible_location?(%__MODULE__{longitude: 0.0}), do: false
+  def plausible_location?(%__MODULE__{latitude: +0.0}), do: false
+  def plausible_location?(%__MODULE__{longitude: +0.0}), do: false
   def plausible_location?(_), do: true
 
   def approved?(%__MODULE__{status: "APPROVED"}), do: true
