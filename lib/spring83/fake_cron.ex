@@ -34,20 +34,30 @@ defmodule Spring83Web.FakeCron do
     {:ok, pid}
   end
 
+  #  def crap() do
+  #    raise("UGH!")
+  #  end
+
+  def attempt(log_msg, what_to_attempt) do
+    Logger.info("Attempting #{log_msg}")
+    try do
+      what_to_attempt.()
+    rescue
+      err -> Logger.info("Failed to #{log_msg}: #{inspect(err)}}")
+    end
+  end
+
   @impl true
   def handle_info(:send_toot, state) do
     Process.send_after(self(), :send_toot, one_day_ms())
     Logger.info("timer restarted for #{one_day_ms()}ms}")
 
-    Logger.info("handle_info(:send_toot) mastodon")
-    TodaysPizza.post_pizza_to_mastodon()
-    Logger.info("post_pizza_to_blue_sky")
-    TodaysPizza.post_pizza_to_blue_sky()
-
-    Logger.info("post_movie_to_mastodon")
-    Spring83.TheNewParkwayCache.post_movie_to_mastodon()
-    Logger.info("post_movie_to_blue_sky")
-    Spring83.TheNewParkwayCache.post_movie_to_blue_sky()
+    Logger.info("handle_info(:send_toot)")
+    attempt("post_pizza_to_mastodon", &TodaysPizza.post_pizza_to_mastodon/0)
+    attempt("post_pizza_to_blue_sky", &TodaysPizza.post_pizza_to_blue_sky/0)
+    attempt("post_movie_to_mastodon", &Spring83.TheNewParkwayCache.post_movie_to_mastodon/0)
+    attempt("post_movie_to_blue_sky", &Spring83.TheNewParkwayCache.post_movie_to_blue_sky/0)
+    Logger.info("FINISHED handle_info(:send_toot)")
 
     {:noreply, state}
   end
