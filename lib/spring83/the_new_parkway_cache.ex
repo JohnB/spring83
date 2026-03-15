@@ -64,7 +64,7 @@ defmodule Spring83.TheNewParkwayCache do
           [{_, _, [sktime]}] = Floki.find(one_day, ".sktime")
           [{_, _, [sktitle]}] = Floki.find(one_day, ".sktitle")
 
-          "#{String.replace(sktime, " ", "", global: true)}: #{sktitle}"
+          "#{String.replace(sktime, ~r/ (pm)*/, "", global: true)}: #{sktitle}"
         end)
         |> Enum.join("\n")
 
@@ -118,7 +118,8 @@ defmodule Spring83.TheNewParkwayCache do
 
     Hunter.create_status(
       conn,
-      movie_message(@max_length_mastodon) <> @hashtags <> "\n\n#{current_calendar_url()}"
+      movie_message(@max_length_mastodon) <> @hashtags <> "\n\n#{current_calendar_url()}",
+      visibility: :public
     )
   end
 
@@ -154,9 +155,13 @@ defmodule Spring83.TheNewParkwayCache do
     message
     |> String.replace(", classic cartoons & all-you-can-eat cereal", "", global: true)
     |> String.replace("UEFA CHAMPIONS LEAGUE FINAL: ", "", global: true)
-    |> String.replace(" (free on the Mezzanine)", "", global: true)
-    |> trim_if_too_long(max_length, " THE ", " ")
+    |> String.replace("SUPER SMASH BROS MELEE ON THE MEZZ", "SMASH BROS ", global: true)
+    |> String.replace("(free on the Mezzanine)", "(free)", global: true)
+    |> String.replace("2026 OSCAR NOMINATED SHORT FILMS", "OSCAR SHORTS", global: true)
+    |> String.replace(" AT THE NEW PARKWAY", "", global: true)
+    |> trim_if_too_long(max_length, ~r/ THE /, " ")
     |> trim_if_too_long(max_length, " A ", " ")
+    |> trim_if_too_long(max_length, ",", "")
   end
 
   def trim_if_too_long(message, max_length, search_for, replace_with) do
