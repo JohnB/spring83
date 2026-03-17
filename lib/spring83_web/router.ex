@@ -25,8 +25,9 @@ defmodule Spring83Web.Router do
     # Collaborative Canvas routes
     live "/collaborative_canvas", CollaborativeCanvasLive
 
-    # Cheese board routes (twitter: @Todays_pizza)
+    # Cheese board and movie routes
     get "/pizza", PizzaController, :index
+    get "/movies", MovieController, :index
 
     # Kenken routes
     live "/kenken/*puzzle_id", KenkenLive
