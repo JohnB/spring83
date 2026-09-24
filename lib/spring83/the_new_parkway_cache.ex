@@ -1,24 +1,10 @@
 defmodule Spring83.TheNewParkwayCache do
   use Agent
+  require Jason
   require Logger
+  require Timex
 
-  @month_to_number %{
-    "January" => "01",
-    "February" => "02",
-    "March" => "03",
-    "April" => "04",
-    "May" => "05",
-    "June" => "06",
-    "July" => "07",
-    "August" => "08",
-    "September" => "09",
-    "October" => "10",
-    "November" => "11",
-    "December" => "12"
-  }
-  @extract_month_and_day ~r/\w+, (?<month>.+) (?<day>.+)/
-  @incomplete_day "NOT ALL SHOWINGS ARE LISTED"
-  @check_the_date "CHECK THE DATE!"
+  @time_horizon_in_days 7
   @details "\n\nDETAILS"
   @max_length_mastodon 500
   @max_length_blue_sky 300 - String.length(@details)
@@ -38,33 +24,167 @@ defmodule Spring83.TheNewParkwayCache do
     Agent.update(__MODULE__, fn _previous_cache -> @default_state end)
   end
 
+  # This query comes from the following process:
+  # - in the Network tab of a browser, use "Copy as cURL" to get the raw curl command
+  # - use https://curlconverter.com/elixir/ to format the curl command and convert to an HTTPoison call
+  # - verify it runs successfully from the command line
+  # - remove "session_id" and other excess cruft, but keep "site-id"
+  # - verify it still works
+  # - paste the HTTPoison call here
+  # - strip out excess junk in the "variables" section
+  # - verify it still works
+  def raw_graphql_movie_list() do
+    response =
+      HTTPoison.post!(
+        "https://thenewparkway.com/graphql",
+        "{\"variables\":{\"searchString\":\"\",\"type\":\"now-playing-and-coming-soon\",\"subtype\":\"watched\",\"orderBy\":\"date_of_first_showing\",\"descending\":false,\"limit\":1000,\"titleClassId\":null,\"titleClassIds\":[],\"siteIds\":[],\"currentMovieId\":null,\"movieIdsToExclude\":null},\"extensions\":{\"clientLibrary\":{\"name\":\"@apollo/client\",\"version\":\"4.0.9\"}},\"query\":\"query ($limit: Int, $orderBy: String, $descending: Boolean, $searchString: String, $siteIds: [ID], $currentMovieId: ID, $movieIdsToExclude: [ID], $titleClassId: ID, $titleClassIds: [ID], $type: String, $subtype: String) {\\n  movies(\\n    limit: $limit\\n    orderBy: $orderBy\\n    descending: $descending\\n    searchString: $searchString\\n    siteIds: $siteIds\\n    currentMovieId: $currentMovieId\\n    movieIdsToExclude: $movieIdsToExclude\\n    titleClassId: $titleClassId\\n    titleClassIds: $titleClassIds\\n    type: $type\\n    subtype: $subtype\\n  ) {\\n    data {\\n      id\\n      name\\n      urlSlug\\n      searchTerms\\n      dcmEdiMovieId\\n      dcmEdiMovieName\\n      datesWithPublicShowing\\n      __typename\\n    }\\n    count\\n    resultVersion\\n    __typename\\n  }\\n}\"}",
+        [
+          {"accept", "application/graphql-response+json,application/json;q=0.9"},
+          {"accept-language", "en-US,en;q=0.9"},
+          {"cache-control", "no-cache"},
+          {"client-type", "consumer"},
+          {"content-type", "application/json"},
+          {"is-electron-mode", "false"},
+          {"origin", "https://thenewparkway.com"},
+          {"pragma", "no-cache"},
+          {"referer", "https://thenewparkway.com/upcoming-events/"},
+          {"sec-ch-ua",
+           "\"Not=A?Brand\";v=\"99\", \"Google Chrome\";v=\"151\", \"Chromium\";v=\"151\""},
+          {"sec-ch-ua-mobile", "?0"},
+          {"sec-ch-ua-platform", "\"macOS\""},
+          {"sec-fetch-dest", "empty"},
+          {"sec-fetch-mode", "cors"},
+          {"sec-fetch-site", "same-origin"},
+          {"site-id", "383"},
+          {"user-agent",
+           "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36"}
+        ]
+      )
+
+    {:ok, json} = Jason.decode(response.body)
+    _movies = json["data"]["movies"]["data"]
+  end
+
+  def date_limit_yyyymmddhhmmss() do
+    {:ok, formatted_date} =
+      DateTime.utc_now()
+      |> DateTime.add(@time_horizon_in_days, :day)
+      |> Timex.format("%Y%0m%0d%H%M", :strftime)
+
+    formatted_date
+  end
+
+  def fetch_graphql_movie_list() do
+    movies = raw_graphql_movie_list()
+
+    date_limit = date_limit_yyyymmddhhmmss()
+
+    #    IO.inspect(Enum.take(movies, 10), label: "movies")
+    #    IO.inspect(date_limit, label: "date_limit")
+
+    movies
+    |> Enum.map(fn movie ->
+      near_future_dates =
+        movie["datesWithPublicShowing"]
+        |> Enum.map(fn date_string ->
+          {:ok, date} = Date.from_iso8601(date_string)
+          {:ok, yyyymmdd} = Timex.format(date, "%Y%0m%0d", :strftime)
+          %{yyyymmdd: yyyymmdd, sort_by: yyyymmdd}
+        end)
+        |> Enum.reject(&(&1.yyyymmdd > date_limit))
+
+      %{
+        id: movie["id"],
+        datesWithPublicShowing: near_future_dates,
+        name: movie["name"],
+        urlSlug: movie["urlSlug"]
+      }
+    end)
+    |> Enum.reject(&(&1.datesWithPublicShowing == []))
+
+    #    |> IO.inspect(label: "movieS")
+  end
+
+  # See creation process for fetch_graphql_movie_list/0
+  def fetch_graphql_movie_times(movieId) do
+    # TODO: figure out what params to send for a particular movie and date
+    response =
+      HTTPoison.post!(
+        "https://thenewparkway.com/graphql",
+        "{\"variables\":{\"ids\":[],\"movieId\":\"#{movieId}\",\"movieIds\":[],\"titleClassId\":null,\"titleClassIds\":null,\"siteIds\":[],\"anyShowingBadgeIds\":null,\"everyShowingBadgeIds\":[null],\"resultVersion\":null},\"extensions\":{\"clientLibrary\":{\"name\":\"@apollo/client\",\"version\":\"4.0.9\"}},\"query\":\"query ($date: String, $ids: [ID], $movieId: ID, $movieIds: [ID], $titleClassId: ID, $titleClassIds: [ID], $siteIds: [ID], $everyShowingBadgeIds: [ID], $anyShowingBadgeIds: [ID], $resultVersion: String) {\\n  showingsForDate(\\n    date: $date\\n    ids: $ids\\n    movieId: $movieId\\n    movieIds: $movieIds\\n    titleClassId: $titleClassId\\n    titleClassIds: $titleClassIds\\n    siteIds: $siteIds\\n    everyShowingBadgeIds: $everyShowingBadgeIds\\n    anyShowingBadgeIds: $anyShowingBadgeIds\\n    resultVersion: $resultVersion\\n  ) {\\n    data {\\n      id\\n      time\\n      showingId\\n      isMarathon\\n      hasMarathon\\n      allowSalesInMarathon\\n      overrideSeatChart\\n      hasSeatChart\\n      overridePriceCard\\n      overridePostStartTimeBufferMinutes\\n      customPostStartTimeBufferMinutes\\n      published\\n      ticketsSold\\n      marathonTicketsSold\\n      ticketsPaid\\n      current\\n      past\\n      overrideReservedSeating\\n      overrideReservedSeatingValue\\n      customHeldSeatCount\\n      overrideHeldSeatCount\\n      customMarathonSeatCount\\n      overrideMarathonSeatCount\\n      overrideShowingBadges\\n      allowWithoutMembership\\n      disableTheaterSeatDelivery\\n      qrItemOrderingOnly\\n      allowConsumerRefunds\\n      allowConsumerQrTabWithoutPaymentMethod\\n      allowItemOrdersOnline\\n      private\\n      isPreview\\n      displayMetaData\\n      overrideMaxTicketsPerOrderPerShowing\\n      maxTicketsPerOrderPerShowing\\n      screenId\\n      originalScreenId\\n      priceCardId\\n      customPriceCardId\\n      movie {\\n        id\\n        name\\n        abbreviation\\n        showingStatus\\n        displayMetaData\\n        urlSlug\\n        posterImage\\n        signageDisplayPoster\\n        bannerImage\\n        signageDisplayBanner\\n        animatedPosterVideo\\n        signageDisplayAnimatedPoster\\n        signageMessageOverride\\n        color\\n        synopsis\\n        starring\\n        writers\\n        directedBy\\n        producedBy\\n        searchTerms\\n        duration\\n        genre\\n        allGenres\\n        countryOfOrigin\\n        originalLanguage\\n        rating\\n        ratingReason\\n        trailerYoutubeId\\n        trailerVideo\\n        signageDisplayTrailer\\n        releaseDate\\n        dateOfFirstShowing\\n        overrideDateOfFirstShowing\\n        hideDateOfFirstShowing\\n        boxOfficeWeekStartDay\\n        boxOfficeWeekExtendPremieres\\n        embargoShowingLiftedAt\\n        embargoPurchaseLiftedAt\\n        allowPrivateSalesOnExternal\\n        isMarathon\\n        predictedWeekOneTicketSales\\n        tmdbPopularityScore\\n        tmdbId\\n        includeInComingSoon\\n        includeInFuture\\n        overridePriceCard\\n        overridePostStartTimeBufferMinutes\\n        customPostStartTimeBufferMinutes\\n        sendRentrak\\n        rentrakName\\n        libraryChildrenShowingCount\\n        showingCount\\n        allowPastSales\\n        dcmEdiMovieId\\n        dcmEdiMovieName\\n        disableOnlineConcessions\\n        overrideMaxTicketsPerOrderPerShowing\\n        maxTicketsPerOrderPerShowing\\n        displayOrder\\n        displayOrderNext\\n        taxExempt\\n        rottenTomatoesOverwrite\\n        showRottenTomatoesRating\\n        siteId\\n        titleClassId\\n        customPriceCardId\\n        criticScore\\n        criticRating\\n        audienceScore\\n        audienceRating\\n        __typename\\n      }\\n      showing {\\n        id\\n        time\\n        showingId\\n        isMarathon\\n        hasMarathon\\n        allowSalesInMarathon\\n        overrideSeatChart\\n        hasSeatChart\\n        overridePriceCard\\n        overridePostStartTimeBufferMinutes\\n        customPostStartTimeBufferMinutes\\n        published\\n        ticketsSold\\n        marathonTicketsSold\\n        ticketsPaid\\n        current\\n        past\\n        overrideReservedSeating\\n        overrideReservedSeatingValue\\n        customHeldSeatCount\\n        overrideHeldSeatCount\\n        customMarathonSeatCount\\n        overrideMarathonSeatCount\\n        overrideShowingBadges\\n        allowWithoutMembership\\n        disableTheaterSeatDelivery\\n        qrItemOrderingOnly\\n        allowConsumerRefunds\\n        allowConsumerQrTabWithoutPaymentMethod\\n        allowItemOrdersOnline\\n        private\\n        isPreview\\n        displayMetaData\\n        overrideMaxTicketsPerOrderPerShowing\\n        maxTicketsPerOrderPerShowing\\n        screenId\\n        originalScreenId\\n        priceCardId\\n        customPriceCardId\\n        movie {\\n          id\\n          name\\n          abbreviation\\n          showingStatus\\n          displayMetaData\\n          urlSlug\\n          posterImage\\n          signageDisplayPoster\\n          bannerImage\\n          signageDisplayBanner\\n          animatedPosterVideo\\n          signageDisplayAnimatedPoster\\n          signageMessageOverride\\n          color\\n          synopsis\\n          starring\\n          writers\\n          directedBy\\n          producedBy\\n          searchTerms\\n          duration\\n          genre\\n          allGenres\\n          countryOfOrigin\\n          originalLanguage\\n          rating\\n          ratingReason\\n          trailerYoutubeId\\n          trailerVideo\\n          signageDisplayTrailer\\n          releaseDate\\n          dateOfFirstShowing\\n          overrideDateOfFirstShowing\\n          hideDateOfFirstShowing\\n          boxOfficeWeekStartDay\\n          boxOfficeWeekExtendPremieres\\n          embargoShowingLiftedAt\\n          embargoPurchaseLiftedAt\\n          allowPrivateSalesOnExternal\\n          isMarathon\\n          predictedWeekOneTicketSales\\n          tmdbPopularityScore\\n          tmdbId\\n          includeInComingSoon\\n          includeInFuture\\n          overridePriceCard\\n          overridePostStartTimeBufferMinutes\\n          customPostStartTimeBufferMinutes\\n          sendRentrak\\n          rentrakName\\n          libraryChildrenShowingCount\\n          showingCount\\n          allowPastSales\\n          dcmEdiMovieId\\n          dcmEdiMovieName\\n          disableOnlineConcessions\\n          overrideMaxTicketsPerOrderPerShowing\\n          maxTicketsPerOrderPerShowing\\n          displayOrder\\n          displayOrderNext\\n          taxExempt\\n          rottenTomatoesOverwrite\\n          showRottenTomatoesRating\\n          siteId\\n          titleClassId\\n          customPriceCardId\\n          __typename\\n        }\\n        seatsRemaining\\n        seatsRemainingWithoutSocialDistancing\\n        __typename\\n      }\\n      showings {\\n        id\\n        time\\n        showingId\\n        isMarathon\\n        hasMarathon\\n        allowSalesInMarathon\\n        overrideSeatChart\\n        hasSeatChart\\n        overridePriceCard\\n        overridePostStartTimeBufferMinutes\\n        customPostStartTimeBufferMinutes\\n        published\\n        ticketsSold\\n        marathonTicketsSold\\n        ticketsPaid\\n        current\\n        past\\n        overrideReservedSeating\\n        overrideReservedSeatingValue\\n        customHeldSeatCount\\n        overrideHeldSeatCount\\n        customMarathonSeatCount\\n        overrideMarathonSeatCount\\n        overrideShowingBadges\\n        allowWithoutMembership\\n        disableTheaterSeatDelivery\\n        qrItemOrderingOnly\\n        allowConsumerRefunds\\n        allowConsumerQrTabWithoutPaymentMethod\\n        allowItemOrdersOnline\\n        private\\n        isPreview\\n        displayMetaData\\n        overrideMaxTicketsPerOrderPerShowing\\n        maxTicketsPerOrderPerShowing\\n        screenId\\n        originalScreenId\\n        priceCardId\\n        customPriceCardId\\n        movie {\\n          id\\n          name\\n          abbreviation\\n          showingStatus\\n          displayMetaData\\n          urlSlug\\n          posterImage\\n          signageDisplayPoster\\n          bannerImage\\n          signageDisplayBanner\\n          animatedPosterVideo\\n          signageDisplayAnimatedPoster\\n          signageMessageOverride\\n          color\\n          synopsis\\n          starring\\n          writers\\n          directedBy\\n          producedBy\\n          searchTerms\\n          duration\\n          genre\\n          allGenres\\n          countryOfOrigin\\n          originalLanguage\\n          rating\\n          ratingReason\\n          trailerYoutubeId\\n          trailerVideo\\n          signageDisplayTrailer\\n          releaseDate\\n          dateOfFirstShowing\\n          overrideDateOfFirstShowing\\n          hideDateOfFirstShowing\\n          boxOfficeWeekStartDay\\n          boxOfficeWeekExtendPremieres\\n          embargoShowingLiftedAt\\n          embargoPurchaseLiftedAt\\n          allowPrivateSalesOnExternal\\n          isMarathon\\n          predictedWeekOneTicketSales\\n          tmdbPopularityScore\\n          tmdbId\\n          includeInComingSoon\\n          includeInFuture\\n          overridePriceCard\\n          overridePostStartTimeBufferMinutes\\n          customPostStartTimeBufferMinutes\\n          sendRentrak\\n          rentrakName\\n          libraryChildrenShowingCount\\n          showingCount\\n          allowPastSales\\n          dcmEdiMovieId\\n          dcmEdiMovieName\\n          disableOnlineConcessions\\n          overrideMaxTicketsPerOrderPerShowing\\n          maxTicketsPerOrderPerShowing\\n          displayOrder\\n          displayOrderNext\\n          taxExempt\\n          rottenTomatoesOverwrite\\n          showRottenTomatoesRating\\n          siteId\\n          titleClassId\\n          customPriceCardId\\n          __typename\\n        }\\n        seatsRemaining\\n        seatsRemainingWithoutSocialDistancing\\n        __typename\\n      }\\n      showingBadgeIds\\n      predictedAttendance\\n      seatsRemaining\\n      seatsRemainingWithoutSocialDistancing\\n      __typename\\n    }\\n    count\\n    resultVersion\\n    __typename\\n  }\\n}\"}",
+        [
+          {"accept", "application/graphql-response+json,application/json;q=0.9"},
+          {"accept-language", "en-US,en;q=0.9"},
+          {"cache-control", "no-cache"},
+          {"circuit-id", "166"},
+          {"client-type", "consumer"},
+          {"content-type", "application/json"},
+          {"is-electron-mode", "false"},
+          {"origin", "https://thenewparkway.com"},
+          {"pragma", "no-cache"},
+          {"priority", "u=1, i"},
+          {"referer", "https://thenewparkway.com/"},
+          {"sec-ch-ua",
+           "\"Not=A?Brand\";v=\"99\", \"Google Chrome\";v=\"151\", \"Chromium\";v=\"151\""},
+          {"sec-ch-ua-mobile", "?0"},
+          {"sec-ch-ua-platform", "\"macOS\""},
+          {"sec-fetch-dest", "empty"},
+          {"sec-fetch-mode", "cors"},
+          {"sec-fetch-site", "same-origin"},
+          {"site-id", "383"},
+          {"user-agent",
+           "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36"}
+        ]
+      )
+
+    {:ok, json} = Jason.decode(response.body)
+    gmt_datetimes = json["data"]["showingsForDate"]["data"] |> Enum.map(fn m -> m["time"] end)
+
+    Enum.map(gmt_datetimes, fn gmt_datetime_string ->
+      {:ok, gmt_datetime, _} = DateTime.from_iso8601(gmt_datetime_string)
+      {:ok, pacific_datetime} = DateTime.shift_zone(gmt_datetime, "America/Los_Angeles")
+      {:ok, yyyymmdd} = Timex.format(pacific_datetime, "%Y%0m%0d", :strftime)
+      {:ok, time} = Timex.format(pacific_datetime, "%l:%M%P", :strftime)
+      {:ok, sort_by} = Timex.format(pacific_datetime, "%Y%0m%0d%H%M", :strftime)
+      %{yyyymmdd: yyyymmdd, time: time, sort_by: sort_by}
+    end)
+    |> Enum.sort_by(& &1.sort_by)
+  end
+
   def fetch_movies() do
-    # NOTE: we will have trouble when the calendar spans December to January
-    year = DateTime.utc_now().year
+    movies = fetch_graphql_movie_list()
 
-    html = HTTPoison.get!(current_calendar_url()).body
-    {:ok, document} = Floki.parse_document(html)
-    calendar = Floki.find(document, ".tribe-events-loop")
-    {_, _, days_and_junk} = List.first(calendar)
-    days = Enum.reject(days_and_junk, fn x -> Floki.find(x, "h2") == [] end)
-    complete_days = Enum.reject(days, fn day -> Floki.raw_html(day) =~ @incomplete_day end)
+    movies
+    |> Enum.reduce(%{}, fn movie, acc ->
+      dates_and_times = fetch_graphql_movie_times(movie.id)
 
-    Enum.reduce(complete_days, %{}, fn complete_day, acc ->
-      [{_, _, [date]}] = Floki.find(complete_day, "h2")
-      %{"day" => day, "month" => month} = Regex.named_captures(@extract_month_and_day, date)
+      dates_and_times
+      |> Enum.reduce(acc, fn date_and_time, acc2 ->
+        {_, fresh} =
+          get_and_update_in(acc2, [date_and_time.yyyymmdd], fn current_value ->
+            updated =
+              put_in(current_value || %{}, [date_and_time.sort_by <> movie.name], %{
+                name: movie.name,
+                time: date_and_time.time,
+                urlSlug: movie.urlSlug
+              })
 
-      yyyymmdd = "#{year}#{@month_to_number[month]}#{day}"
+            # |> IO.inspect()
+            {current_value, updated}
+          end)
+
+        fresh
+      end)
+    end)
+    |> Enum.reduce(%{}, fn {yyyymmdd, movie_hashs}, acc ->
+      mm = String.slice(yyyymmdd, 4, 2)
+      dd = String.slice(yyyymmdd, 6, 2)
+      date = "#{mm}/#{dd}"
 
       movies =
-        Floki.find(complete_day, ".new-parkway-style-list")
-        |> Enum.reject(fn one_day -> one_day == [] end)
-        |> Enum.reject(fn one_day -> Floki.raw_html(one_day) =~ @check_the_date end)
-        |> Enum.reject(fn one_day -> timeless?(one_day) end)
-        |> Enum.map(fn one_day ->
-          [{_, _, [sktime]}] = Floki.find(one_day, ".sktime")
-          [{_, _, [sktitle]}] = Floki.find(one_day, ".sktitle")
-
-          "#{String.replace(sktime, ~r/ (pm)*/, "", global: true)}: #{sktitle}"
+        Enum.sort_by(movie_hashs, fn {k, _v} -> k end)
+        |> Enum.map(fn {_k, v} ->
+          "#{v.time}: #{v.name}"
         end)
         |> Enum.join("\n")
 
