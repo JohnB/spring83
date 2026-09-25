@@ -5,7 +5,7 @@ defmodule Spring83Web.MovieController do
     date_limit = Spring83.TheNewParkwayCache.date_limit_yyyymmddhhmmss()
 
     movies =
-      Spring83.TheNewParkwayCache.fetch_movies()
+      Spring83.TheNewParkwayCache.get()
       |> Map.to_list()
       |> Enum.reject(fn {yyyymmdd, _m} -> yyyymmdd > date_limit end)
       |> Enum.sort(fn {yyyymmdd1, _m1}, {yyyymmdd2, _m2} -> yyyymmdd1 < yyyymmdd2 end)
