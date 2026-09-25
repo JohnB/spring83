@@ -52,12 +52,16 @@ defmodule Spring83Web.FakeCron do
   def handle_info(:send_toot, state) do
     Process.send_after(self(), :send_toot, one_day_ms())
     Logger.info("timer restarted for #{one_day_ms()}ms}")
-
     Logger.info("handle_info(:send_toot)")
+
     attempt("post_pizza_to_mastodon", &TodaysPizza.post_pizza_to_mastodon/0)
     attempt("post_pizza_to_blue_sky", &TodaysPizza.post_pizza_to_blue_sky/0)
+
+    # Fetch fresh movies every day - there is no indication of which future listings are complete.
+    attempt("clear_new_parkway_cache", &Spring83.TheNewParkwayCache.clear/0)
     attempt("post_movie_to_mastodon", &Spring83.TheNewParkwayCache.post_movie_to_mastodon/0)
     attempt("post_movie_to_blue_sky", &Spring83.TheNewParkwayCache.post_movie_to_blue_sky/0)
+
     Logger.info("FINISHED handle_info(:send_toot)")
 
     {:noreply, state}
