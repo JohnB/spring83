@@ -34,6 +34,7 @@ defmodule Spring83.TheNewParkwayCache do
   # - strip out excess junk in the "variables" section
   # - verify it still works
   def raw_graphql_movie_list() do
+    Logger.info("Fetching raw graphql movie list")
     response =
       HTTPoison.post!(
         "https://thenewparkway.com/graphql",
@@ -62,7 +63,9 @@ defmodule Spring83.TheNewParkwayCache do
       )
 
     {:ok, json} = Jason.decode(response.body)
-    _movies = json["data"]["movies"]["data"]
+    movies = json["data"]["movies"]["data"]
+    Logger.info("Fetched up to #{Enum.count(movies)} movies")
+    movies
   end
 
   def date_limit_yyyymmddhhmmss() do
