@@ -5,12 +5,13 @@ defmodule Spring83.MixProject do
     [
       app: :spring83,
       version: "0.1.0",
-      elixir: "~> 1.16",
+      elixir: "~> 1.19",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      deps: deps()
+      deps: deps(),
+      listeners: [Phoenix.CodeReloader]
     ]
   end
 

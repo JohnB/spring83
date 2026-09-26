@@ -252,7 +252,9 @@ defmodule Spring83.TheNewParkwayCache do
     # The name means: dow=DayOfWeek, mon=Month, day=DayOfMonth
     # Note: the timex formatting allows for "08" or " 8" but not just "8".
     now = Timex.now("America/Los_Angeles")
+    |> IO.inspect(label: "before formatting to yyyymmdd")
     yyyymmdd = Timex.format!(now, "{YYYY}{0M}{0D}")
+    |> IO.inspect(label: "yyyymmdd")
     todays_movies = movie_for(yyyymmdd)
 
     case todays_movies do
