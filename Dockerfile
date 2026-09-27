@@ -67,8 +67,12 @@ RUN mix release
 # the compiled release and other runtime necessities
 FROM ${RUNNER_IMAGE}
 
-RUN apt-get update -y && apt-get install -y libstdc++6 openssl libncurses5 locales \
-  && apt-get clean && rm -f /var/lib/apt/lists/*_*
+RUN apt-get update -y
+RUN apt-get install -y libstdc++6
+RUN apt-get install -y openssl
+RUN apt-get install -y libncurses6
+RUN apt-get install -y locales
+RUN apt-get clean && rm -f /var/lib/apt/lists/*_*
 
 # Set the locale
 RUN sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen && locale-gen
