@@ -51,7 +51,6 @@ defmodule Venue do
       end)
 
     %__MODULE__{venue | events: event_summaries, fetched_at: today_yyyymmdd()}
-    |> IO.inspect()
   end
 
   def today_yyyymmdd do
