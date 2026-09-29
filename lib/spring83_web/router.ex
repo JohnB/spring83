@@ -29,6 +29,8 @@ defmodule Spring83Web.Router do
     get "/pizza", PizzaController, :index
     get "/movies", MovieController, :index
 
+    get "/pentomino", PentominoController, :index
+
     # Kenken routes
     live "/kenken/*puzzle_id", KenkenLive
 
