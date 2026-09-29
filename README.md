@@ -54,12 +54,24 @@ Now at [/kenken](https://spring-83.fly.dev/kenken).
 - [ ] Handle refreshes while solving (set a cookie and save their guesses?)
 
 ## Pentomino Game
-Not yet moved over here from [phoenix_live_view_example](https://github.com/johnb/phoenix_live_view_example)
+A 2007 version has been found and will be at the /pentomino endpoint.
 
 ### Roadmap
 - [ ] Move it over
 - [ ] Make it work better
+- [ ] Make it mobile-friendly so texting the next move makes sense
 - [ ] Update previous repo(s) to point here.
+- [ ] improve cc list to not include the player who moved or is next to move
+- [ ] validate m and p params
+- [ ] allow player selection if not specified
+- [ ] create a sound to play for each piece placement?
+- [ ] don't allow players who pass to make any more moves (but what if they missed something?)
+- [ ] speed up the movement
+- [ ] fix triple-flip problem
+- [ ] store games to disk for a simpler url
+- [ ] display the comment text for each move!
+- [ ] fyi: blokus duo uses a 14x14 board and the start squares are at position 5,5 from the corners (4 empty spaces between the start square and the nearest edges)
+
 
 ## Spring83
 Elixir attempt at implementing the 

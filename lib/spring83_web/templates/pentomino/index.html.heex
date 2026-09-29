@@ -1,1 +1,585 @@
-<h1>Pentomino Game goes here</h1>
+<script
+    type="text/javascript"
+    src={Routes.static_path(@conn, "/assets/pentomino.js")}
+>
+</script>
+
+<div id='pc1' onclick='droppc(cg)'>
+  <img src='images/i25.jpg' name='dpc'></div>
+<a href='#pg0' name='pg0'></a>
+<!-- game0 start -->
+<center>
+  <div class='pgb'>
+
+    <form name='form0' action="/pentomino" method="post">
+      <table><tr><td>
+
+        <table class='pgbb' cellspacing='0' cellpadding='0' ><tr><td>
+          <table background='images/i25.jpg'
+                 cellspacing='0' cellpadding='0'  title='' id='brdt0' ><tr><td>
+            <img name='board'
+                 src="images/i25.jpg" onclick='obc(0  )' onmouseover='ombin(0  )' onmouseout='ombout(0)' ><img
+              src="images/i25.jpg" onclick='obc(1  )' onmouseover='ombin(1  )' onmouseout='ombout(1)' ><img
+              src="images/i25.jpg" onclick='obc(2  )' onmouseover='ombin(2  )' onmouseout='ombout(2)' ><img
+              src="images/i25.jpg" onclick='obc(3  )' onmouseover='ombin(3  )' onmouseout='ombout(3)' ><img
+              src="images/i25.jpg" onclick='obc(4  )' onmouseover='ombin(4  )' onmouseout='ombout(4)' ><img
+              src="images/i25.jpg" onclick='obc(5  )' onmouseover='ombin(5  )' onmouseout='ombout(5)' ><img
+              src="images/i25.jpg" onclick='obc(6  )' onmouseover='ombin(6  )' onmouseout='ombout(6)' ><img
+              src="images/i25.jpg" onclick='obc(7  )' onmouseover='ombin(7  )' onmouseout='ombout(7)' ><img
+              src="images/i25.jpg" onclick='obc(8  )' onmouseover='ombin(8  )' onmouseout='ombout(8)' ><img
+              src="images/i25.jpg" onclick='obc(9  )' onmouseover='ombin(9  )' onmouseout='ombout(9)' ><img
+              src="images/i25.jpg" onclick='obc(10 )' onmouseover='ombin(10 )' onmouseout='ombout(10)' ><img
+              src="images/i25.jpg" onclick='obc(11 )' onmouseover='ombin(11 )' onmouseout='ombout(11)' ><img
+              src="images/i25.jpg" onclick='obc(12 )' onmouseover='ombin(12 )' onmouseout='ombout(12)' ><img
+              src="images/i25.jpg" onclick='obc(13 )' onmouseover='ombin(13 )' onmouseout='ombout(13)' ><img
+              src="images/i25.jpg" onclick='obc(14 )' onmouseover='ombin(14 )' onmouseout='ombout(14)' ><img
+              src="images/i25.jpg" onclick='obc(15 )' onmouseover='ombin(15 )' onmouseout='ombout(15)' ><img
+              src="images/i25.jpg" onclick='obc(16 )' onmouseover='ombin(16 )' onmouseout='ombout(16)' ><img
+              src="images/i25.jpg" onclick='obc(17 )' onmouseover='ombin(17 )' onmouseout='ombout(17)' ><img
+              src="images/i25.jpg" onclick='obc(18 )' onmouseover='ombin(18 )' onmouseout='ombout(18)' ><img
+              src="images/i25.jpg" onclick='obc(19 )' onmouseover='ombin(19 )' onmouseout='ombout(19)' ><br><img
+              src="images/i25.jpg" onclick='obc(20 )' onmouseover='ombin(20 )' onmouseout='ombout(20)' ><img
+              src="images/i25.jpg" onclick='obc(21 )' onmouseover='ombin(21 )' onmouseout='ombout(21)' ><img
+              src="images/i25.jpg" onclick='obc(22 )' onmouseover='ombin(22 )' onmouseout='ombout(22)' ><img
+              src="images/i25.jpg" onclick='obc(23 )' onmouseover='ombin(23 )' onmouseout='ombout(23)' ><img
+              src="images/i25.jpg" onclick='obc(24 )' onmouseover='ombin(24 )' onmouseout='ombout(24)' ><img
+              src="images/i25.jpg" onclick='obc(25 )' onmouseover='ombin(25 )' onmouseout='ombout(25)' ><img
+              src="images/i25.jpg" onclick='obc(26 )' onmouseover='ombin(26 )' onmouseout='ombout(26)' ><img
+              src="images/i25.jpg" onclick='obc(27 )' onmouseover='ombin(27 )' onmouseout='ombout(27)' ><img
+              src="images/i25.jpg" onclick='obc(28 )' onmouseover='ombin(28 )' onmouseout='ombout(28)' ><img
+              src="images/i25.jpg" onclick='obc(29 )' onmouseover='ombin(29 )' onmouseout='ombout(29)' ><img
+              src="images/i25.jpg" onclick='obc(30 )' onmouseover='ombin(30 )' onmouseout='ombout(30)' ><img
+              src="images/i25.jpg" onclick='obc(31 )' onmouseover='ombin(31 )' onmouseout='ombout(31)' ><img
+              src="images/i25.jpg" onclick='obc(32 )' onmouseover='ombin(32 )' onmouseout='ombout(32)' ><img
+              src="images/i25.jpg" onclick='obc(33 )' onmouseover='ombin(33 )' onmouseout='ombout(33)' ><img
+              src="images/i25.jpg" onclick='obc(34 )' onmouseover='ombin(34 )' onmouseout='ombout(34)' ><img
+              src="images/i25.jpg" onclick='obc(35 )' onmouseover='ombin(35 )' onmouseout='ombout(35)' ><img
+              src="images/i25.jpg" onclick='obc(36 )' onmouseover='ombin(36 )' onmouseout='ombout(36)' ><img
+              src="images/i25.jpg" onclick='obc(37 )' onmouseover='ombin(37 )' onmouseout='ombout(37)' ><img
+              src="images/i25.jpg" onclick='obc(38 )' onmouseover='ombin(38 )' onmouseout='ombout(38)' ><img
+              src="images/i25.jpg" onclick='obc(39 )' onmouseover='ombin(39 )' onmouseout='ombout(39)' ><br><img
+              src="images/i25.jpg" onclick='obc(40 )' onmouseover='ombin(40 )' onmouseout='ombout(40)' ><img
+              src="images/i25.jpg" onclick='obc(41 )' onmouseover='ombin(41 )' onmouseout='ombout(41)' ><img
+              src="images/i25.jpg" onclick='obc(42 )' onmouseover='ombin(42 )' onmouseout='ombout(42)' ><img
+              src="images/i25.jpg" onclick='obc(43 )' onmouseover='ombin(43 )' onmouseout='ombout(43)' ><img
+              src="images/i25.jpg" onclick='obc(44 )' onmouseover='ombin(44 )' onmouseout='ombout(44)' ><img
+              src="images/i25.jpg" onclick='obc(45 )' onmouseover='ombin(45 )' onmouseout='ombout(45)' ><img
+              src="images/i25.jpg" onclick='obc(46 )' onmouseover='ombin(46 )' onmouseout='ombout(46)' ><img
+              src="images/i25.jpg" onclick='obc(47 )' onmouseover='ombin(47 )' onmouseout='ombout(47)' ><img
+              src="images/i25.jpg" onclick='obc(48 )' onmouseover='ombin(48 )' onmouseout='ombout(48)' ><img
+              src="images/i25.jpg" onclick='obc(49 )' onmouseover='ombin(49 )' onmouseout='ombout(49)' ><img
+              src="images/i25.jpg" onclick='obc(50 )' onmouseover='ombin(50 )' onmouseout='ombout(50)' ><img
+              src="images/i25.jpg" onclick='obc(51 )' onmouseover='ombin(51 )' onmouseout='ombout(51)' ><img
+              src="images/i25.jpg" onclick='obc(52 )' onmouseover='ombin(52 )' onmouseout='ombout(52)' ><img
+              src="images/i25.jpg" onclick='obc(53 )' onmouseover='ombin(53 )' onmouseout='ombout(53)' ><img
+              src="images/i25.jpg" onclick='obc(54 )' onmouseover='ombin(54 )' onmouseout='ombout(54)' ><img
+              src="images/i25.jpg" onclick='obc(55 )' onmouseover='ombin(55 )' onmouseout='ombout(55)' ><img
+              src="images/i25.jpg" onclick='obc(56 )' onmouseover='ombin(56 )' onmouseout='ombout(56)' ><img
+              src="images/i25.jpg" onclick='obc(57 )' onmouseover='ombin(57 )' onmouseout='ombout(57)' ><img
+              src="images/i25.jpg" onclick='obc(58 )' onmouseover='ombin(58 )' onmouseout='ombout(58)' ><img
+              src="images/i25.jpg" onclick='obc(59 )' onmouseover='ombin(59 )' onmouseout='ombout(59)' ><br><img
+              src="images/i25.jpg" onclick='obc(60 )' onmouseover='ombin(60 )' onmouseout='ombout(60)' ><img
+              src="images/i25.jpg" onclick='obc(61 )' onmouseover='ombin(61 )' onmouseout='ombout(61)' ><img
+              src="images/i25.jpg" onclick='obc(62 )' onmouseover='ombin(62 )' onmouseout='ombout(62)' ><img
+              src="images/i25.jpg" onclick='obc(63 )' onmouseover='ombin(63 )' onmouseout='ombout(63)' ><img
+              src="images/i25.jpg" onclick='obc(64 )' onmouseover='ombin(64 )' onmouseout='ombout(64)' ><img
+              src="images/i25.jpg" onclick='obc(65 )' onmouseover='ombin(65 )' onmouseout='ombout(65)' ><img
+              src="images/i25.jpg" onclick='obc(66 )' onmouseover='ombin(66 )' onmouseout='ombout(66)' ><img
+              src="images/i25.jpg" onclick='obc(67 )' onmouseover='ombin(67 )' onmouseout='ombout(67)' ><img
+              src="images/i25.jpg" onclick='obc(68 )' onmouseover='ombin(68 )' onmouseout='ombout(68)' ><img
+              src="images/i25.jpg" onclick='obc(69 )' onmouseover='ombin(69 )' onmouseout='ombout(69)' ><img
+              src="images/i25.jpg" onclick='obc(70 )' onmouseover='ombin(70 )' onmouseout='ombout(70)' ><img
+              src="images/i25.jpg" onclick='obc(71 )' onmouseover='ombin(71 )' onmouseout='ombout(71)' ><img
+              src="images/i25.jpg" onclick='obc(72 )' onmouseover='ombin(72 )' onmouseout='ombout(72)' ><img
+              src="images/i25.jpg" onclick='obc(73 )' onmouseover='ombin(73 )' onmouseout='ombout(73)' ><img
+              src="images/i25.jpg" onclick='obc(74 )' onmouseover='ombin(74 )' onmouseout='ombout(74)' ><img
+              src="images/i25.jpg" onclick='obc(75 )' onmouseover='ombin(75 )' onmouseout='ombout(75)' ><img
+              src="images/i25.jpg" onclick='obc(76 )' onmouseover='ombin(76 )' onmouseout='ombout(76)' ><img
+              src="images/i25.jpg" onclick='obc(77 )' onmouseover='ombin(77 )' onmouseout='ombout(77)' ><img
+              src="images/i25.jpg" onclick='obc(78 )' onmouseover='ombin(78 )' onmouseout='ombout(78)' ><img
+              src="images/i25.jpg" onclick='obc(79 )' onmouseover='ombin(79 )' onmouseout='ombout(79)' ><br><img
+              src="images/i25.jpg" onclick='obc(80 )' onmouseover='ombin(80 )' onmouseout='ombout(80)' ><img
+              src="images/i25.jpg" onclick='obc(81 )' onmouseover='ombin(81 )' onmouseout='ombout(81)' ><img
+              src="images/i25.jpg" onclick='obc(82 )' onmouseover='ombin(82 )' onmouseout='ombout(82)' ><img
+              src="images/i25.jpg" onclick='obc(83 )' onmouseover='ombin(83 )' onmouseout='ombout(83)' ><img
+              src="images/i25.jpg" onclick='obc(84 )' onmouseover='ombin(84 )' onmouseout='ombout(84)' ><img
+              src="images/i25.jpg" onclick='obc(85 )' onmouseover='ombin(85 )' onmouseout='ombout(85)' ><img
+              src="images/i25.jpg" onclick='obc(86 )' onmouseover='ombin(86 )' onmouseout='ombout(86)' ><img
+              src="images/i25.jpg" onclick='obc(87 )' onmouseover='ombin(87 )' onmouseout='ombout(87)' ><img
+              src="images/i25.jpg" onclick='obc(88 )' onmouseover='ombin(88 )' onmouseout='ombout(88)' ><img
+              src="images/i25.jpg" onclick='obc(89 )' onmouseover='ombin(89 )' onmouseout='ombout(89)' ><img
+              src="images/i25.jpg" onclick='obc(90 )' onmouseover='ombin(90 )' onmouseout='ombout(90)' ><img
+              src="images/i25.jpg" onclick='obc(91 )' onmouseover='ombin(91 )' onmouseout='ombout(91)' ><img
+              src="images/i25.jpg" onclick='obc(92 )' onmouseover='ombin(92 )' onmouseout='ombout(92)' ><img
+              src="images/i25.jpg" onclick='obc(93 )' onmouseover='ombin(93 )' onmouseout='ombout(93)' ><img
+              src="images/i25.jpg" onclick='obc(94 )' onmouseover='ombin(94 )' onmouseout='ombout(94)' ><img
+              src="images/i25.jpg" onclick='obc(95 )' onmouseover='ombin(95 )' onmouseout='ombout(95)' ><img
+              src="images/i25.jpg" onclick='obc(96 )' onmouseover='ombin(96 )' onmouseout='ombout(96)' ><img
+              src="images/i25.jpg" onclick='obc(97 )' onmouseover='ombin(97 )' onmouseout='ombout(97)' ><img
+              src="images/i25.jpg" onclick='obc(98 )' onmouseover='ombin(98 )' onmouseout='ombout(98)' ><img
+              src="images/i25.jpg" onclick='obc(99 )' onmouseover='ombin(99 )' onmouseout='ombout(99)' ><br><img
+              src="images/i25.jpg" onclick='obc(100)' onmouseover='ombin(100)' onmouseout='ombout(100)' ><img
+              src="images/i25.jpg" onclick='obc(101)' onmouseover='ombin(101)' onmouseout='ombout(101)' ><img
+              src="images/i25.jpg" onclick='obc(102)' onmouseover='ombin(102)' onmouseout='ombout(102)' ><img
+              src="images/i25.jpg" onclick='obc(103)' onmouseover='ombin(103)' onmouseout='ombout(103)' ><img
+              src="images/i25.jpg" onclick='obc(104)' onmouseover='ombin(104)' onmouseout='ombout(104)' ><img
+              src="images/i25.jpg" onclick='obc(105)' onmouseover='ombin(105)' onmouseout='ombout(105)' ><img
+              src="images/i25.jpg" onclick='obc(106)' onmouseover='ombin(106)' onmouseout='ombout(106)' ><img
+              src="images/i25.jpg" onclick='obc(107)' onmouseover='ombin(107)' onmouseout='ombout(107)' ><img
+              src="images/i25.jpg" onclick='obc(108)' onmouseover='ombin(108)' onmouseout='ombout(108)' ><img
+              src="images/i25.jpg" onclick='obc(109)' onmouseover='ombin(109)' onmouseout='ombout(109)' ><img
+              src="images/i25.jpg" onclick='obc(110)' onmouseover='ombin(110)' onmouseout='ombout(110)' ><img
+              src="images/i25.jpg" onclick='obc(111)' onmouseover='ombin(111)' onmouseout='ombout(111)' ><img
+              src="images/i25.jpg" onclick='obc(112)' onmouseover='ombin(112)' onmouseout='ombout(112)' ><img
+              src="images/i25.jpg" onclick='obc(113)' onmouseover='ombin(113)' onmouseout='ombout(113)' ><img
+              src="images/i25.jpg" onclick='obc(114)' onmouseover='ombin(114)' onmouseout='ombout(114)' ><img
+              src="images/i25.jpg" onclick='obc(115)' onmouseover='ombin(115)' onmouseout='ombout(115)' ><img
+              src="images/i25.jpg" onclick='obc(116)' onmouseover='ombin(116)' onmouseout='ombout(116)' ><img
+              src="images/i25.jpg" onclick='obc(117)' onmouseover='ombin(117)' onmouseout='ombout(117)' ><img
+              src="images/i25.jpg" onclick='obc(118)' onmouseover='ombin(118)' onmouseout='ombout(118)' ><img
+              src="images/i25.jpg" onclick='obc(119)' onmouseover='ombin(119)' onmouseout='ombout(119)' ><br><img
+              src="images/i25.jpg" onclick='obc(120)' onmouseover='ombin(120)' onmouseout='ombout(120)' ><img
+              src="images/i25.jpg" onclick='obc(121)' onmouseover='ombin(121)' onmouseout='ombout(121)' ><img
+              src="images/i25.jpg" onclick='obc(122)' onmouseover='ombin(122)' onmouseout='ombout(122)' ><img
+              src="images/i25.jpg" onclick='obc(123)' onmouseover='ombin(123)' onmouseout='ombout(123)' ><img
+              src="images/i25.jpg" onclick='obc(124)' onmouseover='ombin(124)' onmouseout='ombout(124)' ><img
+              src="images/i25.jpg" onclick='obc(125)' onmouseover='ombin(125)' onmouseout='ombout(125)' ><img
+              src="images/i25.jpg" onclick='obc(126)' onmouseover='ombin(126)' onmouseout='ombout(126)' ><img
+              src="images/i25.jpg" onclick='obc(127)' onmouseover='ombin(127)' onmouseout='ombout(127)' ><img
+              src="images/i25.jpg" onclick='obc(128)' onmouseover='ombin(128)' onmouseout='ombout(128)' ><img
+              src="images/i25.jpg" onclick='obc(129)' onmouseover='ombin(129)' onmouseout='ombout(129)' ><img
+              src="images/i25.jpg" onclick='obc(130)' onmouseover='ombin(130)' onmouseout='ombout(130)' ><img
+              src="images/i25.jpg" onclick='obc(131)' onmouseover='ombin(131)' onmouseout='ombout(131)' ><img
+              src="images/i25.jpg" onclick='obc(132)' onmouseover='ombin(132)' onmouseout='ombout(132)' ><img
+              src="images/i25.jpg" onclick='obc(133)' onmouseover='ombin(133)' onmouseout='ombout(133)' ><img
+              src="images/i25.jpg" onclick='obc(134)' onmouseover='ombin(134)' onmouseout='ombout(134)' ><img
+              src="images/i25.jpg" onclick='obc(135)' onmouseover='ombin(135)' onmouseout='ombout(135)' ><img
+              src="images/i25.jpg" onclick='obc(136)' onmouseover='ombin(136)' onmouseout='ombout(136)' ><img
+              src="images/i25.jpg" onclick='obc(137)' onmouseover='ombin(137)' onmouseout='ombout(137)' ><img
+              src="images/i25.jpg" onclick='obc(138)' onmouseover='ombin(138)' onmouseout='ombout(138)' ><img
+              src="images/i25.jpg" onclick='obc(139)' onmouseover='ombin(139)' onmouseout='ombout(139)' ><br><img
+              src="images/i25.jpg" onclick='obc(140)' onmouseover='ombin(140)' onmouseout='ombout(140)' ><img
+              src="images/i25.jpg" onclick='obc(141)' onmouseover='ombin(141)' onmouseout='ombout(141)' ><img
+              src="images/i25.jpg" onclick='obc(142)' onmouseover='ombin(142)' onmouseout='ombout(142)' ><img
+              src="images/i25.jpg" onclick='obc(143)' onmouseover='ombin(143)' onmouseout='ombout(143)' ><img
+              src="images/i25.jpg" onclick='obc(144)' onmouseover='ombin(144)' onmouseout='ombout(144)' ><img
+              src="images/i25.jpg" onclick='obc(145)' onmouseover='ombin(145)' onmouseout='ombout(145)' ><img
+              src="images/i25.jpg" onclick='obc(146)' onmouseover='ombin(146)' onmouseout='ombout(146)' ><img
+              src="images/i25.jpg" onclick='obc(147)' onmouseover='ombin(147)' onmouseout='ombout(147)' ><img
+              src="images/i25.jpg" onclick='obc(148)' onmouseover='ombin(148)' onmouseout='ombout(148)' ><img
+              src="images/i25.jpg" onclick='obc(149)' onmouseover='ombin(149)' onmouseout='ombout(149)' ><img
+              src="images/i25.jpg" onclick='obc(150)' onmouseover='ombin(150)' onmouseout='ombout(150)' ><img
+              src="images/i25.jpg" onclick='obc(151)' onmouseover='ombin(151)' onmouseout='ombout(151)' ><img
+              src="images/i25.jpg" onclick='obc(152)' onmouseover='ombin(152)' onmouseout='ombout(152)' ><img
+              src="images/i25.jpg" onclick='obc(153)' onmouseover='ombin(153)' onmouseout='ombout(153)' ><img
+              src="images/i25.jpg" onclick='obc(154)' onmouseover='ombin(154)' onmouseout='ombout(154)' ><img
+              src="images/i25.jpg" onclick='obc(155)' onmouseover='ombin(155)' onmouseout='ombout(155)' ><img
+              src="images/i25.jpg" onclick='obc(156)' onmouseover='ombin(156)' onmouseout='ombout(156)' ><img
+              src="images/i25.jpg" onclick='obc(157)' onmouseover='ombin(157)' onmouseout='ombout(157)' ><img
+              src="images/i25.jpg" onclick='obc(158)' onmouseover='ombin(158)' onmouseout='ombout(158)' ><img
+              src="images/i25.jpg" onclick='obc(159)' onmouseover='ombin(159)' onmouseout='ombout(159)' ><br><img
+              src="images/i25.jpg" onclick='obc(160)' onmouseover='ombin(160)' onmouseout='ombout(160)' ><img
+              src="images/i25.jpg" onclick='obc(161)' onmouseover='ombin(161)' onmouseout='ombout(161)' ><img
+              src="images/i25.jpg" onclick='obc(162)' onmouseover='ombin(162)' onmouseout='ombout(162)' ><img
+              src="images/i25.jpg" onclick='obc(163)' onmouseover='ombin(163)' onmouseout='ombout(163)' ><img
+              src="images/i25.jpg" onclick='obc(164)' onmouseover='ombin(164)' onmouseout='ombout(164)' ><img
+              src="images/i25.jpg" onclick='obc(165)' onmouseover='ombin(165)' onmouseout='ombout(165)' ><img
+              src="images/i25.jpg" onclick='obc(166)' onmouseover='ombin(166)' onmouseout='ombout(166)' ><img
+              src="images/i25.jpg" onclick='obc(167)' onmouseover='ombin(167)' onmouseout='ombout(167)' ><img
+              src="images/i25.jpg" onclick='obc(168)' onmouseover='ombin(168)' onmouseout='ombout(168)' ><img
+              src="images/i25.jpg" onclick='obc(169)' onmouseover='ombin(169)' onmouseout='ombout(169)' ><img
+              src="images/i25.jpg" onclick='obc(170)' onmouseover='ombin(170)' onmouseout='ombout(170)' ><img
+              src="images/i25.jpg" onclick='obc(171)' onmouseover='ombin(171)' onmouseout='ombout(171)' ><img
+              src="images/i25.jpg" onclick='obc(172)' onmouseover='ombin(172)' onmouseout='ombout(172)' ><img
+              src="images/i25.jpg" onclick='obc(173)' onmouseover='ombin(173)' onmouseout='ombout(173)' ><img
+              src="images/i25.jpg" onclick='obc(174)' onmouseover='ombin(174)' onmouseout='ombout(174)' ><img
+              src="images/i25.jpg" onclick='obc(175)' onmouseover='ombin(175)' onmouseout='ombout(175)' ><img
+              src="images/i25.jpg" onclick='obc(176)' onmouseover='ombin(176)' onmouseout='ombout(176)' ><img
+              src="images/i25.jpg" onclick='obc(177)' onmouseover='ombin(177)' onmouseout='ombout(177)' ><img
+              src="images/i25.jpg" onclick='obc(178)' onmouseover='ombin(178)' onmouseout='ombout(178)' ><img
+              src="images/i25.jpg" onclick='obc(179)' onmouseover='ombin(179)' onmouseout='ombout(179)' ><br><img
+              src="images/i25.jpg" onclick='obc(180)' onmouseover='ombin(180)' onmouseout='ombout(180)' ><img
+              src="images/i25.jpg" onclick='obc(181)' onmouseover='ombin(181)' onmouseout='ombout(181)' ><img
+              src="images/i25.jpg" onclick='obc(182)' onmouseover='ombin(182)' onmouseout='ombout(182)' ><img
+              src="images/i25.jpg" onclick='obc(183)' onmouseover='ombin(183)' onmouseout='ombout(183)' ><img
+              src="images/i25.jpg" onclick='obc(184)' onmouseover='ombin(184)' onmouseout='ombout(184)' ><img
+              src="images/i25.jpg" onclick='obc(185)' onmouseover='ombin(185)' onmouseout='ombout(185)' ><img
+              src="images/i25.jpg" onclick='obc(186)' onmouseover='ombin(186)' onmouseout='ombout(186)' ><img
+              src="images/i25.jpg" onclick='obc(187)' onmouseover='ombin(187)' onmouseout='ombout(187)' ><img
+              src="images/i25.jpg" onclick='obc(188)' onmouseover='ombin(188)' onmouseout='ombout(188)' ><img
+              src="images/i25.jpg" onclick='obc(189)' onmouseover='ombin(189)' onmouseout='ombout(189)' ><img
+              src="images/i25.jpg" onclick='obc(190)' onmouseover='ombin(190)' onmouseout='ombout(190)' ><img
+              src="images/i25.jpg" onclick='obc(191)' onmouseover='ombin(191)' onmouseout='ombout(191)' ><img
+              src="images/i25.jpg" onclick='obc(192)' onmouseover='ombin(192)' onmouseout='ombout(192)' ><img
+              src="images/i25.jpg" onclick='obc(193)' onmouseover='ombin(193)' onmouseout='ombout(193)' ><img
+              src="images/i25.jpg" onclick='obc(194)' onmouseover='ombin(194)' onmouseout='ombout(194)' ><img
+              src="images/i25.jpg" onclick='obc(195)' onmouseover='ombin(195)' onmouseout='ombout(195)' ><img
+              src="images/i25.jpg" onclick='obc(196)' onmouseover='ombin(196)' onmouseout='ombout(196)' ><img
+              src="images/i25.jpg" onclick='obc(197)' onmouseover='ombin(197)' onmouseout='ombout(197)' ><img
+              src="images/i25.jpg" onclick='obc(198)' onmouseover='ombin(198)' onmouseout='ombout(198)' ><img
+              src="images/i25.jpg" onclick='obc(199)' onmouseover='ombin(199)' onmouseout='ombout(199)' ><br><img
+              src="images/i25.jpg" onclick='obc(200)' onmouseover='ombin(200)' onmouseout='ombout(200)' ><img
+              src="images/i25.jpg" onclick='obc(201)' onmouseover='ombin(201)' onmouseout='ombout(201)' ><img
+              src="images/i25.jpg" onclick='obc(202)' onmouseover='ombin(202)' onmouseout='ombout(202)' ><img
+              src="images/i25.jpg" onclick='obc(203)' onmouseover='ombin(203)' onmouseout='ombout(203)' ><img
+              src="images/i25.jpg" onclick='obc(204)' onmouseover='ombin(204)' onmouseout='ombout(204)' ><img
+              src="images/i25.jpg" onclick='obc(205)' onmouseover='ombin(205)' onmouseout='ombout(205)' ><img
+              src="images/i25.jpg" onclick='obc(206)' onmouseover='ombin(206)' onmouseout='ombout(206)' ><img
+              src="images/i25.jpg" onclick='obc(207)' onmouseover='ombin(207)' onmouseout='ombout(207)' ><img
+              src="images/i25.jpg" onclick='obc(208)' onmouseover='ombin(208)' onmouseout='ombout(208)' ><img
+              src="images/i25.jpg" onclick='obc(209)' onmouseover='ombin(209)' onmouseout='ombout(209)' ><img
+              src="images/i25.jpg" onclick='obc(210)' onmouseover='ombin(210)' onmouseout='ombout(210)' ><img
+              src="images/i25.jpg" onclick='obc(211)' onmouseover='ombin(211)' onmouseout='ombout(211)' ><img
+              src="images/i25.jpg" onclick='obc(212)' onmouseover='ombin(212)' onmouseout='ombout(212)' ><img
+              src="images/i25.jpg" onclick='obc(213)' onmouseover='ombin(213)' onmouseout='ombout(213)' ><img
+              src="images/i25.jpg" onclick='obc(214)' onmouseover='ombin(214)' onmouseout='ombout(214)' ><img
+              src="images/i25.jpg" onclick='obc(215)' onmouseover='ombin(215)' onmouseout='ombout(215)' ><img
+              src="images/i25.jpg" onclick='obc(216)' onmouseover='ombin(216)' onmouseout='ombout(216)' ><img
+              src="images/i25.jpg" onclick='obc(217)' onmouseover='ombin(217)' onmouseout='ombout(217)' ><img
+              src="images/i25.jpg" onclick='obc(218)' onmouseover='ombin(218)' onmouseout='ombout(218)' ><img
+              src="images/i25.jpg" onclick='obc(219)' onmouseover='ombin(219)' onmouseout='ombout(219)' ><br><img
+              src="images/i25.jpg" onclick='obc(220)' onmouseover='ombin(220)' onmouseout='ombout(220)' ><img
+              src="images/i25.jpg" onclick='obc(221)' onmouseover='ombin(221)' onmouseout='ombout(221)' ><img
+              src="images/i25.jpg" onclick='obc(222)' onmouseover='ombin(222)' onmouseout='ombout(222)' ><img
+              src="images/i25.jpg" onclick='obc(223)' onmouseover='ombin(223)' onmouseout='ombout(223)' ><img
+              src="images/i25.jpg" onclick='obc(224)' onmouseover='ombin(224)' onmouseout='ombout(224)' ><img
+              src="images/i25.jpg" onclick='obc(225)' onmouseover='ombin(225)' onmouseout='ombout(225)' ><img
+              src="images/i25.jpg" onclick='obc(226)' onmouseover='ombin(226)' onmouseout='ombout(226)' ><img
+              src="images/i25.jpg" onclick='obc(227)' onmouseover='ombin(227)' onmouseout='ombout(227)' ><img
+              src="images/i25.jpg" onclick='obc(228)' onmouseover='ombin(228)' onmouseout='ombout(228)' ><img
+              src="images/i25.jpg" onclick='obc(229)' onmouseover='ombin(229)' onmouseout='ombout(229)' ><img
+              src="images/i25.jpg" onclick='obc(230)' onmouseover='ombin(230)' onmouseout='ombout(230)' ><img
+              src="images/i25.jpg" onclick='obc(231)' onmouseover='ombin(231)' onmouseout='ombout(231)' ><img
+              src="images/i25.jpg" onclick='obc(232)' onmouseover='ombin(232)' onmouseout='ombout(232)' ><img
+              src="images/i25.jpg" onclick='obc(233)' onmouseover='ombin(233)' onmouseout='ombout(233)' ><img
+              src="images/i25.jpg" onclick='obc(234)' onmouseover='ombin(234)' onmouseout='ombout(234)' ><img
+              src="images/i25.jpg" onclick='obc(235)' onmouseover='ombin(235)' onmouseout='ombout(235)' ><img
+              src="images/i25.jpg" onclick='obc(236)' onmouseover='ombin(236)' onmouseout='ombout(236)' ><img
+              src="images/i25.jpg" onclick='obc(237)' onmouseover='ombin(237)' onmouseout='ombout(237)' ><img
+              src="images/i25.jpg" onclick='obc(238)' onmouseover='ombin(238)' onmouseout='ombout(238)' ><img
+              src="images/i25.jpg" onclick='obc(239)' onmouseover='ombin(239)' onmouseout='ombout(239)' ><br><img
+              src="images/i25.jpg" onclick='obc(240)' onmouseover='ombin(240)' onmouseout='ombout(240)' ><img
+              src="images/i25.jpg" onclick='obc(241)' onmouseover='ombin(241)' onmouseout='ombout(241)' ><img
+              src="images/i25.jpg" onclick='obc(242)' onmouseover='ombin(242)' onmouseout='ombout(242)' ><img
+              src="images/i25.jpg" onclick='obc(243)' onmouseover='ombin(243)' onmouseout='ombout(243)' ><img
+              src="images/i25.jpg" onclick='obc(244)' onmouseover='ombin(244)' onmouseout='ombout(244)' ><img
+              src="images/i25.jpg" onclick='obc(245)' onmouseover='ombin(245)' onmouseout='ombout(245)' ><img
+              src="images/i25.jpg" onclick='obc(246)' onmouseover='ombin(246)' onmouseout='ombout(246)' ><img
+              src="images/i25.jpg" onclick='obc(247)' onmouseover='ombin(247)' onmouseout='ombout(247)' ><img
+              src="images/i25.jpg" onclick='obc(248)' onmouseover='ombin(248)' onmouseout='ombout(248)' ><img
+              src="images/i25.jpg" onclick='obc(249)' onmouseover='ombin(249)' onmouseout='ombout(249)' ><img
+              src="images/i25.jpg" onclick='obc(250)' onmouseover='ombin(250)' onmouseout='ombout(250)' ><img
+              src="images/i25.jpg" onclick='obc(251)' onmouseover='ombin(251)' onmouseout='ombout(251)' ><img
+              src="images/i25.jpg" onclick='obc(252)' onmouseover='ombin(252)' onmouseout='ombout(252)' ><img
+              src="images/i25.jpg" onclick='obc(253)' onmouseover='ombin(253)' onmouseout='ombout(253)' ><img
+              src="images/i25.jpg" onclick='obc(254)' onmouseover='ombin(254)' onmouseout='ombout(254)' ><img
+              src="images/i25.jpg" onclick='obc(255)' onmouseover='ombin(255)' onmouseout='ombout(255)' ><img
+              src="images/i25.jpg" onclick='obc(256)' onmouseover='ombin(256)' onmouseout='ombout(256)' ><img
+              src="images/i25.jpg" onclick='obc(257)' onmouseover='ombin(257)' onmouseout='ombout(257)' ><img
+              src="images/i25.jpg" onclick='obc(258)' onmouseover='ombin(258)' onmouseout='ombout(258)' ><img
+              src="images/i25.jpg" onclick='obc(259)' onmouseover='ombin(259)' onmouseout='ombout(259)' ><br><img
+              src="images/i25.jpg" onclick='obc(260)' onmouseover='ombin(260)' onmouseout='ombout(260)' ><img
+              src="images/i25.jpg" onclick='obc(261)' onmouseover='ombin(261)' onmouseout='ombout(261)' ><img
+              src="images/i25.jpg" onclick='obc(262)' onmouseover='ombin(262)' onmouseout='ombout(262)' ><img
+              src="images/i25.jpg" onclick='obc(263)' onmouseover='ombin(263)' onmouseout='ombout(263)' ><img
+              src="images/i25.jpg" onclick='obc(264)' onmouseover='ombin(264)' onmouseout='ombout(264)' ><img
+              src="images/i25.jpg" onclick='obc(265)' onmouseover='ombin(265)' onmouseout='ombout(265)' ><img
+              src="images/i25.jpg" onclick='obc(266)' onmouseover='ombin(266)' onmouseout='ombout(266)' ><img
+              src="images/i25.jpg" onclick='obc(267)' onmouseover='ombin(267)' onmouseout='ombout(267)' ><img
+              src="images/i25.jpg" onclick='obc(268)' onmouseover='ombin(268)' onmouseout='ombout(268)' ><img
+              src="images/i25.jpg" onclick='obc(269)' onmouseover='ombin(269)' onmouseout='ombout(269)' ><img
+              src="images/i25.jpg" onclick='obc(270)' onmouseover='ombin(270)' onmouseout='ombout(270)' ><img
+              src="images/i25.jpg" onclick='obc(271)' onmouseover='ombin(271)' onmouseout='ombout(271)' ><img
+              src="images/i25.jpg" onclick='obc(272)' onmouseover='ombin(272)' onmouseout='ombout(272)' ><img
+              src="images/i25.jpg" onclick='obc(273)' onmouseover='ombin(273)' onmouseout='ombout(273)' ><img
+              src="images/i25.jpg" onclick='obc(274)' onmouseover='ombin(274)' onmouseout='ombout(274)' ><img
+              src="images/i25.jpg" onclick='obc(275)' onmouseover='ombin(275)' onmouseout='ombout(275)' ><img
+              src="images/i25.jpg" onclick='obc(276)' onmouseover='ombin(276)' onmouseout='ombout(276)' ><img
+              src="images/i25.jpg" onclick='obc(277)' onmouseover='ombin(277)' onmouseout='ombout(277)' ><img
+              src="images/i25.jpg" onclick='obc(278)' onmouseover='ombin(278)' onmouseout='ombout(278)' ><img
+              src="images/i25.jpg" onclick='obc(279)' onmouseover='ombin(279)' onmouseout='ombout(279)' ><br><img
+              src="images/i25.jpg" onclick='obc(280)' onmouseover='ombin(280)' onmouseout='ombout(280)' ><img
+              src="images/i25.jpg" onclick='obc(281)' onmouseover='ombin(281)' onmouseout='ombout(281)' ><img
+              src="images/i25.jpg" onclick='obc(282)' onmouseover='ombin(282)' onmouseout='ombout(282)' ><img
+              src="images/i25.jpg" onclick='obc(283)' onmouseover='ombin(283)' onmouseout='ombout(283)' ><img
+              src="images/i25.jpg" onclick='obc(284)' onmouseover='ombin(284)' onmouseout='ombout(284)' ><img
+              src="images/i25.jpg" onclick='obc(285)' onmouseover='ombin(285)' onmouseout='ombout(285)' ><img
+              src="images/i25.jpg" onclick='obc(286)' onmouseover='ombin(286)' onmouseout='ombout(286)' ><img
+              src="images/i25.jpg" onclick='obc(287)' onmouseover='ombin(287)' onmouseout='ombout(287)' ><img
+              src="images/i25.jpg" onclick='obc(288)' onmouseover='ombin(288)' onmouseout='ombout(288)' ><img
+              src="images/i25.jpg" onclick='obc(289)' onmouseover='ombin(289)' onmouseout='ombout(289)' ><img
+              src="images/i25.jpg" onclick='obc(290)' onmouseover='ombin(290)' onmouseout='ombout(290)' ><img
+              src="images/i25.jpg" onclick='obc(291)' onmouseover='ombin(291)' onmouseout='ombout(291)' ><img
+              src="images/i25.jpg" onclick='obc(292)' onmouseover='ombin(292)' onmouseout='ombout(292)' ><img
+              src="images/i25.jpg" onclick='obc(293)' onmouseover='ombin(293)' onmouseout='ombout(293)' ><img
+              src="images/i25.jpg" onclick='obc(294)' onmouseover='ombin(294)' onmouseout='ombout(294)' ><img
+              src="images/i25.jpg" onclick='obc(295)' onmouseover='ombin(295)' onmouseout='ombout(295)' ><img
+              src="images/i25.jpg" onclick='obc(296)' onmouseover='ombin(296)' onmouseout='ombout(296)' ><img
+              src="images/i25.jpg" onclick='obc(297)' onmouseover='ombin(297)' onmouseout='ombout(297)' ><img
+              src="images/i25.jpg" onclick='obc(298)' onmouseover='ombin(298)' onmouseout='ombout(298)' ><img
+              src="images/i25.jpg" onclick='obc(299)' onmouseover='ombin(299)' onmouseout='ombout(299)' ><br><img
+              src="images/i25.jpg" onclick='obc(300)' onmouseover='ombin(300)' onmouseout='ombout(300)' ><img
+              src="images/i25.jpg" onclick='obc(301)' onmouseover='ombin(301)' onmouseout='ombout(301)' ><img
+              src="images/i25.jpg" onclick='obc(302)' onmouseover='ombin(302)' onmouseout='ombout(302)' ><img
+              src="images/i25.jpg" onclick='obc(303)' onmouseover='ombin(303)' onmouseout='ombout(303)' ><img
+              src="images/i25.jpg" onclick='obc(304)' onmouseover='ombin(304)' onmouseout='ombout(304)' ><img
+              src="images/i25.jpg" onclick='obc(305)' onmouseover='ombin(305)' onmouseout='ombout(305)' ><img
+              src="images/i25.jpg" onclick='obc(306)' onmouseover='ombin(306)' onmouseout='ombout(306)' ><img
+              src="images/i25.jpg" onclick='obc(307)' onmouseover='ombin(307)' onmouseout='ombout(307)' ><img
+              src="images/i25.jpg" onclick='obc(308)' onmouseover='ombin(308)' onmouseout='ombout(308)' ><img
+              src="images/i25.jpg" onclick='obc(309)' onmouseover='ombin(309)' onmouseout='ombout(309)' ><img
+              src="images/i25.jpg" onclick='obc(310)' onmouseover='ombin(310)' onmouseout='ombout(310)' ><img
+              src="images/i25.jpg" onclick='obc(311)' onmouseover='ombin(311)' onmouseout='ombout(311)' ><img
+              src="images/i25.jpg" onclick='obc(312)' onmouseover='ombin(312)' onmouseout='ombout(312)' ><img
+              src="images/i25.jpg" onclick='obc(313)' onmouseover='ombin(313)' onmouseout='ombout(313)' ><img
+              src="images/i25.jpg" onclick='obc(314)' onmouseover='ombin(314)' onmouseout='ombout(314)' ><img
+              src="images/i25.jpg" onclick='obc(315)' onmouseover='ombin(315)' onmouseout='ombout(315)' ><img
+              src="images/i25.jpg" onclick='obc(316)' onmouseover='ombin(316)' onmouseout='ombout(316)' ><img
+              src="images/i25.jpg" onclick='obc(317)' onmouseover='ombin(317)' onmouseout='ombout(317)' ><img
+              src="images/i25.jpg" onclick='obc(318)' onmouseover='ombin(318)' onmouseout='ombout(318)' ><img
+              src="images/i25.jpg" onclick='obc(319)' onmouseover='ombin(319)' onmouseout='ombout(319)' ><br><img
+              src="images/i25.jpg" onclick='obc(320)' onmouseover='ombin(320)' onmouseout='ombout(320)' ><img
+              src="images/i25.jpg" onclick='obc(321)' onmouseover='ombin(321)' onmouseout='ombout(321)' ><img
+              src="images/i25.jpg" onclick='obc(322)' onmouseover='ombin(322)' onmouseout='ombout(322)' ><img
+              src="images/i25.jpg" onclick='obc(323)' onmouseover='ombin(323)' onmouseout='ombout(323)' ><img
+              src="images/i25.jpg" onclick='obc(324)' onmouseover='ombin(324)' onmouseout='ombout(324)' ><img
+              src="images/i25.jpg" onclick='obc(325)' onmouseover='ombin(325)' onmouseout='ombout(325)' ><img
+              src="images/i25.jpg" onclick='obc(326)' onmouseover='ombin(326)' onmouseout='ombout(326)' ><img
+              src="images/i25.jpg" onclick='obc(327)' onmouseover='ombin(327)' onmouseout='ombout(327)' ><img
+              src="images/i25.jpg" onclick='obc(328)' onmouseover='ombin(328)' onmouseout='ombout(328)' ><img
+              src="images/i25.jpg" onclick='obc(329)' onmouseover='ombin(329)' onmouseout='ombout(329)' ><img
+              src="images/i25.jpg" onclick='obc(330)' onmouseover='ombin(330)' onmouseout='ombout(330)' ><img
+              src="images/i25.jpg" onclick='obc(331)' onmouseover='ombin(331)' onmouseout='ombout(331)' ><img
+              src="images/i25.jpg" onclick='obc(332)' onmouseover='ombin(332)' onmouseout='ombout(332)' ><img
+              src="images/i25.jpg" onclick='obc(333)' onmouseover='ombin(333)' onmouseout='ombout(333)' ><img
+              src="images/i25.jpg" onclick='obc(334)' onmouseover='ombin(334)' onmouseout='ombout(334)' ><img
+              src="images/i25.jpg" onclick='obc(335)' onmouseover='ombin(335)' onmouseout='ombout(335)' ><img
+              src="images/i25.jpg" onclick='obc(336)' onmouseover='ombin(336)' onmouseout='ombout(336)' ><img
+              src="images/i25.jpg" onclick='obc(337)' onmouseover='ombin(337)' onmouseout='ombout(337)' ><img
+              src="images/i25.jpg" onclick='obc(338)' onmouseover='ombin(338)' onmouseout='ombout(338)' ><img
+              src="images/i25.jpg" onclick='obc(339)' onmouseover='ombin(339)' onmouseout='ombout(339)' ><br><img
+              src="images/i25.jpg" onclick='obc(340)' onmouseover='ombin(340)' onmouseout='ombout(340)' ><img
+              src="images/i25.jpg" onclick='obc(341)' onmouseover='ombin(341)' onmouseout='ombout(341)' ><img
+              src="images/i25.jpg" onclick='obc(342)' onmouseover='ombin(342)' onmouseout='ombout(342)' ><img
+              src="images/i25.jpg" onclick='obc(343)' onmouseover='ombin(343)' onmouseout='ombout(343)' ><img
+              src="images/i25.jpg" onclick='obc(344)' onmouseover='ombin(344)' onmouseout='ombout(344)' ><img
+              src="images/i25.jpg" onclick='obc(345)' onmouseover='ombin(345)' onmouseout='ombout(345)' ><img
+              src="images/i25.jpg" onclick='obc(346)' onmouseover='ombin(346)' onmouseout='ombout(346)' ><img
+              src="images/i25.jpg" onclick='obc(347)' onmouseover='ombin(347)' onmouseout='ombout(347)' ><img
+              src="images/i25.jpg" onclick='obc(348)' onmouseover='ombin(348)' onmouseout='ombout(348)' ><img
+              src="images/i25.jpg" onclick='obc(349)' onmouseover='ombin(349)' onmouseout='ombout(349)' ><img
+              src="images/i25.jpg" onclick='obc(350)' onmouseover='ombin(350)' onmouseout='ombout(350)' ><img
+              src="images/i25.jpg" onclick='obc(351)' onmouseover='ombin(351)' onmouseout='ombout(351)' ><img
+              src="images/i25.jpg" onclick='obc(352)' onmouseover='ombin(352)' onmouseout='ombout(352)' ><img
+              src="images/i25.jpg" onclick='obc(353)' onmouseover='ombin(353)' onmouseout='ombout(353)' ><img
+              src="images/i25.jpg" onclick='obc(354)' onmouseover='ombin(354)' onmouseout='ombout(354)' ><img
+              src="images/i25.jpg" onclick='obc(355)' onmouseover='ombin(355)' onmouseout='ombout(355)' ><img
+              src="images/i25.jpg" onclick='obc(356)' onmouseover='ombin(356)' onmouseout='ombout(356)' ><img
+              src="images/i25.jpg" onclick='obc(357)' onmouseover='ombin(357)' onmouseout='ombout(357)' ><img
+              src="images/i25.jpg" onclick='obc(358)' onmouseover='ombin(358)' onmouseout='ombout(358)' ><img
+              src="images/i25.jpg" onclick='obc(359)' onmouseover='ombin(359)' onmouseout='ombout(359)' ><br><img
+              src="images/i25.jpg" onclick='obc(360)' onmouseover='ombin(360)' onmouseout='ombout(360)' ><img
+              src="images/i25.jpg" onclick='obc(361)' onmouseover='ombin(361)' onmouseout='ombout(361)' ><img
+              src="images/i25.jpg" onclick='obc(362)' onmouseover='ombin(362)' onmouseout='ombout(362)' ><img
+              src="images/i25.jpg" onclick='obc(363)' onmouseover='ombin(363)' onmouseout='ombout(363)' ><img
+              src="images/i25.jpg" onclick='obc(364)' onmouseover='ombin(364)' onmouseout='ombout(364)' ><img
+              src="images/i25.jpg" onclick='obc(365)' onmouseover='ombin(365)' onmouseout='ombout(365)' ><img
+              src="images/i25.jpg" onclick='obc(366)' onmouseover='ombin(366)' onmouseout='ombout(366)' ><img
+              src="images/i25.jpg" onclick='obc(367)' onmouseover='ombin(367)' onmouseout='ombout(367)' ><img
+              src="images/i25.jpg" onclick='obc(368)' onmouseover='ombin(368)' onmouseout='ombout(368)' ><img
+              src="images/i25.jpg" onclick='obc(369)' onmouseover='ombin(369)' onmouseout='ombout(369)' ><img
+              src="images/i25.jpg" onclick='obc(370)' onmouseover='ombin(370)' onmouseout='ombout(370)' ><img
+              src="images/i25.jpg" onclick='obc(371)' onmouseover='ombin(371)' onmouseout='ombout(371)' ><img
+              src="images/i25.jpg" onclick='obc(372)' onmouseover='ombin(372)' onmouseout='ombout(372)' ><img
+              src="images/i25.jpg" onclick='obc(373)' onmouseover='ombin(373)' onmouseout='ombout(373)' ><img
+              src="images/i25.jpg" onclick='obc(374)' onmouseover='ombin(374)' onmouseout='ombout(374)' ><img
+              src="images/i25.jpg" onclick='obc(375)' onmouseover='ombin(375)' onmouseout='ombout(375)' ><img
+              src="images/i25.jpg" onclick='obc(376)' onmouseover='ombin(376)' onmouseout='ombout(376)' ><img
+              src="images/i25.jpg" onclick='obc(377)' onmouseover='ombin(377)' onmouseout='ombout(377)' ><img
+              src="images/i25.jpg" onclick='obc(378)' onmouseover='ombin(378)' onmouseout='ombout(378)' ><img
+              src="images/i25.jpg" onclick='obc(379)' onmouseover='ombin(379)' onmouseout='ombout(379)' ><br><img
+              src="images/i25.jpg" onclick='obc(380)' onmouseover='ombin(380)' onmouseout='ombout(380)' ><img
+              src="images/i25.jpg" onclick='obc(381)' onmouseover='ombin(381)' onmouseout='ombout(381)' ><img
+              src="images/i25.jpg" onclick='obc(382)' onmouseover='ombin(382)' onmouseout='ombout(382)' ><img
+              src="images/i25.jpg" onclick='obc(383)' onmouseover='ombin(383)' onmouseout='ombout(383)' ><img
+              src="images/i25.jpg" onclick='obc(384)' onmouseover='ombin(384)' onmouseout='ombout(384)' ><img
+              src="images/i25.jpg" onclick='obc(385)' onmouseover='ombin(385)' onmouseout='ombout(385)' ><img
+              src="images/i25.jpg" onclick='obc(386)' onmouseover='ombin(386)' onmouseout='ombout(386)' ><img
+              src="images/i25.jpg" onclick='obc(387)' onmouseover='ombin(387)' onmouseout='ombout(387)' ><img
+              src="images/i25.jpg" onclick='obc(388)' onmouseover='ombin(388)' onmouseout='ombout(388)' ><img
+              src="images/i25.jpg" onclick='obc(389)' onmouseover='ombin(389)' onmouseout='ombout(389)' ><img
+              src="images/i25.jpg" onclick='obc(390)' onmouseover='ombin(390)' onmouseout='ombout(390)' ><img
+              src="images/i25.jpg" onclick='obc(391)' onmouseover='ombin(391)' onmouseout='ombout(391)' ><img
+              src="images/i25.jpg" onclick='obc(392)' onmouseover='ombin(392)' onmouseout='ombout(392)' ><img
+              src="images/i25.jpg" onclick='obc(393)' onmouseover='ombin(393)' onmouseout='ombout(393)' ><img
+              src="images/i25.jpg" onclick='obc(394)' onmouseover='ombin(394)' onmouseout='ombout(394)' ><img
+              src="images/i25.jpg" onclick='obc(395)' onmouseover='ombin(395)' onmouseout='ombout(395)' ><img
+              src="images/i25.jpg" onclick='obc(396)' onmouseover='ombin(396)' onmouseout='ombout(396)' ><img
+              src="images/i25.jpg" onclick='obc(397)' onmouseover='ombin(397)' onmouseout='ombout(397)' ><img
+              src="images/i25.jpg" onclick='obc(398)' onmouseover='ombin(398)' onmouseout='ombout(398)' ><img
+              src="images/i25.jpg" onclick='obc(399)' onmouseover='ombin(399)' onmouseout='ombout(399)' ></td></tr></table></td></tr></table>
+        <center>
+            <map name='map0'>
+              <area coords='1,1,23,19' title="to start" href='javascript:void(0)' onclick='gostart(0); return false;'>
+              <area coords='24,1,46,19' title="back 3" href='javascript:void(0)' onclick='back3(0); return false;'>
+              <area coords='47,1,69,19' title="back 1" href='javascript:void(0)' onclick='back(0); return false;'>
+              <area coords='70,1,92,19' title="forward 1" href='javascript:void(0)' onclick='forward(0); return false;'>
+              <area coords='93,1,115,19' title="forward 3" href='javascript:void(0)' onclick='forward3(0); return false;'>
+              <area coords='116,1,138,19' title="to end" href='javascript:void(0)' onclick='goend(0); return false;'>
+              <area coords='139,1,161,19' title="stop any playback" href='javascript:void(0)' onclick='stopanyplayback(0); return false;'>
+              <area coords='162,1,184,19' title="autoplay" href='javascript:void(0)' onclick='astart(0); return false;'>
+            </map>
+            <img src='images/p3condb.gif'
+                 border='0' usemap='#map0' height='18' width='183'>
+        </center>
+
+      </td><td onclick='hidepiece(this)'>
+        <img
+            src="images/flipdiagonal.gif" title="flip top right to bottom left" onclick='pieceflipdiag()' ><img
+          src="images/fliphorizontal.jpg" title="flip side to side" onclick='piecefliphorz()' ><img
+          src="images/flipvertical.gif" title="flip top to bottom" onclick='pieceflipvert()' ><img
+          src="images/x35.gif" title="pass your turn" onclick='passyourturn()' >
+        <br>&nbsp;
+        <script language='javascript' type='text/javascript'>
+            playerinfo(bluesquare);
+        </script>
+        <br>&nbsp;<img name='bluepieces'
+                       src="images/ba.jpg" id='' onclick='oc("ba")' onmouseover='omin("ba")' onmouseout='omout("ba")' ><img
+          src="images/bb.jpg" id='' onclick='oc("bb")' onmouseover='omin("bb")' onmouseout='omout("bb")' ><img
+          src="images/bc.jpg" id='' onclick='oc("bc")' onmouseover='omin("bc")' onmouseout='omout("bc")' ><img
+          src="images/bd.jpg" id='' onclick='oc("bd")' onmouseover='omin("bd")' onmouseout='omout("bd")' ><img
+          src="images/be.jpg" id='' onclick='oc("be")' onmouseover='omin("be")' onmouseout='omout("be")' ><img
+          src="images/bf.jpg" id='' onclick='oc("bf")' onmouseover='omin("bf")' onmouseout='omout("bf")' ><img
+          src="images/bg.jpg" id='' onclick='oc("bg")' onmouseover='omin("bg")' onmouseout='omout("bg")' >
+        <br>&nbsp;<img
+          src="images/bh.jpg" id='' onclick='oc("bh")' onmouseover='omin("bh")' onmouseout='omout("bh")' ><img
+          src="images/bi.jpg" id='' onclick='oc("bi")' onmouseover='omin("bi")' onmouseout='omout("bi")' ><img
+          src="images/bj.jpg" id='' onclick='oc("bj")' onmouseover='omin("bj")' onmouseout='omout("bj")' ><img
+          src="images/bk.jpg" id='' onclick='oc("bk")' onmouseover='omin("bk")' onmouseout='omout("bk")' ><img
+          src="images/bl.jpg" id='' onclick='oc("bl")' onmouseover='omin("bl")' onmouseout='omout("bl")' ><img
+          src="images/bm.jpg" id='' onclick='oc("bm")' onmouseover='omin("bm")' onmouseout='omout("bm")' ><img
+          src="images/bn.jpg" id='' onclick='oc("bn")' onmouseover='omin("bn")' onmouseout='omout("bn")' >
+        <br>&nbsp;<img
+          src="images/bo.jpg" id='' onclick='oc("bo")' onmouseover='omin("bo")' onmouseout='omout("bo")' ><img
+          src="images/bp.jpg" id='' onclick='oc("bp")' onmouseover='omin("bp")' onmouseout='omout("bp")' ><img
+          src="images/bq.jpg" id='' onclick='oc("bq")' onmouseover='omin("bq")' onmouseout='omout("bq")' ><img
+          src="images/br.jpg" id='' onclick='oc("br")' onmouseover='omin("br")' onmouseout='omout("br")' ><img
+          src="images/bs.jpg" id='' onclick='oc("bs")' onmouseover='omin("bs")' onmouseout='omout("bs")' ><img
+          src="images/bt.jpg" id='' onclick='oc("bt")' onmouseover='omin("bt")' onmouseout='omout("bt")' ><img
+          src="images/bu.jpg" id='' onclick='oc("bu")' onmouseover='omin("bu")' onmouseout='omout("bu")' >
+        <br>&nbsp;
+        <script language='javascript' type='text/javascript'>
+            playerinfo(yellowsquare);
+        </script>
+        <br>&nbsp;<img name='yellowpieces'
+                       src="images/ba.jpg" id='' onclick='oc("ya")' onmouseover='omin("ya")' onmouseout='omout("ya")' ><img
+          src="images/bb.jpg" id='' onclick='oc("yb")' onmouseover='omin("yb")' onmouseout='omout("yb")' ><img
+          src="images/bc.jpg" id='' onclick='oc("yc")' onmouseover='omin("yc")' onmouseout='omout("yc")' ><img
+          src="images/bd.jpg" id='' onclick='oc("yd")' onmouseover='omin("yd")' onmouseout='omout("yd")' ><img
+          src="images/be.jpg" id='' onclick='oc("ye")' onmouseover='omin("ye")' onmouseout='omout("ye")' ><img
+          src="images/bf.jpg" id='' onclick='oc("yf")' onmouseover='omin("yf")' onmouseout='omout("yf")' ><img
+          src="images/bg.jpg" id='' onclick='oc("yg")' onmouseover='omin("yg")' onmouseout='omout("yg")' >
+        <br>&nbsp;<img
+          src="images/bh.jpg" id='' onclick='oc("yh")' onmouseover='omin("yh")' onmouseout='omout("yh")' ><img
+          src="images/bi.jpg" id='' onclick='oc("yi")' onmouseover='omin("yi")' onmouseout='omout("yi")' ><img
+          src="images/bj.jpg" id='' onclick='oc("yj")' onmouseover='omin("yj")' onmouseout='omout("yj")' ><img
+          src="images/bk.jpg" id='' onclick='oc("yk")' onmouseover='omin("yk")' onmouseout='omout("yk")' ><img
+          src="images/bl.jpg" id='' onclick='oc("yl")' onmouseover='omin("yl")' onmouseout='omout("yl")' ><img
+          src="images/bm.jpg" id='' onclick='oc("ym")' onmouseover='omin("ym")' onmouseout='omout("ym")' ><img
+          src="images/bn.jpg" id='' onclick='oc("yn")' onmouseover='omin("yn")' onmouseout='omout("yn")' >
+        <br>&nbsp;<img
+          src="images/bo.jpg" id='' onclick='oc("yo")' onmouseover='omin("yo")' onmouseout='omout("yo")' ><img
+          src="images/bp.jpg" id='' onclick='oc("yp")' onmouseover='omin("yp")' onmouseout='omout("yp")' ><img
+          src="images/bq.jpg" id='' onclick='oc("yq")' onmouseover='omin("yq")' onmouseout='omout("yq")' ><img
+          src="images/br.jpg" id='' onclick='oc("yr")' onmouseover='omin("yr")' onmouseout='omout("yr")' ><img
+          src="images/bs.jpg" id='' onclick='oc("ys")' onmouseover='omin("ys")' onmouseout='omout("ys")' ><img
+          src="images/bt.jpg" id='' onclick='oc("yt")' onmouseover='omin("yt")' onmouseout='omout("yt")' ><img
+          src="images/bu.jpg" id='' onclick='oc("yu")' onmouseover='omin("yu")' onmouseout='omout("yu")' >
+        <br>&nbsp;
+        <script language='javascript' type='text/javascript'>
+            playerinfo(redsquare);
+        </script>
+        <br>&nbsp;<img name='redpieces'
+                       src="images/ba.jpg" id='' onclick='oc("ra")' onmouseover='omin("ra")' onmouseout='omout("ra")' ><img
+          src="images/bb.jpg" id='' onclick='oc("rb")' onmouseover='omin("rb")' onmouseout='omout("rb")' ><img
+          src="images/bc.jpg" id='' onclick='oc("rc")' onmouseover='omin("rc")' onmouseout='omout("rc")' ><img
+          src="images/bd.jpg" id='' onclick='oc("rd")' onmouseover='omin("rd")' onmouseout='omout("rd")' ><img
+          src="images/be.jpg" id='' onclick='oc("re")' onmouseover='omin("re")' onmouseout='omout("re")' ><img
+          src="images/bf.jpg" id='' onclick='oc("rf")' onmouseover='omin("rf")' onmouseout='omout("rf")' ><img
+          src="images/bg.jpg" id='' onclick='oc("rg")' onmouseover='omin("rg")' onmouseout='omout("rg")' >
+        <br>&nbsp;<img
+          src="images/bh.jpg" id='' onclick='oc("rh")' onmouseover='omin("rh")' onmouseout='omout("rh")' ><img
+          src="images/bi.jpg" id='' onclick='oc("ri")' onmouseover='omin("ri")' onmouseout='omout("ri")' ><img
+          src="images/bj.jpg" id='' onclick='oc("rj")' onmouseover='omin("rj")' onmouseout='omout("rj")' ><img
+          src="images/bk.jpg" id='' onclick='oc("rk")' onmouseover='omin("rk")' onmouseout='omout("rk")' ><img
+          src="images/bl.jpg" id='' onclick='oc("rl")' onmouseover='omin("rl")' onmouseout='omout("rl")' ><img
+          src="images/bm.jpg" id='' onclick='oc("rm")' onmouseover='omin("rm")' onmouseout='omout("rm")' ><img
+          src="images/bn.jpg" id='' onclick='oc("rn")' onmouseover='omin("rn")' onmouseout='omout("rn")' >
+        <br>&nbsp;<img
+          src="images/bo.jpg" id='' onclick='oc("ro")' onmouseover='omin("ro")' onmouseout='omout("ro")' ><img
+          src="images/bp.jpg" id='' onclick='oc("rp")' onmouseover='omin("rp")' onmouseout='omout("rp")' ><img
+          src="images/bq.jpg" id='' onclick='oc("rq")' onmouseover='omin("rq")' onmouseout='omout("rq")' ><img
+          src="images/br.jpg" id='' onclick='oc("rr")' onmouseover='omin("rr")' onmouseout='omout("rr")' ><img
+          src="images/bs.jpg" id='' onclick='oc("rs")' onmouseover='omin("rs")' onmouseout='omout("rs")' ><img
+          src="images/bt.jpg" id='' onclick='oc("rt")' onmouseover='omin("rt")' onmouseout='omout("rt")' ><img
+          src="images/bu.jpg" id='' onclick='oc("ru")' onmouseover='omin("ru")' onmouseout='omout("ru")' >
+        <br>&nbsp;
+        <script language='javascript' type='text/javascript'>
+            playerinfo(greensquare);
+        </script>
+        <br>&nbsp;<img name='greenpieces'
+                       src="images/ba.jpg" id='' onclick='oc("ga")' onmouseover='omin("ga")' onmouseout='omout("ga")' ><img
+          src="images/bb.jpg" id='' onclick='oc("gb")' onmouseover='omin("gb")' onmouseout='omout("gb")' ><img
+          src="images/bc.jpg" id='' onclick='oc("gc")' onmouseover='omin("gc")' onmouseout='omout("gc")' ><img
+          src="images/bd.jpg" id='' onclick='oc("gd")' onmouseover='omin("gd")' onmouseout='omout("gd")' ><img
+          src="images/be.jpg" id='' onclick='oc("ge")' onmouseover='omin("ge")' onmouseout='omout("ge")' ><img
+          src="images/bf.jpg" id='' onclick='oc("gf")' onmouseover='omin("gf")' onmouseout='omout("gf")' ><img
+          src="images/bg.jpg" id='' onclick='oc("gg")' onmouseover='omin("gg")' onmouseout='omout("gg")' >
+        <br>&nbsp;<img
+          src="images/bh.jpg" id='' onclick='oc("gh")' onmouseover='omin("gh")' onmouseout='omout("gh")' ><img
+          src="images/bi.jpg" id='' onclick='oc("gi")' onmouseover='omin("gi")' onmouseout='omout("gi")' ><img
+          src="images/bj.jpg" id='' onclick='oc("gj")' onmouseover='omin("gj")' onmouseout='omout("gj")' ><img
+          src="images/bk.jpg" id='' onclick='oc("gk")' onmouseover='omin("gk")' onmouseout='omout("gk")' ><img
+          src="images/bl.jpg" id='' onclick='oc("gl")' onmouseover='omin("gl")' onmouseout='omout("gl")' ><img
+          src="images/bm.jpg" id='' onclick='oc("gm")' onmouseover='omin("gm")' onmouseout='omout("gm")' ><img
+          src="images/bn.jpg" id='' onclick='oc("gn")' onmouseover='omin("gn")' onmouseout='omout("gn")' >
+        <br>&nbsp;<img
+          src="images/bo.jpg" id='' onclick='oc("go")' onmouseover='omin("go")' onmouseout='omout("go")' ><img
+          src="images/bp.jpg" id='' onclick='oc("gp")' onmouseover='omin("gp")' onmouseout='omout("gp")' ><img
+          src="images/bq.jpg" id='' onclick='oc("gq")' onmouseover='omin("gq")' onmouseout='omout("gq")' ><img
+          src="images/br.jpg" id='' onclick='oc("gr")' onmouseover='omin("gr")' onmouseout='omout("gr")' ><img
+          src="images/bs.jpg" id='' onclick='oc("gs")' onmouseover='omin("gs")' onmouseout='omout("gs")' ><img
+          src="images/bt.jpg" id='' onclick='oc("gt")' onmouseover='omin("gt")' onmouseout='omout("gt")' ><img
+          src="images/bu.jpg" id='' onclick='oc("gu")' onmouseover='omin("gu")' onmouseout='omout("gu")' ><br>
+        <input type="text" size="20" value="your comment here" name="comment">
+      </td>
+      </tr>
+    </table>
+    </form>
+
+
+
+
+  </div>
+</center>
+
+<hr>
+<script language='javascript' type='text/javascript'>
+    <!--
+    // aha!  doc.images is only meaningful now!
+    //doc.write(" numimages="+ doc.images.length +"? ");
+    //doc.images[50].src = "images/g.jpg";
+    //doc.images[50].offsettop += 20;
+    findscrbrd();	// find the *named* board and the *named* piece stashes
+
+    //gostart();
+    goend();
+
+    //doc.images[60].src = "images/y.jpg" ;
+
+    //doc.images[59].src = coloredimage( 1 );
+    //drawsquare(2,5);
+    //drawsquare(3,6);
+
+    // -->
+</script>
