@@ -35,6 +35,7 @@ defmodule Spring83.TheNewParkwayCache do
   # - verify it still works
   def raw_graphql_movie_list() do
     Logger.info("Fetching raw graphql movie list")
+
     response =
       HTTPoison.post!(
         "https://thenewparkway.com/graphql",

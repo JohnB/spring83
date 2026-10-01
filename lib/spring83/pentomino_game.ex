@@ -20,7 +20,29 @@ defmodule Spring83.PentominoGame do
   @doc false
   def changeset(pentomino_game, attrs) do
     pentomino_game
-    |> cast(attrs, [:name, :height, :width, :start_x, :start_y, :player_0_id, :player_1_id, :player_2_id, :player_3_id, :game_title])
-    |> validate_required([:name, :height, :width, :start_x, :start_y, :player_0_id, :player_1_id, :player_2_id, :player_3_id, :game_title])
+    |> cast(attrs, [
+      :name,
+      :height,
+      :width,
+      :start_x,
+      :start_y,
+      :player_0_id,
+      :player_1_id,
+      :player_2_id,
+      :player_3_id,
+      :game_title
+    ])
+    |> validate_required([
+      :name,
+      :height,
+      :width,
+      :start_x,
+      :start_y,
+      :player_0_id,
+      :player_1_id,
+      :player_2_id,
+      :player_3_id,
+      :game_title
+    ])
   end
 end
