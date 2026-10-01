@@ -33,6 +33,10 @@ defmodule Spring83Web.PageController do
     )
   end
 
+  def ignore(conn, _params) do
+    send_resp(conn, 200, "")
+  end
+
   def cornerstone(conn, _params) do
     past_present_future =
       Spring83.VenueCache.venue_list(:cornerstone)

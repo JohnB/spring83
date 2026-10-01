@@ -45,6 +45,9 @@ defmodule Spring83Web.Router do
     get "/whoisatthegreek.com/*_", PageController, :cal_greek
     get "/whoisatthelagreek.com/*_", PageController, :la_greek
     get "/cornerstone/*_", PageController, :cornerstone
+
+    # Ignore Chrome DevTools workspace probing
+    get "/.well-known/appspecific/com.chrome.devtools.json", PageController, :ignore
   end
 
   # Other scopes may use custom stacks.
