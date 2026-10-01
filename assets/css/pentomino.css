@@ -37,3 +37,8 @@
     /*display: flex;*/
 }
 
+.piece-set {
+    width: 245px;
+    display: grid;
+    grid-template-columns: 35px 35px 35px 35px 35px 35px 35px;
+}
