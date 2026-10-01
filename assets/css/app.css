@@ -4,6 +4,7 @@
 @import "./kenken.css";
 @import "./food_trucks.css";
 @import "./venues.css";
+@import "./pentomino.css";
 
 /* https://www.amitmerchant.com/bare-minimum-view-transitions/ */
 @view-transition {

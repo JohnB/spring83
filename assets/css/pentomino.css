@@ -1,1 +1,39 @@
-#pc1 {position:absolute; visibility:hidden;}
+
+.playing-surface {
+    display: grid;
+    width: 90%;
+    grid-template-columns: 70% 30%;
+}
+
+.board {
+    /*width: 70%;*/
+    display: grid;
+    /* Automatically fits as many columns as possible, with a minimum width of 200px */
+    /*grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));*/
+    /*grid-template-columns: repeat(auto-fit, minmax(20px, 1fr));*/
+    grid-template-columns: repeat(20, 1fr);
+    /* Controls the spacing between your grid cells */
+    gap: 0px;
+}
+
+.board-cell {
+    aspect-ratio: 1 / 1;
+    background-color: #f0f0f0;
+    /*display: flex;*/
+    /*align-items: center;*/
+    justify-content: center;
+    border: 1px solid #ccc;
+}
+
+.controls {
+    /*display: flex;*/
+}
+.replay-controls {
+    /*justify-content: center;*/
+    /*display: flex;*/
+}
+.flippers {
+    /*background-color: orange;*/
+    /*display: flex;*/
+}
+
