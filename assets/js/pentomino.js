@@ -20,8 +20,8 @@
 // 0.2	- Piece flipping; move passing
 // 0.1	- First version that can actually allow pieces to be played
 //
-( () => {
-    var doc = document;
+// var pentomino = ({
+    var doc = Document;
     doc.onkeydown = KeyDown;
 
     var playerList = new Array();
@@ -104,9 +104,8 @@
         doc.write("</code>");
     }
 
-
     function FindScrBrd() {
-        //doc.write(" FindScrBrd:");
+        console.log(" FindScrBrd:");
         for (i = 0; i < doc.images.length; i++) {
             if (doc.images[i].name != '') {
                 if (doc.images[i].name == 'board') imgIdxBoard = i;
@@ -116,17 +115,11 @@
                 if (doc.images[i].name == 'greenpieces') imgIdxColors[GREENSQUARE] = i;
             }
         }
-        //doc.write(" boardIdx="+imgIdxBoard);
-        //doc.write(" BIdx="+imgIdxColors[BLUESQUARE] );
-        //doc.write(" YIdx="+imgIdxColors[YELLOWSQUARE]);
-        //doc.write(" RIdx="+imgIdxColors[REDSQUARE]  );
-        //doc.write(" GIdx="+imgIdxColors[GREENSQUARE] );
-        /*
-        for( i = 0; i < 21; i++ ) {
-          doc.images[i+imgIdxColors[YELLOWSQUARE]].onMouseOver = "toggleImgHilight(this)";
-          doc.images[i+imgIdxColors[YELLOWSQUARE]].ID = "Y" + i;
-        }
-        */
+        console.log(" boardIdx="+imgIdxBoard);
+        console.log(" BIdx="+imgIdxColors[BLUESQUARE] );
+        console.log(" YIdx="+imgIdxColors[YELLOWSQUARE]);
+        console.log(" RIdx="+imgIdxColors[REDSQUARE]  );
+        console.log(" GIdx="+imgIdxColors[GREENSQUARE] );
     }
 
     function preloadImages() {
@@ -140,17 +133,17 @@
     function beginPreLoad() {
         if (document.images) {
             preloadImages(
-                "pw/t/i25.jpg", "pw/t/B25.jpg", "pw/t/Y25.jpg", "pw/t/R25.jpg", "pw/t/G25.jpg",
-                "pw/t/i25_H.jpg", "pw/t/B25_H.jpg", "pw/t/Y25_H.jpg", "pw/t/R25_H.jpg", "pw/t/G25_H.jpg",
-//						"pw/t/i35.gif","pw/t/B.jpg","pw/t/Y.jpg","pw/t/R.jpg","pw/t/G.jpg",
-//						"pw/t/i35_H.gif","pw/t/B_H.jpg","pw/t/Y_H.jpg","pw/t/R_H.jpg","pw/t/G_H.jpg",
-                "pw/t/Ba.jpg", "pw/t/Bb.jpg", "pw/t/Bc.jpg", "pw/t/Bd.jpg", "pw/t/Be.jpg", "pw/t/Bf.jpg", "pw/t/Bg.jpg",
-                "pw/t/Bh.jpg", "pw/t/Bi.jpg", "pw/t/Bj.jpg", "pw/t/Bk.jpg", "pw/t/Bl.jpg", "pw/t/Bm.jpg", "pw/t/Bn.jpg",
-                "pw/t/Bo.jpg", "pw/t/Bp.jpg", "pw/t/Bq.jpg", "pw/t/Br.jpg", "pw/t/Bs.jpg", "pw/t/Bt.jpg", "pw/t/Bu.jpg",
-                "pw/t/Ba_H.jpg", "pw/t/Bb_H.jpg", "pw/t/Bc_H.jpg", "pw/t/Bd_H.jpg", "pw/t/Be_H.jpg", "pw/t/Bf_H.jpg", "pw/t/Bg_H.jpg",
-                "pw/t/Bh_H.jpg", "pw/t/Bi_H.jpg", "pw/t/Bj_H.jpg", "pw/t/Bk_H.jpg", "pw/t/Bl_H.jpg", "pw/t/Bm_H.jpg", "pw/t/Bn_H.jpg",
-                "pw/t/Bo_H.jpg", "pw/t/Bp_H.jpg", "pw/t/Bq_H.jpg", "pw/t/Br_H.jpg", "pw/t/Bs_H.jpg", "pw/t/Bt_H.jpg", "pw/t/Bu_H.jpg",
-                "pw/t/flipdiagonal.gif", "pw/t/flipHorizontal.jpg", "pw/t/flipvertical.gif");
+                "images/i25.jpg", "images/B25.jpg", // "images/Y25.jpg", "images/R25.jpg", "images/G25.jpg",
+                // "images/i25_H.jpg", "images/B25_H.jpg", "images/Y25_H.jpg", "images/R25_H.jpg", "images/G25_H.jpg",
+//						"images/i35.gif","images/B.jpg","images/Y.jpg","images/R.jpg","images/G.jpg",
+//						"images/i35_H.gif","images/B_H.jpg","images/Y_H.jpg","images/R_H.jpg","images/G_H.jpg",
+                "images/Ba.jpg", "images/Bb.jpg", "images/Bc.jpg", "images/Bd.jpg", "images/Be.jpg", "images/Bf.jpg", "images/Bg.jpg",
+                "images/Bh.jpg", "images/Bi.jpg", "images/Bj.jpg", "images/Bk.jpg", "images/Bl.jpg", "images/Bm.jpg", "images/Bn.jpg",
+                "images/Bo.jpg", "images/Bp.jpg", "images/Bq.jpg", "images/Br.jpg", "images/Bs.jpg", "images/Bt.jpg", "images/Bu.jpg",
+                "images/Ba_H.jpg", "images/Bb_H.jpg", "images/Bc_H.jpg", "images/Bd_H.jpg", "images/Be_H.jpg", "images/Bf_H.jpg", "images/Bg_H.jpg",
+                "images/Bh_H.jpg", "images/Bi_H.jpg", "images/Bj_H.jpg", "images/Bk_H.jpg", "images/Bl_H.jpg", "images/Bm_H.jpg", "images/Bn_H.jpg",
+                "images/Bo_H.jpg", "images/Bp_H.jpg", "images/Bq_H.jpg", "images/Br_H.jpg", "images/Bs_H.jpg", "images/Bt_H.jpg", "images/Bu_H.jpg",
+                "images/flipdiagonal.gif", "images/flipHorizontal.jpg", "images/flipvertical.gif");
         }
     }
 
@@ -312,7 +305,7 @@
         var num = "a".charCodeAt(0);
         num += x + 5 * y;
         var ch = String.fromCharCode(num);
-        //doc.write(" ["+x+","+y+"]="+ch);
+        console.log(" ["+x+","+y+"]="+ch);
         return ch;
     }
 
@@ -322,7 +315,7 @@
         var num = "A".charCodeAt(0);
         num += x;
         var ch = String.fromCharCode(num);
-        //doc.write(" X"+x+":"+ch);
+        console.log(" X"+x+":"+ch);
         return ch;
     }
 
@@ -332,7 +325,7 @@
         var num = "a".charCodeAt(0);
         num += y;
         var ch = String.fromCharCode(num);
-        //doc.write(" Y"+y+":"+ch);
+        console.log(" Y"+y+":"+ch);
         return ch;
     }
 
@@ -343,7 +336,7 @@
 // a 22x22 internal index (0-483)
     function board2posIndex(x, y) {
         var idx = 23 + x + (22 * y);
-        //doc.write(" "+x+"."+y+"=="+idx + " " );
+        console.log(" "+x+"."+y+"=="+idx + " " );
         return idx;
     }
 
@@ -356,7 +349,7 @@
 //
     function isSquareEmpty(x, y) {
         var idx = board2posIndex(x, y);
-        //doc.write(" isSquareEmpty("+x+","+y+")="+pos[idx] + " " );
+        console.log(" isSquareEmpty("+x+","+y+")="+pos[idx] + " " );
         if (pos[idx] == EMPTYSQUARE) return 1;
         return 0;
     }
@@ -371,7 +364,7 @@
         if (color == pos[board2posIndex(x - 1, y + 1)]) return 1;
         if (color == pos[board2posIndex(x + 1, y - 1)]) return 1;
         if (color == pos[board2posIndex(x + 1, y + 1)]) return 1;
-        //doc.write(" hasMatchingDiagNeighbor("+x+","+y+","+color+")=NO " );
+        console.log(" hasMatchingDiagNeighbor("+x+","+y+","+color+")=NO " );
         return 0;
     }
 
@@ -399,21 +392,6 @@
         return ch;
     }
 
-// invert Y value
-    function flipVert(pieceIdx) {
-        return pieceIdx;
-    }
-
-// invert X value
-    function flipHorz(pieceIdx) {
-        return pieceIdx;
-    }
-
-// swap X and Y values
-    function flipDiag(pieceIdx) {
-        return pieceIdx;
-    }
-
     function passYourTurn() {
         // todo: verify that there really are no moves - give hints if there are?
         alert("You are passing your move to the next player.  Reload the page if this was not your intent.");
@@ -431,6 +409,7 @@
     }
 
     function pieceFlipVert() {
+        console.log("curPiece: " + curPiece)
         if ("" == curPiece) return;
         var newOrientation = applyOrientationToOrientChar(curPiece.charAt(0), VERT_FLIP);
         curPiece = orientPieceList(curPiece.substring(1, 6), VERT_FLIP);
@@ -542,7 +521,7 @@
 
 //
     function isPassChar(ch) {
-        //doc.write(" isPassChar("+ch+") ");
+        console.log(" isPassChar("+ch+") ");
 
         if (ch == 'X') return 1;
         return 0;
@@ -554,19 +533,19 @@
         var soFar = 0;
         if (!moves) return 0;
         if (moves == 'false') return 0;
-        //doc.write(" moves="+moves);
+        console.log(" moves="+moves);
         for (loop = 0; loop < moves.length; loop++) {
             soFar++;
             if (isPassChar(moves.charAt(loop)) == 1) {
-                //doc.write(" PASS ");
+                console.log(" PASS ");
             } else {
                 var orientation = moves.charAt(loop);
                 var piece = moves.charAt(loop + 1);
 
                 var pieceIdx = char2piece(piece);
-                //doc.write(" pieceIdx="+pieceIdx +pieceTypes[pieceIdx].substring(1,6)+" ");
+                console.log(" pieceIdx="+pieceIdx +pieceTypes[pieceIdx].substring(1,6)+" ");
                 //if( pieceIdx < 0 || pieceIdx >= 21 )
-                //doc.write("pieceIdx="+pieceIdx+"!! ");
+                console.log("pieceIdx="+pieceIdx+"!! ");
 
                 //TODO: apply orientation to the selected piece string
                 var xPos = moves.charAt(loop + 2);
@@ -574,9 +553,9 @@
                 xPos = char2boardX(xPos);
                 yPos = char2boardY(yPos);
                 loop += 3;
-                //doc.write("O="+orientation+",P="+piece+",x="+xPos+",y="+yPos+" ");
+                console.log("O="+orientation+",P="+piece+",x="+xPos+",y="+yPos+" ");
                 var posIdx = board2posIndex(xPos, yPos);
-                //doc.write("posIdx="+posIdx+" ");
+                console.log("posIdx="+posIdx+" ");
             }
         }
         return soFar;
@@ -594,14 +573,14 @@
     }
 
     function coloredImage(color) {
-        if (BLUESQUARE == color) return "pw/t/B25.jpg";
-        if (REDSQUARE == color) return "pw/t/R25.jpg";
-        if (YELLOWSQUARE == color) return "pw/t/Y25.jpg";
-        if (GREENSQUARE == color) return "pw/t/G25.jpg";
-        return "pw/t/i25.jpg";
+        if (BLUESQUARE == color) return "images/B25.jpg";
+        if (REDSQUARE == color) return "images/R25.jpg";
+        if (YELLOWSQUARE == color) return "images/Y25.jpg";
+        if (GREENSQUARE == color) return "images/G25.jpg";
+        return "images/i25.jpg";
     }
 
-//doc.write( "Blue="+coloredImage(BLUESQUARE)+"...");
+console.log( "Blue="+coloredImage(BLUESQUARE)+"...");
 
 // Given a board position, draw the expected color for each square
     function drawSquare(x, y) {
@@ -660,12 +639,12 @@
 // generate the current position.
     var players = queryString("P");
     if ('false' == players) players = "1212";
-//doc.write(" players="+players );
+console.log(" players="+players );
     var moves = queryString("M");
     if ('false' == moves) moves = "";
     var numMoves = countMoves(moves);
 
-//doc.write(" numMoves="+numMoves);
+console.log(" numMoves="+numMoves);
 
 
     function playerFirstname(color) {
@@ -759,10 +738,10 @@
         var msg;
         var pieceIdx = char2piece(piece);
         //if( pieceIdx < 0 || pieceIdx >= 21 )
-        //doc.write("pieceIdx="+pieceIdx+"!! ");
+        console.log("pieceIdx="+pieceIdx+"!! ");
         //return "m";
         var squares = pieceTypes[pieceIdx].substring(1, 6);
-        //doc.write("{"+squares+"}");
+        console.log("{"+squares+"}");
         //return squares;
         var oriented = "";
         var loop;
@@ -820,7 +799,7 @@
                 loop = String.fromCharCode(idx + "a".charCodeAt(0));
                 var pieceName = colorChars[color] + loop;
                 availablePieces[pieceName] = 1;	// yes, available to play
-                doc.images[imgIdxColors[color] + idx].s = "pw/t/B" + loop + ".jpg";
+                doc.images[imgIdxColors[color] + idx].s = "images/B" + loop + ".jpg";
             }
         }
     }
@@ -839,7 +818,7 @@
             } else {
                 var piece = moves.charAt(1);
 
-                //doc.write("orientPiece("+piece+","+orientation+")["+moves+"] ");
+                console.log("orientPiece("+piece+","+orientation+")["+moves+"] ");
                 var orientedSquares = orientPiece(piece, orientation);
                 //TODO: draw the entire piece not just one square
                 var xPos = moves.charAt(2);
@@ -872,7 +851,7 @@
                 // mark piece as used (and hide it)
                 availablePieces[colorChars[curColor] + piece] = 0;	// piece is used
                 piece = char2piece(piece);
-                doc.images[imgIdxColors[curColor] + piece].s = "pw/t/i.jpg";
+                doc.images[imgIdxColors[curColor] + piece].s = "images/i.jpg";
             }
         }
         if (moves == "") {
@@ -1111,9 +1090,9 @@
             }
             //alert( obj.src + " ==> " + src );
             obj.src = src;
-            //doc.images[40].src = "pw/t/i25.jpg";
+            //doc.images[40].src = "images/i25.jpg";
         } else {
-            //doc.images[9].src = "pw/t/Y.jpg";
+            //doc.images[9].src = "images/Y.jpg";
         }
     }
 
@@ -1130,6 +1109,7 @@
 
 
     function isCurrentColor(piece) {
+        // console.log("piece: "+piece+".")
         piece = piece.charAt(0);
         if (BLUESQUARE == curColor && "B" == piece) return 1;
         if (YELLOWSQUARE == curColor && "Y" == piece) return 1;
@@ -1193,6 +1173,7 @@
 // oc=onClick
 // in: piece - "Gb" for the 2nd Green piece
     function oc(piece) {
+        // console.log("as(" + piece + ")")
         if (!isCurrentColor(piece)) return;
         if (holdingAPiece()) {
             // drop the piece
@@ -1215,6 +1196,7 @@
     }
 
     function color2imgs(colorChar) {
+        console.log("color2imgs: "+colorChar)
         if ("B" == colorChar) return imgIdxColors[BLUESQUARE];
         if ("Y" == colorChar) return imgIdxColors[YELLOWSQUARE];
         if ("R" == colorChar) return imgIdxColors[REDSQUARE];
@@ -1227,9 +1209,8 @@
         if (!piece || piece.length < 2) {
             return;
         }
-        var idx = color2imgs(piece.charAt(0));
-        idx += char2piece(piece.charAt(1));
-        toggleImgHilight(doc.images[idx]);
+        var img = document.getElementById("piece" + piece)
+        toggleImgHilight(img);
     }
 
 // omin=OnMouseIn (i.e OnMouseOver)
@@ -1251,6 +1232,7 @@
 // obc=onBoardClick
 // Place piece on board (if allowed)
     function obc(brdIdx) {
+        console.log("obc("+brdIdx+")")
         if (!holdingAPiece()) return;
         // force it onto the board if the mouse position would push it off
         brdIdx = findAllowableBoardPosition(brdIdx, curPiece);
@@ -1302,6 +1284,7 @@
 // ombin=OnMouseInBoard (i.e OnMouseOver)
 // Highlight piece on board (regardless of whether it is allowed)
     function ombin(brdIdx) {
+        console.log("ombin("+brdIdx+")")
         if (!holdingAPiece()) return;
 
         // Move the in-hand piece closer to the mouse
@@ -1311,6 +1294,7 @@
 
 // ombout=OnMouseOutOfBoard (i.e OnMouseOut)
     function ombout(brdIdx) {
+        console.log("ombout("+brdIdx+")")
         // Nothing to do?  ombin will re-hilight the piece
     }
 
@@ -1324,26 +1308,3 @@
         doc.write("&nbsp;" + hasPassed[color] + "</b>");
         doc.write('<INPUT type="text" size="6" readonly="1" value="" name="' + colorNames[color] + 'passed"></b>');
     }
-
-    function unBlue(obj) {
-        obj.src = "pw/t/i25.jpg";
-        doc.images[40].src = "pw/t/R.jpg";
-    }
-
-    function goGreen(obj) {
-        obj.src = "pw/t/G.jpg";
-        doc.images[4].src = "pw/t/i25.jpg";
-    }
-
-    function unGreen(obj) {
-        obj.src = "pw/t/i25.jpg";
-        doc.images[4].src = "pw/t/R.jpg";
-    }
-
-    function hidePiece(p) {
-        //var idx = p.index;
-        //if( idx > imgIdxColors[curColor] ) {
-        p.src = "pw/t/i25.jpg";
-        //}
-    }
-})();
