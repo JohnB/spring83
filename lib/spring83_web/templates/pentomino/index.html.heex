@@ -1,10 +1,3 @@
-<script
-  type="text/javascript"
-  defer
-  src={Routes.static_path(@conn, "/assets/pentomino.js")}
->
-</script>
-
 <div id="pc1" onclick="droppc(cg)">
   <img src="images/i25.jpg" name="dpc" />
 </div>
@@ -15,10 +8,10 @@
     <div class="board">
       <%= for index <- (0..399) do %>
         <div
-          class="board-cell cell{ index }}"
-          onclick="obc({index})"
-          onmouseover="ombin({index})"
-          onmouseout="ombout({index})"
+          class="board-cell"
+          onClick={"obc(#{index})"}
+          onMouseOver={"ombin(#{index})"}
+          onMouseOut={"ombout(#{index})"}
         >
         </div>
       <% end %>
@@ -82,12 +75,21 @@
       <img
         src="images/flipdiagonal.gif"
         title="flip top right to bottom left"
-        onclick="pieceflipdiag()"
-      /><img src="images/fliphorizontal.jpg" title="flip side to side" onclick="piecefliphorz()" /><img
+        onclick="pieceFlipDiag()"
+      />
+      <img
+        src="images/fliphorizontal.jpg"
+        title="flip side to side"
+        onclick="pieceFlipHorz()"
+      />
+      <img
         src="images/flipvertical.gif"
         title="flip top to bottom"
-        onclick="pieceflipvert()"
-      /><img src="images/x35.gif" title="pass your turn" onclick="passyourturn()" />
+        onclick="pieceFlipVert()"
+      />
+      <button onclick="passYourTurn()">
+        PASS
+      </button>
     </div>
     playerInfo(bluesquare);
     <div class="piece-set">
@@ -95,136 +97,150 @@
         name="bluepieces"
         src="images/Ba.jpg"
         id=""
-        onclick='oc("ba")'
-        onmouseover='omin("ba")'
-        onmouseout='omout("ba")'
+        onclick='oc("Ba")'
+        onmouseover='omin("Ba")'
+        onmouseout='omout("Ba")'
       /><img
         src="images/Bb.jpg"
         id=""
-        onclick='oc("bb")'
-        onmouseover='omin("bb")'
-        onmouseout='omout("bb")'
+        onclick='oc("Bb")'
+        onmouseover='omin("Bb")'
+        onmouseout='omout("Bb")'
       /><img
         src="images/Bc.jpg"
         id=""
-        onclick='oc("bc")'
-        onmouseover='omin("bc")'
-        onmouseout='omout("bc")'
+        onclick='oc("Bc")'
+        onmouseover='omin("Bc")'
+        onmouseout='omout("Bc")'
       /><img
         src="images/Bd.jpg"
         id=""
-        onclick='oc("bd")'
-        onmouseover='omin("bd")'
-        onmouseout='omout("bd")'
+        onclick='oc("Bd")'
+        onmouseover='omin("Bd")'
+        onmouseout='omout("Bd")'
       /><img
         src="images/Be.jpg"
         id=""
-        onclick='oc("be")'
-        onmouseover='omin("be")'
-        onmouseout='omout("be")'
+        onclick='oc("Be")'
+        onmouseover='omin("Be")'
+        onmouseout='omout("Be")'
       /><img
         src="images/Bf.jpg"
         id=""
-        onclick='oc("bf")'
-        onmouseover='omin("bf")'
-        onmouseout='omout("bf")'
+        onclick='oc("Bf")'
+        onmouseover='omin("Bf")'
+        onmouseout='omout("Bf")'
       /><img
         src="images/Bg.jpg"
         id=""
-        onclick='oc("bg")'
-        onmouseover='omin("bg")'
-        onmouseout='omout("bg")'
+        onclick='oc("Bg")'
+        onmouseover='omin("Bg")'
+        onmouseout='omout("Bg")'
       />
       <img
         src="images/Bh.jpg"
         id=""
-        onclick='oc("bh")'
-        onmouseover='omin("bh")'
-        onmouseout='omout("bh")'
+        onclick='oc("Bh")'
+        onmouseover='omin("Bh")'
+        onmouseout='omout("Bh")'
       /><img
         src="images/Bi.jpg"
         id=""
-        onclick='oc("bi")'
-        onmouseover='omin("bi")'
-        onmouseout='omout("bi")'
+        onclick='oc("Bi")'
+        onmouseover='omin("Bi")'
+        onmouseout='omout("Bi")'
       /><img
         src="images/Bj.jpg"
         id=""
-        onclick='oc("bj")'
-        onmouseover='omin("bj")'
-        onmouseout='omout("bj")'
+        onclick='oc("Bj")'
+        onmouseover='omin("Bj")'
+        onmouseout='omout("Bj")'
       /><img
         src="images/Bk.jpg"
         id=""
-        onclick='oc("bk")'
-        onmouseover='omin("bk")'
-        onmouseout='omout("bk")'
+        onclick='oc("Bk")'
+        onmouseover='omin("Bk")'
+        onmouseout='omout("Bk")'
       /><img
         src="images/Bl.jpg"
         id=""
-        onclick='oc("bl")'
-        onmouseover='omin("bl")'
-        onmouseout='omout("bl")'
+        onclick='oc("Bl")'
+        onmouseover='omin("Bl")'
+        onmouseout='omout("Bl")'
       /><img
         src="images/Bm.jpg"
         id=""
-        onclick='oc("bm")'
-        onmouseover='omin("bm")'
-        onmouseout='omout("bm")'
+        onclick='oc("Bm")'
+        onmouseover='omin("Bm")'
+        onmouseout='omout("Bm")'
       /><img
         src="images/Bn.jpg"
         id=""
-        onclick='oc("bn")'
-        onmouseover='omin("bn")'
-        onmouseout='omout("bn")'
+        onclick='oc("Bn")'
+        onmouseover='omin("Bn")'
+        onmouseout='omout("Bn")'
       />
       <img
         src="images/Bo.jpg"
         id=""
-        onclick='oc("bo")'
-        onmouseover='omin("bo")'
-        onmouseout='omout("bo")'
+        onclick='oc("Bo")'
+        onmouseover='omin("Bo")'
+        onmouseout='omout("Bo")'
       /><img
         src="images/Bp.jpg"
         id=""
-        onclick='oc("bp")'
-        onmouseover='omin("bp")'
-        onmouseout='omout("bp")'
+        onclick='oc("Bp")'
+        onmouseover='omin("Bp")'
+        onmouseout='omout("Bp")'
       /><img
         src="images/Bq.jpg"
         id=""
-        onclick='oc("bq")'
-        onmouseover='omin("bq")'
-        onmouseout='omout("bq")'
+        onclick='oc("Bq")'
+        onmouseover='omin("Bq")'
+        onmouseout='omout("Bq")'
       /><img
         src="images/Br.jpg"
         id=""
-        onclick='oc("br")'
-        onmouseover='omin("br")'
-        onmouseout='omout("br")'
+        onclick='oc("Br")'
+        onmouseover='omin("Br")'
+        onmouseout='omout("Br")'
       /><img
         src="images/Bs.jpg"
         id=""
-        onclick='oc("bs")'
-        onmouseover='omin("bs")'
-        onmouseout='omout("bs")'
+        onclick='oc("Bs")'
+        onmouseover='omin("Bs")'
+        onmouseout='omout("Bs")'
       /><img
         src="images/Bt.jpg"
         id=""
-        onclick='oc("bt")'
-        onmouseover='omin("bt")'
-        onmouseout='omout("bt")'
+        onclick='oc("Bt")'
+        onmouseover='omin("Bt")'
+        onmouseout='omout("Bt")'
       /><img
         src="images/Bu.jpg"
         id=""
-        onclick='oc("bu")'
-        onmouseover='omin("bu")'
-        onmouseout='omout("bu")'
+        onclick='oc("Bu")'
+        onmouseover='omin("Bu")'
+        onmouseout='omout("Bu")'
       />
     </div>
   </div>
 </div>
 
-<hr /> FindScrBrd();	// find the *named* board and the *named* piece stashes
+<hr />
 
-GoEnd();
+<script
+  type="text/javascript"
+  src={Routes.static_path(@conn, "/assets/pentomino.js")}
+>
+  FindScrBrd();	// find the *named* board and the *named* piece stashes
+
+  GoEnd();
+</script>
+<script type="text/javascript">
+  InitSys()
+  initPosition()
+  FindScrBrd();	// find the *named* board and the *named* piece stashes
+
+  GoEnd();
+</script>

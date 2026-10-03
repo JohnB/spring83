@@ -32,9 +32,15 @@
     /*justify-content: center;*/
     /*display: flex;*/
 }
+
 .flippers {
     /*background-color: orange;*/
     /*display: flex;*/
+}
+.flippers img {
+    width: 35px;
+    height: 35px;
+    object-fit: cover;
 }
 
 .piece-set {
