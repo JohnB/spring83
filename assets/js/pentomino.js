@@ -20,7 +20,7 @@
 // 0.2	- Piece flipping; move passing
 // 0.1	- First version that can actually allow pieces to be played
 //
-// var pentomino = ({
+
     var doc = Document;
     doc.onkeydown = KeyDown;
 
