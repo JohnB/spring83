@@ -21,6 +21,15 @@
 // 0.1	- First version that can actually allow pieces to be played
 //
 
+/*
+THEORY OF OPERATION
+The visible game board is backed by a slightly larger grid that extends one square in each
+direction. The off-board squares are all marked as out-of-bounds to simplify tests against
+going off the side of the board. Visible board cells have a "cell-xyz" ID that matches the
+underlying grid. Thus, for a 5x3 grid (7x5 internally) the upper-left visible corner is at
+index 8 and the lower-right is at 26.
+ */
+
     var doc = Document;
     doc.onkeydown = KeyDown;
 
@@ -90,19 +99,6 @@
 // image index to the board and each of the sets of pieces
     var imgIdxBoard = 0;
     var imgIdxColors = new Array();
-
-    function debugPosition() {
-        doc.write("<br><code>");
-        for (i = 0; i < 22 * 22; i++) {
-            if (pos[i] == -1) {
-                doc.write("-");
-            } else {
-                doc.write(pos[i]);
-            }
-            if (i % 22 == 21) doc.write("<br>");
-        }
-        doc.write("</code>");
-    }
 
     function FindScrBrd() {
         console.log(" FindScrBrd:");
@@ -336,7 +332,7 @@
 // a 22x22 internal index (0-483)
     function board2posIndex(x, y) {
         var idx = 23 + x + (22 * y);
-        console.log(" "+x+"."+y+"=="+idx + " " );
+        // console.log(" "+x+"."+y+"=="+idx + " " );
         return idx;
     }
 
@@ -438,25 +434,25 @@
     }
 
     function getScore(color) {
-        if (BLUESQUARE == color) return doc.form0.Bluescore.value;
-        if (YELLOWSQUARE == color) return doc.form0.Yellowscore.value;
-        if (REDSQUARE == color) return doc.form0.Redscore.value;
-        if (GREENSQUARE == color) return doc.form0.Greenscore.value;
+        // if (BLUESQUARE == color) return doc.form0.Bluescore.value;
+        // if (YELLOWSQUARE == color) return doc.form0.Yellowscore.value;
+        // if (REDSQUARE == color) return doc.form0.Redscore.value;
+        // if (GREENSQUARE == color) return doc.form0.Greenscore.value;
         return -99;
     }
 
     function setScore(color, val) {
-        if (BLUESQUARE == color) doc.form0.Bluescore.value = val;
-        if (YELLOWSQUARE == color) doc.form0.Yellowscore.value = val;
-        if (REDSQUARE == color) doc.form0.Redscore.value = val;
-        if (GREENSQUARE == color) doc.form0.Greenscore.value = val;
+        // if (BLUESQUARE == color) doc.form0.Bluescore.value = val;
+        // if (YELLOWSQUARE == color) doc.form0.Yellowscore.value = val;
+        // if (REDSQUARE == color) doc.form0.Redscore.value = val;
+        // if (GREENSQUARE == color) doc.form0.Greenscore.value = val;
     }
 
     function setPass(color, val) {
-        if (BLUESQUARE == color) doc.form0.Bluepassed.value = val;
-        if (YELLOWSQUARE == color) doc.form0.Yellowpassed.value = val;
-        if (REDSQUARE == color) doc.form0.Redpassed.value = val;
-        if (GREENSQUARE == color) doc.form0.Greenpassed.value = val;
+        // if (BLUESQUARE == color) doc.form0.Bluepassed.value = val;
+        // if (YELLOWSQUARE == color) doc.form0.Yellowpassed.value = val;
+        // if (REDSQUARE == color) doc.form0.Redpassed.value = val;
+        // if (GREENSQUARE == color) doc.form0.Greenpassed.value = val;
     }
 
 //
@@ -483,17 +479,19 @@
         curColor = FIRSTCOLOR;
         var pieceIdx;
         var pieceLoop;
-        for (loop = FIRSTCOLOR; loop <= FIRSTCOLOR; loop++) {
-            pieceIdx = imgIdxColors[loop];
-            for (pieceLoop = 0; pieceLoop < 21; pieceLoop++) {
-                doc.images[pieceIdx + pieceLoop].visibility = 'visible';
-            }
-        }
+        // Why did we even need to set visibility at all?
+        // for (loop = FIRSTCOLOR; loop <= LASTCOLOR; loop++) {
+        //     pieceIdx = imgIdxColors[loop];
+        //     for (pieceLoop = 0; pieceLoop < 21; pieceLoop++) {
+        //         doc.images[pieceIdx + pieceLoop].visibility = 'visible';
+        //     }
+        // }
         initAvailablePieces();
         setScore(BLUESQUARE, 0);
-        setScore(YELLOWSQUARE, 0);
-        setScore(REDSQUARE, 0);
-        setScore(GREENSQUARE, 0);
+        // Restore when all of them exist
+        // setScore(YELLOWSQUARE, 0);
+        // setScore(REDSQUARE, 0);
+        // setScore(GREENSQUARE, 0);
     }
 
 //
@@ -545,7 +543,7 @@
                 var pieceIdx = char2piece(piece);
                 console.log(" pieceIdx="+pieceIdx +pieceTypes[pieceIdx].substring(1,6)+" ");
                 //if( pieceIdx < 0 || pieceIdx >= 21 )
-                console.log("pieceIdx="+pieceIdx+"!! ");
+                console.log("pieceIdx="+pieceIdx+"!!!!");
 
                 //TODO: apply orientation to the selected piece string
                 var xPos = moves.charAt(loop + 2);
@@ -600,10 +598,16 @@ console.log( "Blue="+coloredImage(BLUESQUARE)+"...");
         }
     }
 
-    /*
-    */
+    function setCellColor(cell_id, color) {
+        var el= document.getElementById("cell-" + cell_id)
+        if (el) {
+            console.log("Setting color '"+color+"' for " + cell_id + ".")
+            el.style.backgroundColor = color;
+        } else {
+            console.log("Unable to find ??? cell-" + cell_id + ".")
+        }
+    }
 
-//
     function drawPosition() {
         var x;
         var y;
@@ -616,23 +620,28 @@ console.log( "Blue="+coloredImage(BLUESQUARE)+"...");
         // TODO: lighten them somehow, to show they aren't real pieces
         // TODO: don't show color if no player of that color
         if (numMoves < 5) {
-            if (isSquareEmpty(0, 0)) doc.images[board2imgIndex(0, 0)].src = coloredImage(BLUESQUARE);
-            if (isSquareEmpty(19, 0)) doc.images[board2imgIndex(19, 0)].src = coloredImage(YELLOWSQUARE);
-            if (isSquareEmpty(19, 19)) doc.images[board2imgIndex(19, 19)].src = coloredImage(REDSQUARE);
-            if (isSquareEmpty(0, 19)) doc.images[board2imgIndex(0, 19)].src = coloredImage(GREENSQUARE);
+            imgIdxBoard = 0 // global offset inside board2posIndex/2 (ugh)
+            if (isSquareEmpty(0, 0)) setCellColor(board2posIndex(0, 0), coloredImage(BLUESQUARE));
+            imgIdxBoard = 0 // global offset inside board2posIndex/2 (ugh)
+            if (isSquareEmpty(19, 0)) setCellColor(board2posIndex(19, 0), coloredImage(YELLOWSQUARE));
+            imgIdxBoard = 0 // global offset inside board2posIndex/2 (ugh)
+            if (isSquareEmpty(19, 19)) setCellColor(board2posIndex(19, 19), coloredImage(REDSQUARE));
+            imgIdxBoard = 0 // global offset inside board2posIndex/2 (ugh)
+            if (isSquareEmpty(0, 19)) setCellColor(board2posIndex(0, 19), coloredImage(GREENSQUARE));
         }
         var loop = "a";
         var color = FIRSTCOLOR;
         var idx = 0;
-        for (idx = 0; idx < 21; idx++) {
-            for (color = FIRSTCOLOR; color <= LASTCOLOR; color++) {
-                loop = String.fromCharCode(idx + "a".charCodeAt(0));
-                var pieceName = colorChars[color] + loop;
-                if (doc.images[imgIdxColors[color] + idx].src != doc.images[imgIdxColors[color] + idx].s) {
-                    doc.images[imgIdxColors[color] + idx].src = doc.images[imgIdxColors[color] + idx].s;
-                }
-            }
-        }
+        // Unclear what this is actually intending to do. Copy a shadow color over the cell?
+        // for (idx = 0; idx < 21; idx++) {
+        //     for (color = FIRSTCOLOR; color <= LASTCOLOR; color++) {
+        //         loop = String.fromCharCode(idx + "a".charCodeAt(0));
+        //         var pieceName = colorChars[color] + loop;
+        //         if (doc.images[imgIdxColors[color] + idx].src != doc.images[imgIdxColors[color] + idx].s) {
+        //             doc.images[imgIdxColors[color] + idx].src = doc.images[imgIdxColors[color] + idx].s;
+        //         }
+        //     }
+        // }
     }
 
 // From the players and moves, we should be able to
@@ -780,14 +789,14 @@ console.log(" numMoves="+numMoves);
     }
 
     showOrientation = 0;
-    orientPiece("b", 0);
-    orientPiece("b", 1);
-    orientPiece("b", 2);
-    orientPiece("b", 3);
-    orientPiece("b", 4);
-    orientPiece("b", 5);
-    orientPiece("b", 6);
-    orientPiece("b", 7);
+    // orientPiece("b", 0);
+    // orientPiece("b", 1);
+    // orientPiece("b", 2);
+    // orientPiece("b", 3);
+    // orientPiece("b", 4);
+    // orientPiece("b", 5);
+    // orientPiece("b", 6);
+    // orientPiece("b", 7);
     showOrientation = 0;
 
     function initAvailablePieces() {
@@ -799,7 +808,7 @@ console.log(" numMoves="+numMoves);
                 loop = String.fromCharCode(idx + "a".charCodeAt(0));
                 var pieceName = colorChars[color] + loop;
                 availablePieces[pieceName] = 1;	// yes, available to play
-                doc.images[imgIdxColors[color] + idx].s = "images/B" + loop + ".jpg";
+                // doc.images[imgIdxColors[color] + idx].s = "images/B" + loop + ".jpg";
             }
         }
     }
@@ -851,7 +860,7 @@ console.log(" numMoves="+numMoves);
                 // mark piece as used (and hide it)
                 availablePieces[colorChars[curColor] + piece] = 0;	// piece is used
                 piece = char2piece(piece);
-                doc.images[imgIdxColors[curColor] + piece].s = "images/i.jpg";
+                // doc.images[imgIdxColors[curColor] + piece].s = "images/i.jpg";
             }
         }
         if (moves == "") {
@@ -1070,6 +1079,9 @@ console.log(" numMoves="+numMoves);
 
     function toggleImgHilight(obj) {
         if (obj) {
+            console.log("obj & objSrc");
+            console.log(obj);
+            console.log(obj.src);
             var src = "";
             var dot = obj.src.indexOf("_H.");
             if (dot >= 0) {
@@ -1160,13 +1172,15 @@ console.log(" numMoves="+numMoves);
         var i;
         var xPos = boardIdx % 20;
         var yPos = Math.floor(boardIdx / 20);
+        console.log("boardIdx("+boardIdx+"), curPiece("+curPiece+")")
 
         drawPosition();
         for (i = 1; i < curPiece.length; i++) {
             // get 0-24
             var curChar = curPiece.charAt(i);
             posIdx = board2imgIndex(xPos + char2pieceX(curChar) - 2, yPos + char2pieceY(curChar) - 2);
-            toggleImgHilight(doc.images[posIdx]);
+            console.log("posIdx("+posIdx+"), curChar("+curChar+")")
+            setCellColor(posIdx, "red")
         }
     }
 

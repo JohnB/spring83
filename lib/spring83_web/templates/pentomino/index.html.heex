@@ -1,4 +1,4 @@
-<div id="pc1" onclick="droppc(cg)">
+<div id="pc1" onclick="droppc(cg)" xmlns="http://www.w3.org/1999/html">
   <img src="images/i25.jpg" name="dpc" />
 </div>
 <a href="#pg0" name="pg0"></a>
@@ -6,9 +6,11 @@
 <div class="playing-surface">
   <div class="board-and-player">
     <div class="board">
-      <%= for index <- (0..399) do %>
+      <%= for y <- (0..19), x <- (0..19) do %>
+        <% index = board_position_to_internal_poard_index(x, y) |> IO.inspect(label: "WTF") %>
         <div
-          class={"board-cell cell-#{index}"}
+          class="board-cell"
+          id={"cell-#{index}"}
           onClick={"obc(#{index})"}
           onMouseOver={"ombin(#{index})"}
           onMouseOut={"ombout(#{index})"}
@@ -91,7 +93,13 @@
         PASS
       </button>
     </div>
-    playerInfo(bluesquare);
+    <div>
+      <input type="text" size="3" readonly="1" value="0" id="BLUEscore" style="width: 4em;" />
+      <span style={"BACKGROUND-COLOR: #{"BLUE"};"}>
+        playerFullname hasPassed
+      </span>
+      <input type="text" size="6" readonly="1" value="" id="BLUEpassed" />'
+    </div>
     <div class="piece-set">
       <img
         name="bluepieces"
@@ -240,7 +248,7 @@
 <script type="text/javascript">
   InitSys()
   initPosition()
-  FindScrBrd();	// find the *named* board and the *named* piece stashes
+  // FindScrBrd();	// find the *named* board and the *named* piece stashes
 
   GoEnd();
 </script>
