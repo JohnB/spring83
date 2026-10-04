@@ -70,7 +70,8 @@ index 8 and the lower-right is at 26.
     colorChars[GREENSQUARE] = "G";
 
     var colorNames = new Array();
-    colorNames[BLUESQUARE] = "Blue";
+    colorNames[EMPTYSQUARE] = "#f0f0f0";
+    colorNames[BLUESQUARE] = "LightBlue";
     colorNames[YELLOWSQUARE] = "Yellow";
     colorNames[REDSQUARE] = "Red";
     colorNames[GREENSQUARE] = "Green";
@@ -567,7 +568,7 @@ index 8 and the lower-right is at 26.
 
 //
     function board2imgIndex(x, y) {
-        return x + 20 * y + imgIdxBoard;
+        return x + 22 * y + imgIdxBoard;
     }
 
     function coloredImage(color) {
@@ -583,19 +584,11 @@ console.log( "Blue="+coloredImage(BLUESQUARE)+"...");
 // Given a board position, draw the expected color for each square
     function drawSquare(x, y) {
         var posIdx = board2posIndex(x, y);
-        var imgIdx = board2imgIndex(x, y);
-        if (posIdx < 0 || posIdx >= 22 * 22) {
-            alert("posIdxOutOfRange:" + posIdx + "! ");
-            return;
-        }
-        if (imgIdx < 0 || imgIdx >= 20 * 20 + 21 * 4) {
-            alert("imgIdxOutOfRange:" + imgIdx + "! ");
-            return;
-        }
-        if (doc.images && doc.images.length > 0) {
-            // this attempts to work around IE complaining about doc.images...
-            doc.images[imgIdx].src = coloredImage(pos[posIdx]);
-        }
+        var cellColorIndex = pos[posIdx];
+        var cellColor = colorNames[cellColorIndex] || "orange"
+        console.log("Setting "+posIdx+" ("+x+","+y+") to "+cellColor)
+        setCellColor(posIdx, cellColor);
+        // setCellBorder(posIdx, "1px solid #ccc");
     }
 
     function setCellColor(cell_id, color) {
@@ -603,6 +596,15 @@ console.log( "Blue="+coloredImage(BLUESQUARE)+"...");
         if (el) {
             console.log("Setting color '"+color+"' for " + cell_id + ".")
             el.style.backgroundColor = color;
+        } else {
+            console.log("Unable to find ??? cell-" + cell_id + ".")
+        }
+    }
+    function setCellBorder(cell_id, border) {
+        var el= document.getElementById("cell-" + cell_id)
+        if (el) {
+            console.log("Setting color '"+border+"' for " + cell_id + ".")
+            el.style.border = border;
         } else {
             console.log("Unable to find ??? cell-" + cell_id + ".")
         }
@@ -620,14 +622,10 @@ console.log( "Blue="+coloredImage(BLUESQUARE)+"...");
         // TODO: lighten them somehow, to show they aren't real pieces
         // TODO: don't show color if no player of that color
         if (numMoves < 5) {
-            imgIdxBoard = 0 // global offset inside board2posIndex/2 (ugh)
-            if (isSquareEmpty(0, 0)) setCellColor(board2posIndex(0, 0), coloredImage(BLUESQUARE));
-            imgIdxBoard = 0 // global offset inside board2posIndex/2 (ugh)
-            if (isSquareEmpty(19, 0)) setCellColor(board2posIndex(19, 0), coloredImage(YELLOWSQUARE));
-            imgIdxBoard = 0 // global offset inside board2posIndex/2 (ugh)
-            if (isSquareEmpty(19, 19)) setCellColor(board2posIndex(19, 19), coloredImage(REDSQUARE));
-            imgIdxBoard = 0 // global offset inside board2posIndex/2 (ugh)
-            if (isSquareEmpty(0, 19)) setCellColor(board2posIndex(0, 19), coloredImage(GREENSQUARE));
+            if (isSquareEmpty(0, 0)) setCellColor(board2posIndex(0, 0), colorNames[BLUESQUARE]);
+            if (isSquareEmpty(19, 0)) setCellColor(board2posIndex(19, 0), colorNames[YELLOWSQUARE]);
+            if (isSquareEmpty(19, 19)) setCellColor(board2posIndex(19, 19), colorNames[REDSQUARE]);
+            if (isSquareEmpty(0, 19)) setCellColor(board2posIndex(0, 19), colorNames[GREENSQUARE]);
         }
         var loop = "a";
         var color = FIRSTCOLOR;
@@ -1077,6 +1075,7 @@ console.log(" numMoves="+numMoves);
         window.location.replace(fullpage);
     }
 
+    // This is only used for the highlight around the player's set of pieces.
     function toggleImgHilight(obj) {
         if (obj) {
             console.log("obj & objSrc");
@@ -1137,8 +1136,8 @@ console.log(" numMoves="+numMoves);
 
     function findAllowableBoardPosition(boardIdx, curPiece) {
         // todo: really check!
-        var x = boardIdx % 20;
-        var y = Math.floor(boardIdx / 20);
+        var x = (boardIdx - 23) % 22;
+        var y = Math.floor((boardIdx - 23) / 22);
         var xMin = 0;
         var yMin = 0;
         var xMax = 19;
@@ -1164,14 +1163,15 @@ console.log(" numMoves="+numMoves);
         if (y < yMin) y = yMin;
         if (y > yMax) y = yMax;
 
-        boardIdx = 20 * y + x;
+        boardIdx = 22 * y + x + 23;
+        console.log("Re-centering to "+boardIdx+" ("+x+", "+y+")")
         return boardIdx;
     }
 
     function hilightPieceOnBoard(boardIdx, curPiece) {
         var i;
-        var xPos = boardIdx % 20;
-        var yPos = Math.floor(boardIdx / 20);
+        var xPos = (boardIdx - 1) % 22;
+        var yPos = Math.floor((boardIdx - 1) / 22);
         console.log("boardIdx("+boardIdx+"), curPiece("+curPiece+")")
 
         drawPosition();
@@ -1180,7 +1180,8 @@ console.log(" numMoves="+numMoves);
             var curChar = curPiece.charAt(i);
             posIdx = board2imgIndex(xPos + char2pieceX(curChar) - 2, yPos + char2pieceY(curChar) - 2);
             console.log("posIdx("+posIdx+"), curChar("+curChar+")")
-            setCellColor(posIdx, "red")
+            // setCellBorder(posIdx, "2px solid black")
+            setCellColor(posIdx, "darkgray")
         }
     }
 
@@ -1253,8 +1254,8 @@ console.log(" numMoves="+numMoves);
 
         // Do a lot of validation checking...
         var i;
-        var xPos = brdIdx % 20;
-        var yPos = Math.floor(brdIdx / 20);
+        var xPos = (boardIdx - 23) % 22;
+        var yPos = Math.floor((boardIdx - 23) / 22);
         var x;
         var y;
         var diagNeighbor = 0;
@@ -1285,7 +1286,7 @@ console.log(" numMoves="+numMoves);
         // TODO: Enable play-next-move and email-next-move links...
         var ourMove = curPiece.charAt(0) + pieceInHand.charAt(1)
         if (showAlerts) alert("ourMove1=" + ourMove + ", rest=" + restOfMoves);
-        ourMove += boardX2char(brdIdx % 20) + boardY2char(Math.floor(brdIdx / 20));
+        ourMove += boardX2char((boardIdx - 23) % 22) + boardY2char(Math.floor((boardIdx - 23) / 22));
         if (showAlerts) alert("ourMove2=" + ourMove + ", rest=" + restOfMoves);
         restOfMoves += ourMove;
         if (showAlerts) alert("ourMove=" + ourMove + ", rest=" + restOfMoves);
