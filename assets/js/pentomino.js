@@ -101,24 +101,6 @@ index 8 and the lower-right is at 26.
     var imgIdxBoard = 0;
     var imgIdxColors = new Array();
 
-    function FindScrBrd() {
-        console.log(" FindScrBrd:");
-        for (i = 0; i < doc.images.length; i++) {
-            if (doc.images[i].name != '') {
-                if (doc.images[i].name == 'board') imgIdxBoard = i;
-                if (doc.images[i].name == 'bluepieces') imgIdxColors[BLUESQUARE] = i;
-                if (doc.images[i].name == 'yellowpieces') imgIdxColors[YELLOWSQUARE] = i;
-                if (doc.images[i].name == 'redpieces') imgIdxColors[REDSQUARE] = i;
-                if (doc.images[i].name == 'greenpieces') imgIdxColors[GREENSQUARE] = i;
-            }
-        }
-        console.log(" boardIdx="+imgIdxBoard);
-        console.log(" BIdx="+imgIdxColors[BLUESQUARE] );
-        console.log(" YIdx="+imgIdxColors[YELLOWSQUARE]);
-        console.log(" RIdx="+imgIdxColors[REDSQUARE]  );
-        console.log(" GIdx="+imgIdxColors[GREENSQUARE] );
-    }
-
     function preloadImages() {
         var myImage;
         for (var i = 0; i < preloadImages.arguments.length; i++) {
@@ -586,7 +568,7 @@ console.log( "Blue="+coloredImage(BLUESQUARE)+"...");
         var posIdx = board2posIndex(x, y);
         var cellColorIndex = pos[posIdx];
         var cellColor = colorNames[cellColorIndex] || "orange"
-        console.log("Setting "+posIdx+" ("+x+","+y+") to "+cellColor)
+        // console.log("Setting "+posIdx+" ("+x+","+y+") to "+cellColor)
         setCellColor(posIdx, cellColor);
         // setCellBorder(posIdx, "1px solid #ccc");
     }
@@ -594,7 +576,7 @@ console.log( "Blue="+coloredImage(BLUESQUARE)+"...");
     function setCellColor(cell_id, color) {
         var el= document.getElementById("cell-" + cell_id)
         if (el) {
-            console.log("Setting color '"+color+"' for " + cell_id + ".")
+            // console.log("Setting color '"+color+"' for " + cell_id + ".")
             el.style.backgroundColor = color;
         } else {
             console.log("Unable to find ??? cell-" + cell_id + ".")
