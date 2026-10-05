@@ -71,7 +71,7 @@ index 8 and the lower-right is at 26.
 
     var colorNames = new Array();
     colorNames[EMPTYSQUARE] = "#f0f0f0";
-    colorNames[BLUESQUARE] = "LightBlue";
+    colorNames[BLUESQUARE] = "lightskyblue";
     colorNames[YELLOWSQUARE] = "Yellow";
     colorNames[REDSQUARE] = "Red";
     colorNames[GREENSQUARE] = "Green";
