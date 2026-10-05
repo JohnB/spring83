@@ -1,14 +1,14 @@
-
 //
 // Written by John Baylor (john.baylor@gmail.com) ~2007
 //
 // Versions:
+// 2.0	- Rebuilt in 2026 with an elixir backend and more modern HTML and CSS.
 // 1.6	- Added the word 'PASS' next to the name of anyone that has passed a turn.
 // 1.5	- Minor improvements to mail link - forced comment so it always mails.
 // 1.4	- Added test mail link; fixed up some addrs
 // 1.3	- Spammed myself by always adding me to the CC list
 // 1.2	- Sped up redraw of the "stash" of to-be-played pieces
-// 1.1	- Changed CC delimeter to comma when Tony sends a move
+// 1.1	- Changed CC delimiter to comma when Tony sends a move
 // 1.0	- Shrunk board, replaced gray/white background with dashed lines
 // 0.9	- Added Paul, clarified cut and paste section
 // 0.8	- Changed CC to include *all* player's emails
@@ -328,7 +328,7 @@ index 8 and the lower-right is at 26.
 //
     function isSquareEmpty(x, y) {
         var idx = board2posIndex(x, y);
-        console.log(" isSquareEmpty("+x+","+y+")="+pos[idx] + " " );
+        // console.log(" isSquareEmpty("+x+","+y+")="+pos[idx] + " " );
         if (pos[idx] == EMPTYSQUARE) return 1;
         return 0;
     }
@@ -339,6 +339,8 @@ index 8 and the lower-right is at 26.
 
 //
     function hasMatchingDiagNeighbor(x, y, color) {
+        // console.log("hasMatchingDiagNeighbor("+x+", "+y+", "+color+") check")
+
         if (color == pos[board2posIndex(x - 1, y - 1)]) return 1;
         if (color == pos[board2posIndex(x - 1, y + 1)]) return 1;
         if (color == pos[board2posIndex(x + 1, y - 1)]) return 1;
@@ -582,6 +584,16 @@ console.log( "Blue="+coloredImage(BLUESQUARE)+"...");
             console.log("Unable to find ??? cell-" + cell_id + ".")
         }
     }
+    function setOpacity(element_id, opacity) {
+        var el= document.getElementById(element_id)
+        if (el) {
+            console.log("Setting opacity '"+opacity+"' for " + element_id + ".")
+            el.style.opacity = opacity;
+        } else {
+            console.log("Unable to set '"+opacity+"' opacity for " + element_id + ".")
+        }
+    }
+
     function setCellBorder(cell_id, border) {
         var el= document.getElementById("cell-" + cell_id)
         if (el) {
@@ -809,7 +821,6 @@ console.log(" numMoves="+numMoves);
 
                 console.log("orientPiece("+piece+","+orientation+")["+moves+"] ");
                 var orientedSquares = orientPiece(piece, orientation);
-                //TODO: draw the entire piece not just one square
                 var xPos = moves.charAt(2);
                 var yPos = moves.charAt(3);
                 xPos = char2boardX(xPos);
@@ -833,14 +844,13 @@ console.log(" numMoves="+numMoves);
                 }
                 setScore(curColor, score);
 
-                //??? placePiece(orientation,piece,
+                // Trim off the move we just consumed
                 moves = moves.substring(4, moves.length);
 
                 // Hide the piece they used
-                // mark piece as used (and hide it)
-                availablePieces[colorChars[curColor] + piece] = 0;	// piece is used
-                piece = char2piece(piece);
-                // doc.images[imgIdxColors[curColor] + piece].s = "images/i.jpg";
+                setOpacity("piece" + colorChars[curColor] + piece, "0%")
+                // mark piece as used
+                availablePieces[colorChars[curColor] + piece] = 0;
             }
         }
         if (moves == "") {
@@ -1152,8 +1162,8 @@ console.log(" numMoves="+numMoves);
 
     function hilightPieceOnBoard(boardIdx, curPiece) {
         var i;
-        var xPos = (boardIdx - 1) % 22;
-        var yPos = Math.floor((boardIdx - 1) / 22);
+        var xPos = (boardIdx - 23) % 22;
+        var yPos = Math.floor((boardIdx - 23) / 22);
         console.log("boardIdx("+boardIdx+"), curPiece("+curPiece+")")
 
         drawPosition();
@@ -1255,6 +1265,7 @@ console.log(" numMoves="+numMoves);
                 return;
             }
             diagNeighbor += hasMatchingDiagNeighbor(x, y, curColor);
+            console.log("diagNeighbor("+diagNeighbor+")")
         }
         if (!diagNeighbor) {
             var msg = "Piece must touch a piece of its own color at a corner."
