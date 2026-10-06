@@ -475,15 +475,7 @@ index 8 and the lower-right is at 26.
         restOfMoves = moves;
         curMove = 0;
         curColor = FIRSTCOLOR;
-        var pieceIdx;
-        var pieceLoop;
-        // Why did we even need to set visibility at all?
-        // for (loop = FIRSTCOLOR; loop <= LASTCOLOR; loop++) {
-        //     pieceIdx = imgIdxColors[loop];
-        //     for (pieceLoop = 0; pieceLoop < 21; pieceLoop++) {
-        //         doc.images[pieceIdx + pieceLoop].visibility = 'visible';
-        //     }
-        // }
+
         initAvailablePieces();
         setScore(BLUESQUARE, 0);
         setScore(YELLOWSQUARE, 0);
@@ -499,22 +491,6 @@ index 8 and the lower-right is at 26.
         }
     }
 
-//
-    function isOnBoard(x, y) {
-    }
-
-//
-    function isValidSquare(x, y, color) {
-    }
-
-//
-    function isValidPlacement(orientation, piece, x, y) {
-    }
-
-    /*
-    */
-
-//
     function isPassChar(ch) {
         console.log(" isPassChar("+ch+") ");
 
@@ -556,13 +532,6 @@ index 8 and the lower-right is at 26.
         return soFar;
     }
 
-//DWIT: what should this do?  One routine probably can't do both:
-//	- place a piece in the POS array
-//	- draw directly to board, bypassing POS
-    function placePiece(g) {
-    }
-
-//
     function board2imgIndex(x, y) {
         return x + 22 * y + imgIdxBoard;
     }
@@ -630,19 +599,6 @@ index 8 and the lower-right is at 26.
             if (isSquareEmpty(19, 19)) setCellColor(board2posIndex(19, 19), colorNames[REDSQUARE]);
             if (isSquareEmpty(0, 19)) setCellColor(board2posIndex(0, 19), colorNames[GREENSQUARE]);
         }
-        var loop = "a";
-        var color = FIRSTCOLOR;
-        var idx = 0;
-        // Unclear what this is actually intending to do. Copy a shadow color over the cell?
-        // for (idx = 0; idx < 21; idx++) {
-        //     for (color = FIRSTCOLOR; color <= LASTCOLOR; color++) {
-        //         loop = String.fromCharCode(idx + "a".charCodeAt(0));
-        //         var pieceName = colorChars[color] + loop;
-        //         if (doc.images[imgIdxColors[color] + idx].src != doc.images[imgIdxColors[color] + idx].s) {
-        //             doc.images[imgIdxColors[color] + idx].src = doc.images[imgIdxColors[color] + idx].s;
-        //         }
-        //     }
-        // }
     }
 
 // From the players and moves, we should be able to
