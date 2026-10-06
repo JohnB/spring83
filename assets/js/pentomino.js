@@ -965,9 +965,6 @@ console.log(" numMoves="+numMoves);
         //MvStr();
     }
 
-    function DropPc(g) {
-    }
-
     var myPage;
     myPage = window.location.toString();
 //alert( "myPage0="+myPage);
