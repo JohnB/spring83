@@ -82,6 +82,11 @@ index 8 and the lower-right is at 26.
     hasPassed[REDSQUARE] = "";
     hasPassed[GREENSQUARE] = "";
 
+    var scores = new Array(5);
+    scores[BLUESQUARE] = 0;
+    scores[YELLOWSQUARE] = 0;
+    scores[REDSQUARE] = 0;
+    scores[GREENSQUARE] = 0;
 
     var availablePieces = new Array();
 
@@ -419,18 +424,26 @@ index 8 and the lower-right is at 26.
     }
 
     function getScore(color) {
-        // if (BLUESQUARE == color) return doc.form0.Bluescore.value;
-        // if (YELLOWSQUARE == color) return doc.form0.Yellowscore.value;
-        // if (REDSQUARE == color) return doc.form0.Redscore.value;
-        // if (GREENSQUARE == color) return doc.form0.Greenscore.value;
-        return -99;
+        var score = Number(scores[color]);
+        console.log("Getting score for "+color+" as "+score)
+        return score;
     }
 
     function setScore(color, val) {
-        // if (BLUESQUARE == color) doc.form0.Bluescore.value = val;
-        // if (YELLOWSQUARE == color) doc.form0.Yellowscore.value = val;
-        // if (REDSQUARE == color) doc.form0.Redscore.value = val;
-        // if (GREENSQUARE == color) doc.form0.Greenscore.value = val;
+        var id = "none"
+        if (BLUESQUARE == color) id = "BLUEscore";
+        if (YELLOWSQUARE == color) id = "YELLOWscore";
+        if (REDSQUARE == color) id = "REDscore";
+        if (GREENSQUARE == color) id = "GREENscore";
+
+        var el= document.getElementById(id)
+        if (el) {
+            console.log("Setting score '"+val+"' for " + id + ".")
+            el.innerHTML = val
+            scores[color] = val;
+        } else {
+            console.log("Unable to find element " + id + ".")
+        }
     }
 
     function setPass(color, val) {
@@ -473,10 +486,9 @@ index 8 and the lower-right is at 26.
         // }
         initAvailablePieces();
         setScore(BLUESQUARE, 0);
-        // Restore when all of them exist
-        // setScore(YELLOWSQUARE, 0);
-        // setScore(REDSQUARE, 0);
-        // setScore(GREENSQUARE, 0);
+        setScore(YELLOWSQUARE, 0);
+        setScore(REDSQUARE, 0);
+        setScore(GREENSQUARE, 0);
     }
 
 //
@@ -848,6 +860,7 @@ console.log(" numMoves="+numMoves);
                 setOpacity("piece" + colorChars[curColor] + piece, "0%")
                 // mark piece as used
                 availablePieces[colorChars[curColor] + piece] = 0;
+                numMoves += 1
             }
         }
         if (moves == "") {
