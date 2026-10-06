@@ -92,143 +92,89 @@
         PASS
       </button>
     </div>
-    <div>
-      <input type="text" size="3" readonly="1" value="0" id="BLUEscore" style="width: 4em;" />
-      <span style={"BACKGROUND-COLOR: #{"LightBlue"};"}>
-        playerFullname
+    <div id="bluePosition">
+      <div>
+      <span id="BLUEscore" class="score" >
+        0
       </span>
+        <span style={"BACKGROUND-COLOR: #{"LightBlue"};"}>
+        playerFullname
+        </span>
+      </div>
+      <div class="piece-set">
+        <%= for piece <- ~w(a b c d e f g h i j k l m n o p q r s t u) do %>
+        <img
+            src={"images/B#{piece}.jpg"}
+            id={"pieceB#{piece}"}
+            onclick={"oc(\"B#{piece}\")"}
+            onmouseover={"omin(\"B#{piece}\")"}
+            onmouseout={"omout(\"B#{piece}\")"}
+        />
+        <% end %>
+      </div>
     </div>
-    <div class="piece-set">
-      <img
-        name="bluepieces"
-        src="images/Ba.jpg"
-        id="pieceBa"
-        onclick='oc("Ba")'
-        onmouseover='omin("Ba")'
-        onmouseout='omout("Ba")'
-      /><img
-        src="images/Bb.jpg"
-        id="pieceBb"
-        onclick='oc("Bb")'
-        onmouseover='omin("Bb")'
-        onmouseout='omout("Bb")'
-      /><img
-        src="images/Bc.jpg"
-        id="pieceBc"
-        onclick='oc("Bc")'
-        onmouseover='omin("Bc")'
-        onmouseout='omout("Bc")'
-      /><img
-        src="images/Bd.jpg"
-        id="pieceBd"
-        onclick='oc("Bd")'
-        onmouseover='omin("Bd")'
-        onmouseout='omout("Bd")'
-      /><img
-        src="images/Be.jpg"
-        id="pieceBe"
-        onclick='oc("Be")'
-        onmouseover='omin("Be")'
-        onmouseout='omout("Be")'
-      /><img
-        src="images/Bf.jpg"
-        id="pieceBf"
-        onclick='oc("Bf")'
-        onmouseover='omin("Bf")'
-        onmouseout='omout("Bf")'
-      /><img
-        src="images/Bg.jpg"
-        id="pieceBg"
-        onclick='oc("Bg")'
-        onmouseover='omin("Bg")'
-        onmouseout='omout("Bg")'
-      />
-      <img
-        src="images/Bh.jpg"
-        id="pieceBh"
-        onclick='oc("Bh")'
-        onmouseover='omin("Bh")'
-        onmouseout='omout("Bh")'
-      /><img
-        src="images/Bi.jpg"
-        id="pieceBi"
-        onclick='oc("Bi")'
-        onmouseover='omin("Bi")'
-        onmouseout='omout("Bi")'
-      /><img
-        src="images/Bj.jpg"
-        id="pieceBj"
-        onclick='oc("Bj")'
-        onmouseover='omin("Bj")'
-        onmouseout='omout("Bj")'
-      /><img
-        src="images/Bk.jpg"
-        id="pieceBk"
-        onclick='oc("Bk")'
-        onmouseover='omin("Bk")'
-        onmouseout='omout("Bk")'
-      /><img
-        src="images/Bl.jpg"
-        id="pieceBl"
-        onclick='oc("Bl")'
-        onmouseover='omin("Bl")'
-        onmouseout='omout("Bl")'
-      /><img
-        src="images/Bm.jpg"
-        id="pieceBm"
-        onclick='oc("Bm")'
-        onmouseover='omin("Bm")'
-        onmouseout='omout("Bm")'
-      /><img
-        src="images/Bn.jpg"
-        id="pieceBn"
-        onclick='oc("Bn")'
-        onmouseover='omin("Bn")'
-        onmouseout='omout("Bn")'
-      />
-      <img
-        src="images/Bo.jpg"
-        id="pieceBo"
-        onclick='oc("Bo")'
-        onmouseover='omin("Bo")'
-        onmouseout='omout("Bo")'
-      /><img
-        src="images/Bp.jpg"
-        id="pieceBp"
-        onclick='oc("Bp")'
-        onmouseover='omin("Bp")'
-        onmouseout='omout("Bp")'
-      /><img
-        src="images/Bq.jpg"
-        id="pieceBq"
-        onclick='oc("Bq")'
-        onmouseover='omin("Bq")'
-        onmouseout='omout("Bq")'
-      /><img
-        src="images/Br.jpg"
-        id="pieceBr"
-        onclick='oc("Br")'
-        onmouseover='omin("Br")'
-        onmouseout='omout("Br")'
-      /><img
-        src="images/Bs.jpg"
-        id="pieceBs"
-        onclick='oc("Bs")'
-        onmouseover='omin("Bs")'
-        onmouseout='omout("Bs")'
-      /><img
-        src="images/Bt.jpg"
-        id="pieceBt"
-        onclick='oc("Bt")'
-        onmouseover='omin("Bt")'
-        onmouseout='omout("Bt")'
-      /><img
-        src="images/Bu.jpg"
-        id="pieceBu"
-        onclick='oc("Bu")'
-        onmouseover='omin("Bu")'
-        onmouseout='omout("Bu")'
-      />
+    <div id="yellowPosition">
+      <div>
+      <span id="YELLOWscore" class="score" >
+        0
+      </span>
+        <span style={"BACKGROUND-COLOR: #{"YELLOW"};"}>
+        playerFullname
+        </span>
+      </div>
+      <div class="piece-set">
+        <%= for piece <- ~w(a b c d e f g h i j k l m n o p q r s t u) do %>
+        <img
+            src={"images/B#{piece}.jpg"}
+            id={"pieceY#{piece}"}
+            onclick={"oc(\"Y#{piece}\")"}
+            onmouseover={"omin(\"Y#{piece}\")"}
+            onmouseout={"omout(\"Y#{piece}\")"}
+        />
+        <% end %>
+      </div>
+    </div>
+    <div id="redPosition">
+      <div>
+      <span id="´REDscore" class="score" >
+        0
+      </span>
+        <span style={"BACKGROUND-COLOR: #{"RED"};"}>
+        playerFullname
+        </span>
+      </div>
+      <div class="piece-set">
+        <%= for piece <- ~w(a b c d e f g h i j k l m n o p q r s t u) do %>
+        <img
+            src={"images/B#{piece}.jpg"}
+            id={"pieceR#{piece}"}
+            onclick={"oc(\"R#{piece}\")"}
+            onmouseover={"omin(\"R#{piece}\")"}
+            onmouseout={"omout(\"R#{piece}\")"}
+        />
+        <% end %>
+      </div>
+    </div>
+    <div id="greenPosition">
+      <div>
+      <span id="GREENscore" class="score" >
+        0
+      </span>
+        <span style={"BACKGROUND-COLOR: #{"GREEN"};"}>
+        playerFullname
+        </span>
+      </div>
+      <div class="piece-set">
+        <%= for piece <- ~w(a b c d e f g h i j k l m n o p q r s t u) do %>
+        <img
+            src={"images/B#{piece}.jpg"}
+            id={"pieceG#{piece}"}
+            onclick={"oc(\"G#{piece}\")"}
+            onmouseover={"omin(\"G#{piece}\")"}
+            onmouseout={"omout(\"G#{piece}\")"}
+        />
+        <% end %>
+      </div>
     </div>
   </div>
 </div>

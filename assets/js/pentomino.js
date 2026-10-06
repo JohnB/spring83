@@ -563,16 +563,13 @@ index 8 and the lower-right is at 26.
         return "images/i25.jpg";
     }
 
-console.log( "Blue="+coloredImage(BLUESQUARE)+"...");
 
-// Given a board position, draw the expected color for each square
+    // Given a board position, draw the expected color for each square
     function drawSquare(x, y) {
         var posIdx = board2posIndex(x, y);
         var cellColorIndex = pos[posIdx];
         var cellColor = colorNames[cellColorIndex] || "orange"
-        // console.log("Setting "+posIdx+" ("+x+","+y+") to "+cellColor)
         setCellColor(posIdx, cellColor);
-        // setCellBorder(posIdx, "1px solid #ccc");
     }
 
     function setCellColor(cell_id, color) {

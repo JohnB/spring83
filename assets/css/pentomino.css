@@ -25,8 +25,12 @@
     border: 1px solid #ccc;
 }
 
+.score {
+    font-weight: bold;
+}
+
 .controls {
-    /*display: flex;*/
+    padding-left: 1em;
 }
 .replay-controls {
     /*justify-content: center;*/
