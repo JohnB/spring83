@@ -1135,7 +1135,7 @@
         for (i = 1; i < curPiece.length; i++) {
             // get 0-24
             var curChar = curPiece.charAt(i);
-            posIdx = board2imgIndex(xPos + char2pieceX(curChar) - 2, yPos + char2pieceY(curChar) - 2);
+            posIdx = board2imgIndex(xPos + char2pieceX(curChar) - 1, yPos + char2pieceY(curChar) - 1);
             console.log("posIdx("+posIdx+"), curChar("+curChar+")")
             // setCellBorder(posIdx, "2px solid black")
             setCellColor(posIdx, "darkgray")
@@ -1222,11 +1222,12 @@
             x = xPos + char2pieceX(curChar) - 2;
             y = yPos + char2pieceY(curChar) - 2;
             if (!isSquareEmpty(x, y)) {
-                alert("Cannot place a piece on top of another piece.");
+                // alert("Cannot place a piece on top of another piece.");
                 return;
             }
             if (hasMatchingSideNeighbor(x, y, curColor)) {
-                alert("Piece cannot touch a piece of its own color along an edge (only at a corner).");
+                // Don't annoy with alerts - just do nothing
+                // alert("Piece cannot touch a piece of its own color along an edge (only at a corner).");
                 return;
             }
             diagNeighbor += hasMatchingDiagNeighbor(x, y, curColor);
@@ -1235,7 +1236,7 @@
         if (!diagNeighbor) {
             var msg = "Piece must touch a piece of its own color at a corner."
             if (numMoves < 4) msg = "First move must cover your corner square.";
-            alert(msg);
+            // alert(msg);
             return;
         }
 

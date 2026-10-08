@@ -1,7 +1,6 @@
 
 .playing-surface {
     display: grid;
-    width: 90%;
     grid-template-columns: 70% 30%;
 }
 
